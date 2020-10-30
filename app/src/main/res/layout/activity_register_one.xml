@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/navyPrimary"
+    tools:context=".activity.RegisterOne">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_kembaliReg1"
+            android:layout_width="25dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="24dp"
+            android:src="@drawable/back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="126dp"
+            android:layout_height="63dp"
+            android:layout_marginTop="75dp"
+            android:src="@drawable/logoapp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/TextView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="REGISTER"
+            android:textColor="@color/whitePrimary"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        <TextView
+            android:id="@+id/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/whitePrimary"
+            android:textSize="14sp"
+            android:fontFamily="@font/roboto_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/TextView3" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/TextView">
+
+            <EditText
+                android:id="@+id/etUserName_Reg"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_input_active"
+                android:hint="Username"
+                android:digits="abcdefghijklmnopqrstuvwxyz1234567890_"
+                android:inputType="textFilter"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/etEmail_Reg"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_input_active"
+                android:hint="Email"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/etNoHP_Reg"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_input_active"
+                android:hint="Nomer HP"
+                android:inputType="number"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/etPassword_Reg"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_input_active"
+                android:hint="Password"
+                android:padding="12dp" />
+
+            <EditText
+                android:id="@+id/etConfirmPass_Reg"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/bg_input_active"
+                android:hint="Confirm Password"
+                android:padding="12dp" />
+
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/btnNext_Reg"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginBottom="40dp"
+                android:text="Selanjutnya"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/whitePrimary"
+                android:background="@drawable/button_secondary"
+                app:spinning_bar_color="@color/whitePrimary"
+                app:initialCornerAngle="50dp"
+                app:finalCornerAngle="50dp"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

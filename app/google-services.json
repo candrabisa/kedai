@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1046343931495",
+    "firebase_url": "https://kedai-4dbe5.firebaseio.com",
+    "project_id": "kedai-4dbe5",
+    "storage_bucket": "kedai-4dbe5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046343931495:android:97b19aebc268d2f064a6c2",
+        "android_client_info": {
+          "package_name": "com.candra.kedai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1046343931495-7ennn881jelbd4osavddodupmcjmn0cr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.candra.kedai",
+            "certificate_hash": "81486daabf0b13945442f79539596d9ef3780fe9"
+          }
+        },
+        {
+          "client_id": "1046343931495-g4qk1ektb925b3dv85m4aq3e5hfj1j1q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1KsxMzvjMs44Uzx3CUECx-eV8Yp0kQik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1046343931495-g4qk1ektb925b3dv85m4aq3e5hfj1j1q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

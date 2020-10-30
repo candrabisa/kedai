@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.candra.kedai">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:requestLegacyExternalStorage="true"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.SuccessRegister"
+            android:theme="@style/AppTheme.NoAction"></activity>
+        <activity
+            android:name=".activity.RegisterTwo"
+            android:theme="@style/AppTheme.NoAction" />
+        <activity
+            android:name=".activity.RegisterOne"
+            android:theme="@style/AppTheme.NoAction" />
+        <activity
+            android:name=".activity.ForgotPassword"
+            android:theme="@style/AppTheme.NoAction" />
+        <activity
+            android:name=".activity.Login"
+            android:theme="@style/AppTheme.NoAction" />
+        <activity
+            android:name=".activity.GetStarted"
+            android:theme="@style/AppTheme.NoAction" />
+
+        <activity android:name=".activity.OnBoard" />
+
+        <activity android:name=".activity.MainActivity"
+            android:theme="@style/AppTheme.NoAction"/>
+        <activity
+            android:name=".activity.SplashScreen"
+            android:theme="@style/AppTheme.NoAction">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

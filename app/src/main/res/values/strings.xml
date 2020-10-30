@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">kedai</string>
+    <string name="gettings_getstarted">Kedai merupakan sebuah aplikasi penyedia berbagai jenis kuliner yang bisa kamu nikmati dimanapun dan kapanpun</string>
+    <string name="welcome_getstarted">Selamat datang di aplikasi kedai</string>
+    <string name="atau">Atau</string>
+    <string name="kebijakan_privacy">Dengan melakukan login atau register sudah otomatis kamu telah menyetujui kebijakan privasi dan ketentuan layanan kami</string>
+    <string name="greetings">Untuk menghindari penularan virus Covid-19, sekarang pesan makan dan minum lewat aplikasi kedai</string>
+    <string name="minuman">MINUMAN</string>
+    <string name="makanan">MAKANAN</string>
+    <string name="paket_combo">PAKET COMBO</string>
+    <string name="paling_laris">PALING LARIS</string>
+    <string name="lagi_promo">LAGI PROMO</string>
+    <string name="saldo">SALDO</string>
+</resources>
