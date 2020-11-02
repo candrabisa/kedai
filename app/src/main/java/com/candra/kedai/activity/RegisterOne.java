@@ -3,6 +3,7 @@ package com.candra.kedai.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,9 +29,11 @@ import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 
 public class RegisterOne extends AppCompatActivity {
 
-    CircularProgressButton btn_nextreg;
+    Button btn_nextreg;
     ImageView iv_kembali;
     EditText etUsername, etFullname, etEmail, etHP, etPassword, etCPass;
+
+    ProgressDialog progressDialog;
 
     FirebaseAuth fAuth;
     DatabaseReference dRef;
@@ -58,6 +61,7 @@ public class RegisterOne extends AppCompatActivity {
         btn_nextreg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 final String username = etUsername.getText().toString();
                 final String email = etEmail.getText().toString();
                 final String no_hp = etHP.getText().toString();
@@ -94,7 +98,10 @@ public class RegisterOne extends AppCompatActivity {
                     etCPass.requestFocus();
                     return;
                 } else {
-                    btn_nextreg.startAnimation();
+                    progressDialog = new ProgressDialog(RegisterOne.this);
+                    progressDialog.setMessage("Mohon menunggu...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
                     fAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegisterOne.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -105,6 +112,7 @@ public class RegisterOne extends AppCompatActivity {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()){
+
                                                             String emailID = fAuth.getCurrentUser().getEmail();
                                                             String UserID = fAuth.getCurrentUser().getUid();
                                                             Map<String, String> user = new HashMap<>();
@@ -128,15 +136,14 @@ public class RegisterOne extends AppCompatActivity {
                                                             Intent intentNext = new Intent(RegisterOne.this, RegisterTwo.class);
                                                             startActivity(intentNext);
                                                         } else {
-                                                            Toast.makeText(RegisterOne.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(RegisterOne.this,"Username telah digunakan", Toast.LENGTH_SHORT).show();
+                                                            progressDialog.dismiss();
                                                         }
                                                     }
                                                 });
                                     } else {
                                         Toast.makeText(RegisterOne.this, "Email telah digunakan", Toast.LENGTH_SHORT).show();
-                                        btn_nextreg.dispose();
-                                        btn_nextreg.stopAnimation();
-
+                                        progressDialog.dismiss();
                                     }
                                 }
                             });

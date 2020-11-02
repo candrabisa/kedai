@@ -68,6 +68,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/TextView">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:textSize="16sp"
+                android:textColor="@color/whitePrimary"/>
             <EditText
                 android:id="@+id/etUserName_Reg"
                 android:layout_width="match_parent"
@@ -79,6 +85,12 @@
                 android:inputType="textFilter"
                 android:padding="12dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textSize="16sp"
+                android:textColor="@color/whitePrimary"/>
             <EditText
                 android:id="@+id/etEmail_Reg"
                 android:layout_width="match_parent"
@@ -88,6 +100,12 @@
                 android:hint="Email"
                 android:padding="12dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nomer HP"
+                android:textSize="16sp"
+                android:textColor="@color/whitePrimary"/>
             <EditText
                 android:id="@+id/etNoHP_Reg"
                 android:layout_width="match_parent"
@@ -95,23 +113,37 @@
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/bg_input_active"
                 android:hint="Nomer HP"
-                android:inputType="number"
+                android:inputType="phone"
                 android:padding="12dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textColor="@color/whitePrimary"
+                android:textSize="16sp"/>
             <EditText
                 android:id="@+id/etPassword_Reg"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginBottom="12dp"
+                android:inputType="textPassword"
                 android:background="@drawable/bg_input_active"
                 android:hint="Password"
                 android:padding="12dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm Password"
+                android:textSize="16sp"
+                android:textColor="@color/whitePrimary"/>
             <EditText
                 android:id="@+id/etConfirmPass_Reg"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginBottom="40dp"
+                android:inputType="textPassword"
                 android:background="@drawable/bg_input_active"
                 android:hint="Confirm Password"
                 android:padding="12dp" />

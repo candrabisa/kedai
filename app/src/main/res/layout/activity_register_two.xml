@@ -124,7 +124,6 @@
                     android:layout_marginTop="20dp"
                     android:paddingStart="12dp"
                     android:hint="Nama Lengkap"
-                    android:textColorHint="#1C1C1C"
                     app:layout_constraintTop_toBottomOf="@id/text1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -155,7 +154,7 @@
                     android:layout_height="46dp"
                     android:focusable="false"
                     android:background="@drawable/bg_input_active"
-                    app:hintText="Pilih Provinsi"
+                    app:hintText="@string/belum_dipilih"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/TextView" />
 
@@ -191,7 +190,7 @@
                     android:focusable="false"
                     android:background="@drawable/bg_input_active"
                     app:layout_constraintTop_toBottomOf="@id/TextView4"
-                    app:hintText="Pilih Kabupaten/Kota"/>
+                    app:hintText="@string/belum_dipilih"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -224,7 +223,7 @@
                     android:focusable="false"
                     android:background="@drawable/bg_input_active"
                     app:layout_constraintTop_toBottomOf="@id/TextView5"
-                    app:hintText="Pilih Kecamatan"/>
+                    app:hintText="@string/belum_dipilih"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -257,7 +256,7 @@
                     android:focusable="false"
                     android:background="@drawable/bg_input_active"
                     app:layout_constraintTop_toBottomOf="@id/TextView6"
-                    app:hintText="Pilih kelurahan"/>
+                    app:hintText="@string/belum_dipilih"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -288,14 +287,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
-                    android:textColorHint="#1c1c1c"
                     android:background="@drawable/bg_input_active"
                     app:layout_constraintTop_toBottomOf="@id/TextView7"
                     android:hint="Masukan Alamat Lengkap"
                     android:textSize="16sp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            <Button
                 android:id="@+id/btnReg2"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"

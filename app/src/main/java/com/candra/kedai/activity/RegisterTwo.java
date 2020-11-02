@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.candra.kedai.R;
 import com.candra.kedai.api.Api;
@@ -50,13 +51,11 @@ public class RegisterTwo extends AppCompatActivity {
 
     SearchableSpinner sProvinsi, sKota, sKecamatan, sKelurahan;
 
-    CircularProgressButton btn_register;
+    Button btn_register;
     ImageView btn_back, iv_foto;
     ImageButton btn_addFoto;
-    ListView listView;
     EditText et_alamatLengkap, etFullname;
 
-    AlertDialog dialog;
     ProgressDialog progressDialog;
 
     private List<String>listProvinsi = new ArrayList<>();
@@ -70,8 +69,6 @@ public class RegisterTwo extends AppCompatActivity {
 
     private List<String> listKelurahan = new ArrayList<>();
     List<Region> kelurahanItems = new ArrayList<>();
-
-    private String alamat;
 
     DatabaseReference dRef;
     StorageReference sRef;
@@ -105,43 +102,86 @@ public class RegisterTwo extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btn_register.startAnimation();
+
+                try {
+                    String nama_lengkap = etFullname.getText().toString();
+                    String alamat = et_alamatLengkap.getText().toString();
+                    String provinsi = sProvinsi.getSelectedItem().toString();
+                    String kota = sKota.getSelectedItem().toString();
+                    String kecamatan = sKecamatan.getSelectedItem().toString();
+                    String kelurahan = sKelurahan.getSelectedItem().toString();
 
 
-                dRef = FirebaseDatabase.getInstance().getReference().child("Users")
-                        .child(userkekey);
-                sRef = FirebaseStorage.getInstance().getReference().child("PhotoUsers").child(userkekey);
+                    if (nama_lengkap.isEmpty()){
+                        etFullname.setError("Nama belum diisi");
+                        etFullname.setFocusable(true);
+                        return;
+                    } else if (sProvinsi.equals("")){
+                        Toast.makeText(RegisterTwo.this, "Provinsi belum dipilih", Toast.LENGTH_SHORT).show();
+                        sProvinsi.setFocusable(true);
+                        sProvinsi.setTitle("Provinsi belum dipilih");
+                        return;
+                    } else if (sKota.equals("")){
+                        sKota.setFocusable(true);
+                        sKota.setTitle("Kota belum diisi");
+                        return;
+                    } else if (sKecamatan.equals("")){
+                        sKecamatan.setTitle("Kecamatan belum diisi");
+                        sKecamatan.setFocusable(true);
+                        return;
+                    } else if (sKelurahan.equals("")){
+                        sKelurahan.setTitle("Kelurahan belum diisi");
+                        sKelurahan.setFocusable(true);
+                        return;
+                    } else if (alamat.isEmpty()) {
+                        et_alamatLengkap.setError("Alamat belum diisi");
+                        et_alamatLengkap.setFocusable(true);
+                        return;
 
-                if (lokasi_foto !=null){
-                    final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." +
-                            getFileExtension(lokasi_foto));
-                    storageReference.putFile(lokasi_foto).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    } else {
+                        progressDialog = new ProgressDialog(RegisterTwo.this);
+                        progressDialog.setMessage("Mohon menunggu...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+
+                        dRef = FirebaseDatabase.getInstance().getReference().child("Users")
+                                .child(userkekey);
+                        sRef = FirebaseStorage.getInstance().getReference().child("PhotoUsers").child(userkekey);
+
+                        if (lokasi_foto !=null){
+                            final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." +
+                                    getFileExtension(lokasi_foto));
+                            storageReference.putFile(lokasi_foto).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
-                                public void onSuccess(Uri uri) {
-                                    String uri_photo = uri.toString();
-                                    dRef.getRef().child("url_images_profil").setValue(uri_photo);
-                                    dRef.getRef().child("provinsi").setValue(sProvinsi.getSelectedItem().toString());
-                                    dRef.getRef().child("kab_kota").setValue(sKota.getSelectedItem().toString());
-                                    dRef.getRef().child("kecamatan").setValue(sKecamatan.getSelectedItem().toString());
-                                    dRef.getRef().child("kelurahan").setValue(sKelurahan.getSelectedItem().toString());
-                                    dRef.getRef().child("nama_lengkap").setValue(etFullname.getText().toString());
-                                    dRef.getRef().child("alamat_lengkap").setValue(et_alamatLengkap.getText().toString());
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            String uri_photo = uri.toString();
+                                            dRef.getRef().child("url_images_profil").setValue(uri_photo);
+                                            dRef.getRef().child("provinsi").setValue(provinsi);
+                                            dRef.getRef().child("kab_kota").setValue(kota);
+                                            dRef.getRef().child("kecamatan").setValue(kecamatan);
+                                            dRef.getRef().child("kelurahan").setValue(kelurahan);
+                                            dRef.getRef().child("nama_lengkap").setValue(nama_lengkap);
+                                            dRef.getRef().child("alamat_lengkap").setValue(alamat);
+                                        }
+                                    }).addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            Intent intent = new Intent(RegisterTwo.this, SuccessRegister.class);
+                                            startActivity(intent);
+                                            progressDialog.dismiss();
+                                        }
+                                    });
                                 }
-                            }).addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Intent intent = new Intent(RegisterTwo.this, SuccessRegister.class);
-                                    startActivity(intent);
-                                    btn_register.stopAnimation();
-                                }
+
                             });
                         }
-                    });
+                    }
+                } catch (Exception e){
+                    Toast.makeText(RegisterTwo.this, "Data regiter belum lengkap", Toast.LENGTH_SHORT).show();
                 }
-
 
             }
         });
@@ -189,7 +229,7 @@ public class RegisterTwo extends AppCompatActivity {
 
                 provinsiItems = response.body().getData();
 
-                listProvinsi.add(0, "Silahkan dipilih");
+//                listProvinsi.add(0, "Silahkan dipilih");
                 for (int p = 0; p < provinsiItems.size(); p++){
                     listProvinsi.add(provinsiItems.get(p).getName().trim());
                 }
@@ -200,7 +240,7 @@ public class RegisterTwo extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         if (!sProvinsi.getSelectedItem().toString().equals("Dipilih dulu gan")){
-                            long idProv = provinsiItems.get(i-1).getId();
+                            long idProv = provinsiItems.get(i).getId();
                             ambilSpinnerKota(code, idProv);
                         }
                     }
@@ -231,7 +271,7 @@ public class RegisterTwo extends AppCompatActivity {
             public void onResponse(Call<Data> call, Response<Data> response) {
                 kotaItems = response.body().getData();
                 for (int kot = 0; kot < kotaItems.size(); kot++){
-                    listKota.add(kotaItems.get(kot).getName().trim());
+                    listKota.add(kotaItems.get(kot).getName());
                 }
                 final ArrayAdapter<String> arrayList = new ArrayAdapter<String>(RegisterTwo.this, R.layout.io_spinner, listKota);
                 arrayList.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -270,9 +310,9 @@ public class RegisterTwo extends AppCompatActivity {
             @Override
             public void onResponse(Call<Data> call, Response<Data> response) {
                 kecamatanItems = response.body().getData();
-                listKecataman.add(0, "Silahkan pilih");
+//                listKecataman.add(0, "Silahkan pilih");
                 for (int kec = 0; kec < kecamatanItems.size(); kec++){
-                    listKecataman.add(kecamatanItems.get(kec).getName());
+                    listKecataman.add(kecamatanItems.get(kec).getName().trim());
                 }
                 final ArrayAdapter<String> arrayList = new ArrayAdapter<String>(RegisterTwo.this, R.layout.io_spinner, listKecataman);
                 arrayList.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -281,8 +321,8 @@ public class RegisterTwo extends AppCompatActivity {
                 sKecamatan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        if (!sKota.getSelectedItem().toString().equals("Silahkan pilih")) {
-                            long idKec = kecamatanItems.get(i - 1).getId();
+                        if (!sKecamatan.getSelectedItem().toString().equals("Silahkan pilih")) {
+                            long idKec = kecamatanItems.get(i).getId();
                             tampilListKelurahan(code, idKec);
                         }
                     }
@@ -315,6 +355,7 @@ public class RegisterTwo extends AppCompatActivity {
                 final ArrayAdapter<String> arrayList = new ArrayAdapter<String>(RegisterTwo.this, R.layout.io_spinner, listKelurahan);
                 arrayList.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                 sKelurahan.setAdapter(arrayList);
+
 
             }
 
@@ -351,8 +392,18 @@ public class RegisterTwo extends AppCompatActivity {
 
     }
 
+
+
     public void getUserLokal(){
         SharedPreferences sPref = getSharedPreferences(userkey_, MODE_PRIVATE);
         userkekey = sPref.getString(userkey, "");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(RegisterTwo.this, GetStarted.class);
+        startActivity(intent);
+        finish();
     }
 }
