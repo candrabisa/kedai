@@ -37,7 +37,7 @@ public class SplashScreen extends AppCompatActivity {
     private void getUserLocal() {
         SharedPreferences preferences = getSharedPreferences(userkey_, MODE_PRIVATE);
         userkekey = preferences.getString(userkey, "");
-        if (userkey.isEmpty()){
+        if (userkekey.isEmpty()){
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -64,8 +64,8 @@ public class SplashScreen extends AppCompatActivity {
     public void fingerPrint(){
         Executor executor = Executors.newSingleThreadExecutor();
         BiometricPrompt biometricPrompt = new BiometricPrompt.Builder(SplashScreen.this)
-                .setTitle("Login Authentification")
-                .setDescription("Kamu sudah pernah login, Silahkan melakukan Fingerprint")
+                .setTitle("Smart Login")
+                .setDescription("Kedai mendeteksi kamu sudah pernah login. Secara otomatis smart login akan aktif")
                 .setNegativeButton("Batal", executor, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
