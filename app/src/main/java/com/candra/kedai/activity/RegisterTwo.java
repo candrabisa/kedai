@@ -51,7 +51,7 @@ public class RegisterTwo extends AppCompatActivity {
 
     SearchableSpinner sProvinsi, sKota, sKecamatan, sKelurahan;
 
-    Button btn_register;
+    CircularProgressButton btn_register;
     ImageView btn_back, iv_foto;
     ImageButton btn_addFoto;
     EditText et_alamatLengkap, etFullname;

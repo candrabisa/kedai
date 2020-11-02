@@ -37,7 +37,7 @@ public class SplashScreen extends AppCompatActivity {
     private void getUserLocal() {
         SharedPreferences preferences = getSharedPreferences(userkey_, MODE_PRIVATE);
         userkekey = preferences.getString(userkey, "");
-        if (userkekey.isEmpty()){
+        if (userkey.isEmpty()){
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -50,7 +50,12 @@ public class SplashScreen extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    fingerPrint();
+                    if (Build.VERSION.SDK_INT<Build.VERSION_CODES.P){
+                        startActivity(new Intent(SplashScreen.this, MainActivity.class));
+                        finish();
+                    } else {
+                        fingerPrint();
+                    }
                 }
             }, 2000);
         }
