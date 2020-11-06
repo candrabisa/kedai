@@ -115,34 +115,34 @@ public class RegisterOne extends AppCompatActivity {
 
                                                             String emailID = fAuth.getCurrentUser().getEmail();
                                                             String UserID = fAuth.getCurrentUser().getUid();
+
                                                             Map<String, String> user = new HashMap<>();
                                                             user.put("username", username);
                                                             user.put("email", email);
                                                             user.put("no_hp", no_hp);
                                                             user.put("password", password);
                                                             user.put("Uid", UserID);
-                                                            user.put("saldo", "");
                                                             user.put("online_status", "offline");
                                                             user.put("typing", "tidak");
 
-
                                                             dRef = FirebaseDatabase.getInstance().getReference("Users");
-                                                            dRef.child(username).setValue(user);
+                                                            dRef.child(UserID).setValue(user);
 
                                                             SharedPreferences sPref = getSharedPreferences(userkey_, MODE_PRIVATE);
                                                             SharedPreferences.Editor editor = sPref.edit();
-                                                            editor.putString(userkey, etUsername.getText().toString());
+                                                            editor.putString(userkey, UserID);
                                                             editor.apply();
                                                             Intent intentNext = new Intent(RegisterOne.this, RegisterTwo.class);
                                                             startActivity(intentNext);
                                                         } else {
-                                                            Toast.makeText(RegisterOne.this,"Username telah digunakan", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(RegisterOne.this,"Email telah digunakan", Toast.LENGTH_SHORT).show();
                                                             progressDialog.dismiss();
                                                         }
                                                     }
                                                 });
                                     } else {
-                                        Toast.makeText(RegisterOne.this, "Email telah digunakan", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterOne.this, "Email tidak valid", Toast.LENGTH_SHORT).show();
+                                        etEmail.setFocusable(true);
                                         progressDialog.dismiss();
                                     }
                                 }

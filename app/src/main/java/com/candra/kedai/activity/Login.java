@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
 
-    TextView btn_lupaPass;
+    TextView btn_lupaPass, tv_usernameRahasia;
     EditText et_Username, et_Password;
     ImageView btn_kembali;
     Button btn_login;
@@ -52,6 +52,7 @@ public class Login extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
 
+        tv_usernameRahasia = findViewById(R.id.silahkanlogin);
         btn_lupaPass = findViewById(R.id.btn_lupapass);
         btn_kembali = findViewById(R.id.iv_kembaliLog);
         btn_login = findViewById(R.id.btn_loginLog);
@@ -84,6 +85,7 @@ public class Login extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
                                         if (fAuth.getCurrentUser().isEmailVerified()) {
+
                                             progressDialog.dismiss();
                                             Toast.makeText(Login.this, "Login Berhasil", Toast.LENGTH_SHORT).show();
                                             SharedPreferences sPref = getSharedPreferences(userkey_, MODE_PRIVATE);

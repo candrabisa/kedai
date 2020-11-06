@@ -41,7 +41,6 @@ public class GetStarted extends AppCompatActivity {
                 startActivity(intentReg);
             }
         });
-
     }
     @Override
     public void onBackPressed() {
@@ -51,6 +50,7 @@ public class GetStarted extends AppCompatActivity {
             Toast.makeText(this, "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
             keluar = true;
             new Handler().postDelayed(() -> keluar = false, 2 * 1000);
+            finish();
         }
     }
 }

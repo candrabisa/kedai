@@ -165,6 +165,7 @@ public class RegisterTwo extends AppCompatActivity {
                                             dRef.getRef().child("kelurahan").setValue(kelurahan);
                                             dRef.getRef().child("nama_lengkap").setValue(nama_lengkap);
                                             dRef.getRef().child("alamat_lengkap").setValue(alamat);
+                                            dRef.getRef().child("saldo").setValue(60000);
                                         }
                                     }).addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override

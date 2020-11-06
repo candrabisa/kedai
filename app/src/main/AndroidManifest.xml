@@ -7,18 +7,21 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <application
-        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SuccessRegister"
+        <activity android:name=".activity.Profile"
             android:theme="@style/AppTheme.NoAction"></activity>
+        <activity
+            android:name=".activity.SuccessRegister"
+            android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.RegisterTwo"
             android:theme="@style/AppTheme.NoAction" />
@@ -34,11 +37,10 @@
         <activity
             android:name=".activity.GetStarted"
             android:theme="@style/AppTheme.NoAction" />
-
         <activity android:name=".activity.OnBoard" />
-
-        <activity android:name=".activity.MainActivity"
-            android:theme="@style/AppTheme.NoAction"/>
+        <activity
+            android:name=".activity.MainActivity"
+            android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.SplashScreen"
             android:theme="@style/AppTheme.NoAction">

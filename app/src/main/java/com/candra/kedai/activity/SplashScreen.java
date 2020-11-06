@@ -24,6 +24,7 @@ public class SplashScreen extends AppCompatActivity {
     String userkey = "";
     String userkekey = "";
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +81,7 @@ public class SplashScreen extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(SplashScreen.this, "Gagal Memuat...", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 });
 
