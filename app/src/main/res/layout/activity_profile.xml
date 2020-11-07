@@ -66,141 +66,159 @@
                     android:id="@+id/shimmer_profil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:auto_start="true"
+                    app:shimmer_auto_start="true"
+                    android:backgroundTint="@color/navyPrimary"
+                    android:background="@color/navyPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content">
+                        <include layout="@layout/shimmer_profile"/>
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+                            android:id="@+id/iv_profilProf"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+
+                            app:c_border="true"
+                            app:c_border_color="@color/whitePrimary"
+                            app:c_border_width="4dp"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_namaProf"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/roboto_medium"
+
+                            android:textAlignment="center"
+                            android:textColor="@color/whitePrimary"
+                            android:textSize="20sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/iv_profilProf" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint_saldovoucher"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintEnd_toStartOf="@+id/view3"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <com.blogspot.atifsoftwares.circularimageview.CircularImageView
-                                android:id="@+id/iv_profilProf"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:src="@drawable/foto_profil"
-                                app:c_border="true"
-                                app:c_border_color="@color/whitePrimary"
-                                app:c_border_width="4dp"
-                                app:layout_constraintEnd_toEndOf="parent"
+                            <ImageView
+                                android:id="@+id/ic_saldoProfil"
+                                android:layout_width="42dp"
+                                android:layout_height="26dp"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="12dp"
+
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
-                                android:id="@+id/tv_namaProf"
-                                android:layout_width="300dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:textAlignment="center"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Nama Kamu"
-                                android:textColor="@color/whitePrimary"
-                                android:textSize="20sp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/iv_profilProf" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/constraint_saldovoucher"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="60dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginEnd="60dp">
-
-                            <LinearLayout
-                                android:id="@+id/linearLayout3"
+                                android:id="@+id/saldo_profil"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/roboto_bold"
+
+                                android:textColor="@color/whitePrimary"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/tulisan_saldo_kamu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/roboto_light"
+
+                                android:textColor="@color/whitePrimary" />
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view3"
+                            android:layout_width="1dp"
+                            android:layout_height="48dp"
+                            android:background="@color/grayPrimary"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/view3"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/ic_voucherProf"
+                                android:layout_width="40dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="12dp"
+
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                                <ImageView
-                                    android:layout_width="42dp"
-                                    android:layout_height="26dp"
-                                    android:layout_gravity="center"
-                                    android:src="@drawable/ic_dompet"
-                                    android:layout_marginBottom="12dp"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-                                <TextView
-                                    android:id="@+id/saldo_profil"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/roboto_bold"
-                                    android:layout_gravity="center"
-                                    android:text="Rp. 800.000"
-                                    android:textColor="@color/whitePrimary"
-                                    android:textSize="14sp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:fontFamily="@font/roboto_light"
-                                    android:text="Saldo Kamu"
-                                    android:textColor="@color/whitePrimary" />
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="1dp"
-                                android:layout_height="48dp"
-                                android:background="@color/grayPrimary"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/linearLayout4"
-                                app:layout_constraintStart_toEndOf="@+id/linearLayout3"
                                 app:layout_constraintTop_toTopOf="parent" />
 
-                            <LinearLayout
-                                android:id="@+id/linearLayout4"
+                            <TextView
+                                android:id="@+id/tv_voucherProf"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/roboto_bold"
 
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="24dp"
-                                    android:layout_gravity="center"
-                                    android:layout_marginBottom="12dp"
-                                    android:src="@drawable/ic_voucher"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
+                                android:textColor="@color/whitePrimary"
+                                android:textSize="14sp" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:fontFamily="@font/roboto_bold"
-                                    android:text="2 VOUCHER"
-                                    android:textColor="@color/whitePrimary"
-                                    android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/tulisan_voucher_kamu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/roboto_light"
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:fontFamily="@font/roboto_light"
-                                    android:text="Voucher Kamu"
-                                    android:textColor="@color/whitePrimary" />
-                            </LinearLayout>
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </LinearLayout>
-                </com.facebook.shimmer.ShimmerFrameLayout>
+                                android:textColor="@color/whitePrimary" />
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

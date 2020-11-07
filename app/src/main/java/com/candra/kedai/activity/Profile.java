@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.candra.kedai.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -29,8 +31,8 @@ import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 public class Profile extends AppCompatActivity {
 
     CircularProgressButton btn_logout;
-    ImageView iv_profil;
-    TextView tv_namaLengkap;
+    ImageView iv_profil, ic_saldo, ic_voucher;
+    TextView tv_namaLengkap, tv_saldo, tv_voucher, tulisan_saldo_kamu, tulisan_voucher_kamu;
 
     ShimmerFrameLayout shimmer1;
 
@@ -50,32 +52,86 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         getUserLocal();
 
+        fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
+
         iv_profil = findViewById(R.id.iv_profilProf);
+        ic_saldo = findViewById(R.id.ic_saldoProfil);
+        ic_voucher = findViewById(R.id.ic_voucherProf);
         tv_namaLengkap = findViewById(R.id.tv_namaProf);
+        tv_saldo = findViewById(R.id.saldo_profil);
+        tv_voucher = findViewById(R.id.tv_voucherProf);
+        tulisan_saldo_kamu = findViewById(R.id.tulisan_saldo_kamu);
+        tulisan_voucher_kamu = findViewById(R.id.tulisan_voucher_kamu);
 
         btn_logout = findViewById(R.id.btn_logout);
 
         shimmer1 = findViewById(R.id.shimmer_profil);
 
-//        ProgressDialog progressDialog = new ProgressDialog(this);
-//        progressDialog.setMessage("Mohon menunggu...");
-//        progressDialog.setCancelable(false);
-//        progressDialog.show();
-//        shimmer1.startShimmerAnimation();
-        dRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userkekey);
+        dRef = FirebaseDatabase.getInstance().getReference().child("Icon");
         dRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //ambil data
+                final String iconSaldo = dataSnapshot.child("ic_dompet").getValue().toString();
+                final String iconVoucher = dataSnapshot.child("ic_voucher").getValue().toString();
 
-                tv_namaLengkap.setText(dataSnapshot.child("nama_lengkap").getValue().toString());
-                Picasso.with(Profile.this).load(dataSnapshot.child("url_images_profil").getValue().toString())
-                        .centerCrop().fit().into(iv_profil);
+                //set data
+                tulisan_saldo_kamu.setText("Saldo Kamu");
+                tulisan_voucher_kamu.setText("Voucher Kamu");
+                try {
+                    Picasso.with(Profile.this).load(iconSaldo).centerCrop()
+                            .fit().into(ic_saldo);
+                    Picasso.with(Profile.this).load(iconVoucher).centerCrop()
+                            .fit().into(ic_voucher);
+                } catch (Exception e){
+                    Toast.makeText(Profile.this, "Icon gagal memuat", Toast.LENGTH_SHORT).show();
+                }
+                shimmer1.stopShimmer();
+                shimmer1.setVisibility(View.GONE);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
+        Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("Uid").equalTo(fUser.getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+
+                    //ambildata
+                    final String namalengkap = "" + ds.child("nama_lengkap").getValue();
+                    final String saldo = "Rp. " + ds.child("saldo").getValue();
+                    final String voucher = ds.child("voucher").getValue() + " Voucher";
+                    final String foto_profil = "" +ds.child("url_images_profil").getValue();
+
+                    //setdata
+                    try {
+                        Picasso.with(Profile.this).load(foto_profil).centerCrop()
+                                .fit().into(iv_profil);
+                        tv_namaLengkap.setText(namalengkap);
+                        tv_saldo.setText(saldo);
+                        tv_voucher.setText(voucher);
+                    } catch (Exception e){
+                        Picasso.with(Profile.this).load(R.drawable.none_image_profile).into(iv_profil);
+                    }
+
+                }
+                shimmer1.stopShimmer();
+                shimmer1.setVisibility(View.GONE);
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override

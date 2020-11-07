@@ -17,8 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.Profile"
-            android:theme="@style/AppTheme.NoAction"></activity>
+        <activity android:name=".activity.EditProfile"></activity>
+        <activity
+            android:name=".activity.Profile"
+            android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.SuccessRegister"
             android:theme="@style/AppTheme.NoAction" />

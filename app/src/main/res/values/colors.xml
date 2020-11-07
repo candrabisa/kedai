@@ -11,4 +11,6 @@
     <color name="orangePrimary">#DC9A22</color>
     <color name="greenPrimary">#2A8438</color>
     <color name="pinkPrimary">#C16565</color>
+
+    <color name="shimmerGrey">#dddddd</color>
 </resources>
