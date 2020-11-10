@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.candra.kedai.R;
@@ -31,7 +32,8 @@ public class RegisterOne extends AppCompatActivity {
 
     Button btn_nextreg;
     ImageView iv_kembali;
-    EditText etUsername, etFullname, etEmail, etHP, etPassword, etCPass;
+    EditText etUsername, etEmail, etHP, etPassword, etCPass;
+    Spinner sp_jenisKel;
 
     ProgressDialog progressDialog;
 
@@ -54,6 +56,8 @@ public class RegisterOne extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword_Reg);
         etCPass = findViewById(R.id.etConfirmPass_Reg);
 
+        sp_jenisKel = findViewById(R.id.sp_jkRegister);
+
         iv_kembali = findViewById(R.id.iv_kembaliReg1);
         btn_nextreg = findViewById(R.id.btnNext_Reg);
 
@@ -67,6 +71,7 @@ public class RegisterOne extends AppCompatActivity {
                 final String no_hp = etHP.getText().toString();
                 final String password = etPassword.getText().toString();
                 final String cpassword = etCPass.getText().toString();
+                final String jenis_kelamin = sp_jenisKel.getSelectedItem().toString();
 
 
                 if (username.isEmpty()) {
@@ -124,6 +129,8 @@ public class RegisterOne extends AppCompatActivity {
                                                             user.put("Uid", UserID);
                                                             user.put("online_status", "offline");
                                                             user.put("typing", "tidak");
+                                                            user.put("jenis_kelamin", jenis_kelamin);
+                                                            user.put("tgl_lahir", "Belum diisi");
 
                                                             dRef = FirebaseDatabase.getInstance().getReference("Users");
                                                             dRef.child(UserID).setValue(user);
@@ -141,7 +148,7 @@ public class RegisterOne extends AppCompatActivity {
                                                     }
                                                 });
                                     } else {
-                                        Toast.makeText(RegisterOne.this, "Email tidak valid", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterOne.this, "Email tidak valid atau telah digunakan", Toast.LENGTH_SHORT).show();
                                         etEmail.setFocusable(true);
                                         progressDialog.dismiss();
                                     }

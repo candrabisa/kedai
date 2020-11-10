@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ public class Profile extends AppCompatActivity {
     CircularProgressButton btn_logout;
     ImageView iv_profil, ic_saldo, ic_voucher;
     TextView tv_namaLengkap, tv_saldo, tv_voucher, tulisan_saldo_kamu, tulisan_voucher_kamu;
+
+    RelativeLayout btn_editProfil;
 
     ShimmerFrameLayout shimmer1;
 
@@ -64,8 +67,9 @@ public class Profile extends AppCompatActivity {
         tulisan_saldo_kamu = findViewById(R.id.tulisan_saldo_kamu);
         tulisan_voucher_kamu = findViewById(R.id.tulisan_voucher_kamu);
 
-        btn_logout = findViewById(R.id.btn_logout);
+        btn_editProfil = findViewById(R.id.rl_editProfil);
 
+        btn_logout = findViewById(R.id.btn_logout);
         shimmer1 = findViewById(R.id.shimmer_profil);
 
         dRef = FirebaseDatabase.getInstance().getReference().child("Icon");
@@ -132,14 +136,23 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        btn_editProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editProf = new Intent(Profile.this, EditProfile.class);
+                startActivity(editProf);
+            }
+        });
 
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btn_logout.startAnimation();
                 SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(userkey, null);
                 editor.apply();
+                btn_logout.stopProgressAnimation();
                 startActivity(new Intent(Profile.this, Login.class));
                 finish();
             }

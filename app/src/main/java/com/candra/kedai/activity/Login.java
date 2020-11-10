@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
 
-    TextView btn_lupaPass, tv_usernameRahasia;
+    TextView btn_lupaPass;
     EditText et_Username, et_Password;
     ImageView btn_kembali;
     Button btn_login;
@@ -52,7 +52,6 @@ public class Login extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
 
-        tv_usernameRahasia = findViewById(R.id.silahkanlogin);
         btn_lupaPass = findViewById(R.id.btn_lupapass);
         btn_kembali = findViewById(R.id.iv_kembaliLog);
         btn_login = findViewById(R.id.btn_loginLog);
@@ -105,7 +104,7 @@ public class Login extends AppCompatActivity {
                                         Toast.makeText(Login.this, "Username atau email belum terdaftar", Toast.LENGTH_SHORT).show();
                                     } else {
                                         progressDialog.dismiss();
-                                        Toast.makeText(Login.this, "Data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "Login gagal", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

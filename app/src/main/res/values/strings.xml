@@ -13,4 +13,9 @@
     <string name="saldo">SALDO</string>
     <string name="belum_dipilih">Belum dipilih</string>
     <string name="close">Tutup</string>
+
+    <string-array name="jenis_kelamin">
+        <item>Laki-laki</item>
+        <item>Perempuan</item>
+    </string-array>
 </resources>

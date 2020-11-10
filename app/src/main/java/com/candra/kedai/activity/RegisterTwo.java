@@ -1,8 +1,10 @@
 package com.candra.kedai.activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -29,9 +31,13 @@ import com.candra.kedai.helper.RetrofitConfig;
 import com.candra.kedai.model.address.Data;
 import com.candra.kedai.model.address.Region;
 import com.candra.kedai.model.address.UniqueCode;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -146,8 +152,25 @@ public class RegisterTwo extends AppCompatActivity {
 
                         dRef = FirebaseDatabase.getInstance().getReference().child("Users")
                                 .child(userkekey);
-                        sRef = FirebaseStorage.getInstance().getReference().child("PhotoUsers").child(userkekey);
+                        dRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                dataSnapshot.getRef().child("provinsi").setValue(provinsi);
+                                dataSnapshot.getRef().child("kab_kota").setValue(kota);
+                                dataSnapshot.getRef().child("kecamatan").setValue(kecamatan);
+                                dataSnapshot.getRef().child("kelurahan").setValue(kelurahan);
+                                dataSnapshot.getRef().child("nama_lengkap").setValue(nama_lengkap);
+                                dataSnapshot.getRef().child("alamat_lengkap").setValue(alamat);
+                                dataSnapshot.getRef().child("saldo").setValue(60000);
+                                dataSnapshot.getRef().child("voucher").setValue(0);
+                            }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                        sRef = FirebaseStorage.getInstance().getReference().child("PhotoUsers").child(userkekey);
                         if (lokasi_foto !=null){
                             final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." +
                                     getFileExtension(lokasi_foto));
@@ -159,13 +182,7 @@ public class RegisterTwo extends AppCompatActivity {
                                         public void onSuccess(Uri uri) {
                                             String uri_photo = uri.toString();
                                             dRef.getRef().child("url_images_profil").setValue(uri_photo);
-                                            dRef.getRef().child("provinsi").setValue(provinsi);
-                                            dRef.getRef().child("kab_kota").setValue(kota);
-                                            dRef.getRef().child("kecamatan").setValue(kecamatan);
-                                            dRef.getRef().child("kelurahan").setValue(kelurahan);
-                                            dRef.getRef().child("nama_lengkap").setValue(nama_lengkap);
-                                            dRef.getRef().child("alamat_lengkap").setValue(alamat);
-                                            dRef.getRef().child("saldo").setValue(60000);
+
                                         }
                                     }).addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override
@@ -190,7 +207,11 @@ public class RegisterTwo extends AppCompatActivity {
         btn_addFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pilihFoto();
+                ImagePicker.Companion.with(RegisterTwo.this)
+                        .crop()
+                        .compress(1024)
+                        .maxResultSize(1080, 1080)
+                        .start();
             }
         });
 
@@ -373,22 +394,19 @@ public class RegisterTwo extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-    public void pilihFoto(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, max_foto);
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == max_foto && resultCode == RESULT_OK && data != null && data.getData() !=null){
+        if (resultCode == Activity.RESULT_OK){
+            assert data !=null;
             lokasi_foto = data.getData();
             Picasso.with(this).load(lokasi_foto)
                     .centerCrop().fit().into(iv_foto);
+        } else {
+            Picasso.with(this).load(R.drawable.none_image_profile).centerCrop()
+                    .fit().into(iv_foto);
         }
 
     }

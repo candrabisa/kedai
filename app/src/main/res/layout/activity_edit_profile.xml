@@ -4,16 +4,291 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grayPrimary"
     tools:context=".activity.EditProfile">
-    
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </com.facebook.shimmer.ShimmerFrameLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="356dp"
+                android:background="@color/navyPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center_vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                    <ImageView
+                        android:id="@+id/btn_backEditProf"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="24dp"
+                        android:src="@drawable/back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_toRightOf="@id/btn_backEditProf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Edit Profile"
+                        android:textColor="@color/whitePrimary"
+                        android:textSize="20sp"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+<!--                <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--                    android:id="@+id/shimmer_profil"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:shimmer_auto_start="true"-->
+<!--                    android:backgroundTint="@color/navyPrimary"-->
+<!--                    android:background="@color/navyPrimary"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content">-->
+<!--                        <include layout="@layout/shimmer_profile"/>-->
+<!--                    </LinearLayout>-->
+<!--                </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="25dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+                            android:id="@+id/iv_fotoEdit"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/none_image_profile"
+                            app:c_border="true"
+                            app:c_border_color="@color/whitePrimary"
+                            app:c_border_width="4dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/btn_fotoEdit"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"
+                            android:src="@drawable/ic_baseline_add_a_photo_24"
+                            android:background="@drawable/button_add_photo"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/iv_fotoEdit" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_detail"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+                <TextView
+                    android:id="@+id/txt_namalengkap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Nama Lengkap"
+                    android:textColor="@color/blackPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <EditText
+                    android:id="@+id/et_namaEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:paddingStart="12dp"
+                    android:background="@drawable/bg_input_active"
+                    app:layout_constraintTop_toBottomOf="@id/txt_namalengkap"
+                    tools:layout_editor_absoluteX="24dp" />
+
+                <TextView
+                    android:id="@+id/txt_emailEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Email"
+                    android:textColor="@color/blackPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_namaEdit" />
+                <EditText
+                    android:id="@+id/et_emailEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:paddingStart="12dp"
+                    android:background="@drawable/bg_input_active"
+                    app:layout_constraintTop_toBottomOf="@id/txt_emailEdit"/>
+
+                <TextView
+                    android:id="@+id/txt_noHP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="No. HP"
+                    android:textColor="@color/blackPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_emailEdit" />
+                <EditText
+                    android:id="@+id/et_nohpEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:paddingStart="12dp"
+                    android:background="@drawable/bg_input_active"
+                    app:layout_constraintTop_toBottomOf="@id/txt_noHP"/>
+
+                <TextView
+                    android:id="@+id/txt_jkEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Jenis Kelamin"
+                    android:textColor="@color/blackPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_nohpEdit" />
+                <Spinner
+                    android:id="@+id/sp_jkEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:paddingStart="6dp"
+                    android:entries="@array/jenis_kelamin"
+                    android:background="@drawable/bg_input_active"
+                    app:layout_constraintTop_toBottomOf="@id/txt_jkEdit"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="14dp"
+                    android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/sp_jkEdit"
+                    app:layout_constraintEnd_toEndOf="@+id/sp_jkEdit"
+                    app:layout_constraintTop_toTopOf="@+id/sp_jkEdit" />
+
+                <TextView
+                    android:id="@+id/txt_tglLahirEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Tanggal Lahir"
+                    android:textColor="@color/blackPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sp_jkEdit" />
+                <EditText
+                    android:id="@+id/et_tglEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:paddingStart="12dp"
+                    android:entries="@array/jenis_kelamin"
+                    android:background="@drawable/bg_input_active"
+                    app:layout_constraintTop_toBottomOf="@id/txt_tglLahirEdit"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="14dp"
+                    android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/et_tglEdit"
+                    app:layout_constraintEnd_toEndOf="@+id/et_tglEdit"
+                    app:layout_constraintTop_toTopOf="@+id/et_tglEdit" />
+
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:id="@+id/btn_simpanEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/button_secondary"
+                    android:textColor="@color/whitePrimary"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="SIMPAN"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_tglEdit" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
