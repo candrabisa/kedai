@@ -18,7 +18,7 @@
 
     <View
         android:id="@+id/view4"
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_rectangle_grey_shimmer"
@@ -27,6 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/circularImageView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -64,6 +65,5 @@
             app:layout_constraintStart_toEndOf="@+id/view3"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,7 +32,7 @@ public class RegisterOne extends AppCompatActivity {
 
     Button btn_nextreg;
     ImageView iv_kembali;
-    EditText etUsername, etEmail, etHP, etPassword, etCPass;
+    EditText etNama, etEmail, etHP, etPassword, etCPass;
     Spinner sp_jenisKel;
 
     ProgressDialog progressDialog;
@@ -49,8 +49,7 @@ public class RegisterOne extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
 
-        etUsername = findViewById(R.id.etUserName_Reg);
-
+        etNama = findViewById(R.id.etUserName_Reg);
         etEmail = findViewById(R.id.etEmail_Reg);
         etHP = findViewById(R.id.etNoHP_Reg);
         etPassword = findViewById(R.id.etPassword_Reg);
@@ -66,7 +65,7 @@ public class RegisterOne extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final String username = etUsername.getText().toString();
+                final String nama_lengkap = etNama.getText().toString();
                 final String email = etEmail.getText().toString();
                 final String no_hp = etHP.getText().toString();
                 final String password = etPassword.getText().toString();
@@ -74,9 +73,9 @@ public class RegisterOne extends AppCompatActivity {
                 final String jenis_kelamin = sp_jenisKel.getSelectedItem().toString();
 
 
-                if (username.isEmpty()) {
-                    etUsername.setError("Username belum diisi");
-                    etUsername.requestFocus();
+                if (nama_lengkap.isEmpty()) {
+                    etNama.setError("Username belum diisi");
+                    etNama.requestFocus();
                     return;
                 } else if (email.isEmpty()){
                     etEmail.setError("Email belum diisi");
@@ -122,7 +121,7 @@ public class RegisterOne extends AppCompatActivity {
                                                             String UserID = fAuth.getCurrentUser().getUid();
 
                                                             Map<String, String> user = new HashMap<>();
-                                                            user.put("username", username);
+                                                            user.put("nama_lengkap", nama_lengkap);
                                                             user.put("email", email);
                                                             user.put("no_hp", no_hp);
                                                             user.put("password", password);

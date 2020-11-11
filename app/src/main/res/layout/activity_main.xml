@@ -80,14 +80,14 @@
             app:layout_constraintTop_toBottomOf="@id/constraint1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint2"
+                android:id="@+id/btn_foodHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
-                    android:id="@+id/btn_foodHome"
+                    android:id="@+id/bg_foodHome"
                     android:layout_width="41dp"
                     android:layout_height="41dp"
                     android:background="@drawable/bg_button_kategori"
@@ -98,13 +98,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/ic_catMakanan"
                     android:layout_width="29dp"
                     android:layout_height="29dp"
                     android:src="@drawable/ic_makanan"
-                    app:layout_constraintBottom_toBottomOf="@+id/btn_foodHome"
-                    app:layout_constraintEnd_toEndOf="@id/btn_foodHome"
-                    app:layout_constraintStart_toStartOf="@+id/btn_foodHome"
-                    app:layout_constraintTop_toTopOf="@+id/btn_foodHome" />
+                    app:layout_constraintBottom_toBottomOf="@+id/bg_foodHome"
+                    app:layout_constraintEnd_toEndOf="@id/bg_foodHome"
+                    app:layout_constraintStart_toStartOf="@+id/bg_foodHome"
+                    app:layout_constraintTop_toTopOf="@+id/bg_foodHome" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -115,20 +116,20 @@
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_foodHome" />
+                    app:layout_constraintTop_toBottomOf="@+id/bg_foodHome" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint3"
+                android:id="@+id/btn_drinkHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/constraint4"
-                app:layout_constraintStart_toEndOf="@id/constraint2"
+                app:layout_constraintEnd_toStartOf="@+id/btn_paketHome"
+                app:layout_constraintStart_toEndOf="@id/btn_foodHome"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
-                    android:id="@+id/btn_drinkHome"
+                    android:id="@+id/bg_drinkHome"
                     android:layout_width="41dp"
                     android:layout_height="41dp"
                     android:background="@drawable/bg_button_kategori"
@@ -139,13 +140,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/ic_catMinuman"
                     android:layout_width="29dp"
                     android:layout_height="29dp"
                     android:src="@drawable/ic_minuman"
-                    app:layout_constraintBottom_toBottomOf="@+id/btn_drinkHome"
-                    app:layout_constraintEnd_toEndOf="@id/btn_drinkHome"
-                    app:layout_constraintStart_toStartOf="@+id/btn_drinkHome"
-                    app:layout_constraintTop_toTopOf="@+id/btn_drinkHome" />
+                    app:layout_constraintBottom_toBottomOf="@+id/bg_drinkHome"
+                    app:layout_constraintEnd_toEndOf="@id/bg_drinkHome"
+                    app:layout_constraintStart_toStartOf="@+id/bg_drinkHome"
+                    app:layout_constraintTop_toTopOf="@+id/bg_drinkHome" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -156,19 +158,19 @@
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_drinkHome" />
+                    app:layout_constraintTop_toBottomOf="@+id/bg_drinkHome" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint4"
+                android:id="@+id/btn_paketHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@+id/constraint5"
-                app:layout_constraintStart_toEndOf="@id/constraint3"
+                app:layout_constraintEnd_toStartOf="@+id/btn_cemilanHome"
+                app:layout_constraintStart_toEndOf="@id/btn_drinkHome"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
-                    android:id="@+id/btn_paketHome"
+                    android:id="@+id/bg_paketHome"
                     android:layout_width="41dp"
                     android:layout_height="41dp"
                     android:background="@drawable/bg_button_kategori"
@@ -179,13 +181,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/ic_catPaket"
                     android:layout_width="29dp"
                     android:layout_height="29dp"
                     android:src="@drawable/ic_paket"
-                    app:layout_constraintBottom_toBottomOf="@+id/btn_paketHome"
-                    app:layout_constraintEnd_toEndOf="@id/btn_paketHome"
-                    app:layout_constraintStart_toStartOf="@+id/btn_paketHome"
-                    app:layout_constraintTop_toTopOf="@+id/btn_paketHome" />
+                    app:layout_constraintBottom_toBottomOf="@+id/bg_paketHome"
+                    app:layout_constraintEnd_toEndOf="@id/bg_paketHome"
+                    app:layout_constraintStart_toStartOf="@+id/bg_paketHome"
+                    app:layout_constraintTop_toTopOf="@+id/bg_paketHome" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -196,11 +199,11 @@
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_paketHome" />
+                    app:layout_constraintTop_toBottomOf="@+id/bg_paketHome" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint5"
+                android:id="@+id/btn_cemilanHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -208,7 +211,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
-                    android:id="@+id/btn_cemilanHome"
+                    android:id="@+id/bg_cemilanHome"
                     android:layout_width="41dp"
                     android:layout_height="41dp"
                     android:background="@drawable/bg_button_kategori"
@@ -219,13 +222,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/ic_catCemilan"
                     android:layout_width="29dp"
                     android:layout_height="29dp"
                     android:src="@drawable/ic_cemilan"
-                    app:layout_constraintBottom_toBottomOf="@+id/btn_cemilanHome"
-                    app:layout_constraintEnd_toEndOf="@id/btn_cemilanHome"
-                    app:layout_constraintStart_toStartOf="@+id/btn_cemilanHome"
-                    app:layout_constraintTop_toTopOf="@+id/btn_cemilanHome" />
+                    app:layout_constraintBottom_toBottomOf="@+id/bg_cemilanHome"
+                    app:layout_constraintEnd_toEndOf="@id/bg_cemilanHome"
+                    app:layout_constraintStart_toStartOf="@+id/bg_cemilanHome"
+                    app:layout_constraintTop_toTopOf="@+id/bg_cemilanHome" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -236,7 +240,7 @@
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_cemilanHome" />
+                    app:layout_constraintTop_toBottomOf="@+id/bg_cemilanHome" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -293,8 +297,7 @@
                             android:id="@+id/a1"
                             android:layout_width="42dp"
                             android:layout_height="26dp"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/ic_dompet" />
+                            android:layout_centerVertical="true"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -309,14 +312,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:fontFamily="@font/roboto_light"
-                                android:text="Saldo Kamu"
                                 android:textSize="12sp" />
 
                             <TextView
+                                android:id="@+id/t2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/roboto_bold"
-                                android:text="Rp. 800.000"
                                 android:textColor="@color/pinkPrimary" />
                         </LinearLayout>
                     </RelativeLayout>
@@ -345,8 +347,7 @@
                             android:layout_width="42dp"
                             android:layout_height="26dp"
                             android:layout_centerVertical="true"
-                            android:layout_marginEnd="11dp"
-                            android:src="@drawable/ic_voucher" />
+                            android:layout_marginEnd="11dp" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -356,18 +357,17 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/t2"
+                                android:id="@+id/t3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/roboto_light"
-                                android:text="Voucher Kamu"
                                 android:textSize="12sp" />
 
                             <TextView
+                                android:id="@+id/t4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/roboto_bold"
-                                android:text="2 Voucher"
                                 android:textColor="@color/pinkPrimary" />
                         </LinearLayout>
                     </RelativeLayout>
@@ -386,17 +386,24 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_buatkamu"
+                <HorizontalScrollView
+                    android:id="@+id/hsv1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:scrollbars="none"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4"
-                    tools:listitem="@layout/item_buatkamu" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView4">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_buatkamu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:paddingEnd="24dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_buatkamu" />
+                </HorizontalScrollView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/content1"
@@ -408,7 +415,7 @@
                     android:background="@drawable/bg_content_home"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_buatkamu">
+                    app:layout_constraintTop_toBottomOf="@id/hsv1">
 
                     <ImageView
                         android:id="@+id/iv_kategoriContentHome"
@@ -416,7 +423,6 @@
                         android:layout_height="24dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_makanan"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -427,7 +433,6 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="@string/makanan"
                         android:textColor="@color/whitePrimary"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/iv_kategoriContentHome"
@@ -440,7 +445,6 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="30dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="Bakso bakar mantap-mantap"
                         android:textColor="@color/whitePrimary"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -454,7 +458,6 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/roboto_light"
-                        android:text="Cocok banget kalo kumpul sama sahabat sambil ngemil bakso bakar. huuu Yummy"
                         android:textColor="@color/whitePrimary"
                         android:textSize="10sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -472,11 +475,9 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/imageView4"
+                            android:id="@+id/iv1_isiContent"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_input_satu"
-                            android:src="@drawable/content_bakso_noradius" />
+                            android:layout_height="wrap_content"/>
                     </androidx.cardview.widget.CardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -493,17 +494,24 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/content1" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_palingLaris"
+                <HorizontalScrollView
+                    android:id="@+id/hsv2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:scrollbars="none"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView5"
-                    tools:listitem="@layout/item_buatkamu" />
+                    app:layout_constraintTop_toBottomOf="@id/textView5">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_palingLaris"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:paddingEnd="24dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_buatkamu" />
+                </HorizontalScrollView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/content2"
@@ -516,7 +524,7 @@
                     android:backgroundTint="#329898"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_palingLaris">
+                    app:layout_constraintTop_toBottomOf="@id/hsv2">
 
                     <ImageView
                         android:id="@+id/iv2_kategoriContentHome"
@@ -524,7 +532,6 @@
                         android:layout_height="24dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_minuman"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -535,7 +542,6 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="@string/minuman"
                         android:textColor="@color/whitePrimary"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/iv2_kategoriContentHome"
@@ -548,7 +554,6 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="30dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="Ini es teh ya not ice tea"
                         android:textColor="@color/whitePrimary"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -562,7 +567,6 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/roboto_light"
-                        android:text="Es teh ini harganya cuma 8 ribu kok, jelas beda kan sama ice tea yang harganya 25ribu :)"
                         android:textColor="@color/whitePrimary"
                         android:textSize="10sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -570,8 +574,8 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv2_judulContentHome" />
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="144dp"
-                        android:layout_height="133dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         app:cardCornerRadius="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -580,11 +584,10 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
+                            android:layout_width="144dp"
+                            android:layout_height="133dp"
                             android:id="@+id/iv2_isiContent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_input_satu"
-                            android:src="@drawable/esteh" />
+                            />
                     </androidx.cardview.widget.CardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -601,17 +604,24 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/content2" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_lagiPromo"
+                <HorizontalScrollView
+                    android:id="@+id/hsv3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:scrollbars="none"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView6"
-                    tools:listitem="@layout/item_buatkamu" />
+                    app:layout_constraintTop_toBottomOf="@id/textView6">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_lagiPromo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:paddingEnd="24dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_buatkamu" />
+                </HorizontalScrollView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/content3"
@@ -626,7 +636,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_lagiPromo">
+                    app:layout_constraintTop_toBottomOf="@id/hsv3">
 
                     <ImageView
                         android:id="@+id/iv3_kategoriContentHome"
@@ -634,7 +644,6 @@
                         android:layout_height="24dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_saldo"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -645,7 +654,6 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="@string/saldo"
                         android:textColor="@color/whitePrimary"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/iv3_kategoriContentHome"
@@ -658,7 +666,6 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="30dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="Segera isi saldo sekarang juga"
                         android:textColor="@color/whitePrimary"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -672,7 +679,6 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/roboto_light"
-                        android:text="Pembayaran dengan saldo selain aman dan mudah, lebih sering juga dapet promonya."
                         android:textColor="@color/whitePrimary"
                         android:textSize="10sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -692,9 +698,7 @@
                         <ImageView
                             android:id="@+id/iv3_isiContent"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_input_satu"
-                            android:src="@drawable/ciwiciwi" />
+                            android:layout_height="wrap_content" />
                     </androidx.cardview.widget.CardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

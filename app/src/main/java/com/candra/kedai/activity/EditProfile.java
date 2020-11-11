@@ -60,7 +60,6 @@ import java.util.Objects;
 public class EditProfile extends AppCompatActivity {
 
     ImageView iv_profil, btn_backAppbar;
-    TextView tv_Appbar;
     EditText et_nama, et_email, et_nohp, et_tgl;
     Spinner sp_jenisKel;
     Button btn_simpan;
@@ -131,7 +130,7 @@ public class EditProfile extends AppCompatActivity {
                     }
 
                     try {
-                        Picasso.with(EditProfile.this).load(foto_profil).centerCrop()
+                        Picasso.get().load(foto_profil).centerCrop()
                                 .fit().into(iv_profil);
 
                     } catch (Exception e){
@@ -215,17 +214,22 @@ public class EditProfile extends AppCompatActivity {
                             dataSnapshot.getRef().child("no_hp").setValue(nohp);
                             dataSnapshot.getRef().child("jenis_kelamin").setValue(jk);
                             dataSnapshot.getRef().child("tgl_lahir").setValue(tgl_lahir);
+
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                            Toast.makeText(EditProfile.this, "Gagal memperbarui profil", Toast.LENGTH_SHORT).show();
                         }
                     });
 
-                    sRef = FirebaseStorage.getInstance().getReference("PhotoUsers").child(fUser.getUid());
+                    Toast.makeText(EditProfile.this, "Profil berhasil diperbaharui", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+
+                    progressDialog.show();
                     if (lokasi_foto !=null){
-                        final StorageReference storageReference = sRef.child(System.currentTimeMillis() + ".kedai" +
+                        sRef = FirebaseStorage.getInstance().getReference("PhotoUsers").child(fUser.getUid());
+                        final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." +
                                 getFileExtension(lokasi_foto));
                         storageReference.putFile(lokasi_foto).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
@@ -243,7 +247,7 @@ public class EditProfile extends AppCompatActivity {
                             }
                         });
                     } else {
-                        Picasso.with(EditProfile.this).load(R.drawable.none_image_profile)
+                        Picasso.get().load(R.drawable.none_image_profile)
                                 .centerCrop().fit().into(iv_profil);
                     }
                 }
@@ -264,11 +268,11 @@ public class EditProfile extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK){
             assert data !=null;
             lokasi_foto = data.getData();
-            Picasso.with(this).load(lokasi_foto).centerCrop()
+            Picasso.get().load(lokasi_foto).centerCrop()
                     .fit().into(iv_profil);
 
         } else {
-            Picasso.with(this).load(R.drawable.none_image_profile).centerCrop()
+            Picasso.get().load(R.drawable.none_image_profile).centerCrop()
                     .fit().into(iv_profil);
         }
     }

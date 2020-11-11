@@ -84,9 +84,9 @@ public class Profile extends AppCompatActivity {
                 tulisan_saldo_kamu.setText("Saldo Kamu");
                 tulisan_voucher_kamu.setText("Voucher Kamu");
                 try {
-                    Picasso.with(Profile.this).load(iconSaldo).centerCrop()
+                    Picasso.get().load(iconSaldo).centerCrop()
                             .fit().into(ic_saldo);
-                    Picasso.with(Profile.this).load(iconVoucher).centerCrop()
+                    Picasso.get().load(iconVoucher).centerCrop()
                             .fit().into(ic_voucher);
                 } catch (Exception e){
                     Toast.makeText(Profile.this, "Icon gagal memuat", Toast.LENGTH_SHORT).show();
@@ -115,13 +115,13 @@ public class Profile extends AppCompatActivity {
 
                     //setdata
                     try {
-                        Picasso.with(Profile.this).load(foto_profil).centerCrop()
+                        Picasso.get().load(foto_profil).centerCrop()
                                 .fit().into(iv_profil);
                         tv_namaLengkap.setText(namalengkap);
                         tv_saldo.setText(saldo);
                         tv_voucher.setText(voucher);
                     } catch (Exception e){
-                        Picasso.with(Profile.this).load(R.drawable.none_image_profile).into(iv_profil);
+                        Picasso.get().load(R.drawable.none_image_profile).into(iv_profil);
                     }
 
                 }

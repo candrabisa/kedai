@@ -60,7 +60,7 @@ public class RegisterTwo extends AppCompatActivity {
     CircularProgressButton btn_register;
     ImageView btn_back, iv_foto;
     ImageButton btn_addFoto;
-    EditText et_alamatLengkap, etFullname;
+    EditText et_alamatLengkap, et_jenisAlamat;
 
     ProgressDialog progressDialog;
 
@@ -92,7 +92,7 @@ public class RegisterTwo extends AppCompatActivity {
         setContentView(R.layout.activity_register_two);
         getUserLokal();
 
-        etFullname = findViewById(R.id.etNamaLengkap_Reg);
+        et_jenisAlamat = findViewById(R.id.etJenisAlamat_Reg);
         et_alamatLengkap = findViewById(R.id.et_alamatReg);
         sProvinsi = findViewById(R.id.et_province);
         sKota = findViewById(R.id.et_kota);
@@ -110,7 +110,7 @@ public class RegisterTwo extends AppCompatActivity {
             public void onClick(View view) {
 
                 try {
-                    String nama_lengkap = etFullname.getText().toString();
+                    String jenis_alamat = et_jenisAlamat.getText().toString();
                     String alamat = et_alamatLengkap.getText().toString();
                     String provinsi = sProvinsi.getSelectedItem().toString();
                     String kota = sKota.getSelectedItem().toString();
@@ -118,9 +118,9 @@ public class RegisterTwo extends AppCompatActivity {
                     String kelurahan = sKelurahan.getSelectedItem().toString();
 
 
-                    if (nama_lengkap.isEmpty()){
-                        etFullname.setError("Nama belum diisi");
-                        etFullname.setFocusable(true);
+                    if (jenis_alamat.isEmpty()){
+                        et_jenisAlamat.setError("Nama belum diisi");
+                        et_jenisAlamat.setFocusable(true);
                         return;
                     } else if (sProvinsi.equals("")){
                         Toast.makeText(RegisterTwo.this, "Provinsi belum dipilih", Toast.LENGTH_SHORT).show();
@@ -159,7 +159,7 @@ public class RegisterTwo extends AppCompatActivity {
                                 dataSnapshot.getRef().child("kab_kota").setValue(kota);
                                 dataSnapshot.getRef().child("kecamatan").setValue(kecamatan);
                                 dataSnapshot.getRef().child("kelurahan").setValue(kelurahan);
-                                dataSnapshot.getRef().child("nama_lengkap").setValue(nama_lengkap);
+                                dataSnapshot.getRef().child("jenis_alamat").setValue(jenis_alamat);
                                 dataSnapshot.getRef().child("alamat_lengkap").setValue(alamat);
                                 dataSnapshot.getRef().child("saldo").setValue(60000);
                                 dataSnapshot.getRef().child("voucher").setValue(0);
@@ -402,10 +402,10 @@ public class RegisterTwo extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK){
             assert data !=null;
             lokasi_foto = data.getData();
-            Picasso.with(this).load(lokasi_foto)
+            Picasso.get().load(lokasi_foto)
                     .centerCrop().fit().into(iv_foto);
         } else {
-            Picasso.with(this).load(R.drawable.none_image_profile).centerCrop()
+            Picasso.get().load(R.drawable.none_image_profile).centerCrop()
                     .fit().into(iv_foto);
         }
 

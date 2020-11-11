@@ -67,8 +67,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:shimmer_auto_start="true"
-                    android:backgroundTint="@color/navyPrimary"
-                    android:background="@color/navyPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -275,6 +273,40 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_alamatPengiriman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingStart="38dp"
+                    android:paddingEnd="38dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rl_editProfil">
+
+                    <TextView
+                        android:id="@+id/txt0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Alamat Pengiriman"
+                        android:textColor="@color/blackPrimary"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/ic_next0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_navigate_next_black_24dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/ic_next0"
+                        android:background="@color/grayPrimary" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/rl_riwayatPesanan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -283,7 +315,7 @@
                     android:paddingEnd="38dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rl_editProfil">
+                    app:layout_constraintTop_toBottomOf="@id/rl_alamatPengiriman">
 
                     <TextView
                         android:id="@+id/txt2"

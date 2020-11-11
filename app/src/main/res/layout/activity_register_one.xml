@@ -71,7 +71,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Username"
+                android:text="Nama lengkap"
                 android:textSize="16sp"
                 android:textColor="@color/whitePrimary"/>
             <EditText
@@ -80,9 +80,7 @@
                 android:layout_height="46dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/bg_input_active"
-                android:hint="Username"
-                android:digits="abcdefghijklmnopqrstuvwxyz1234567890_"
-                android:inputType="textFilter"
+                android:hint="Nama Lengkap"
                 android:padding="12dp" />
 
             <TextView
