@@ -3,6 +3,8 @@ package com.candra.kedai.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.candra.kedai.R;
+import com.candra.kedai.adapter.category.CategoryAdapter;
+import com.candra.kedai.model.category.CategoryModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,18 +28,31 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
-    ImageView iv_profil, ic_saldo, ic_voucher, iv_content1, iv_content2, iv_content3, ic_content1, ic_content2, ic_content3;
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+
+    ImageView iv_profil, ic_saldo, ic_voucher, iv_content1, iv_content2, iv_content3, ic_content1, ic_content2, ic_content3,
+                ic_catMakanan, ic_catMinuman, ic_catPaket, ic_catCemilan;
     TextView tv_saldoHome, tv_saldoKamu, tv_voucherHome, tv_voucherKamu,
                 tv_judulContent1, tv_judulContent2, tv_judulContent3,
                 tv_isiContent1, tv_isiContent2, tv_isiContent3,
-                tv_catContent1, tv_catContent2, tv_catContent3;
+                tv_catContent1, tv_catContent2, tv_catContent3,
+                tvcatHomeCemilan, tvcatHomePaket, tvcatHomeMinuman, tvcatHomeMakanan;
     ConstraintLayout btn_catFood, btn_drinkHome, btn_paketHome, btn_cemilanHome;
 
     FirebaseUser fUser;
     FirebaseAuth fAuth;
-    DatabaseReference dRef, dRef1, dRef2, dRef3;
+    DatabaseReference dRef, dRef1, dRef2, dRef3,
+                        dRef4, dRef5,dRef6;
+
+    RecyclerView rv1, rv2, rv3;
+    SwipeRefreshLayout swipeRefreshLayout;
+    CategoryAdapter categoryAdapter;
+    List<CategoryModel>list1 = new ArrayList<>();
+    List<CategoryModel>list2 = new ArrayList<>();
+    List<CategoryModel>list3 = new ArrayList<>();
 
     String userkey_ = "userkey";
     String userkey = "";
@@ -53,6 +70,16 @@ public class MainActivity extends AppCompatActivity {
         tv_saldoHome = findViewById(R.id.t2);
         tv_voucherKamu = findViewById(R.id.t3);
         tv_voucherHome = findViewById(R.id.t4);
+
+        ic_catMakanan = findViewById(R.id.ic_catMakanan);
+        ic_catMinuman = findViewById(R.id.ic_catMinuman);
+        ic_catPaket = findViewById(R.id.ic_catPaket);
+        ic_catCemilan = findViewById(R.id.ic_catCemilan);
+
+        tvcatHomeMakanan = findViewById(R.id.tvcatHomeMakanan);
+        tvcatHomeMinuman = findViewById(R.id.tvcatHomeMinuman);
+        tvcatHomePaket = findViewById(R.id.tvcatHomePaket);
+        tvcatHomeCemilan = findViewById(R.id.tvcatHomeCemilan);
 
         tv_judulContent1 = findViewById(R.id.tv_judulContentHome);
         tv_judulContent2 = findViewById(R.id.tv2_judulContentHome);
@@ -80,8 +107,18 @@ public class MainActivity extends AppCompatActivity {
         btn_paketHome = findViewById(R.id.btn_paketHome);
         btn_cemilanHome = findViewById(R.id.btn_cemilanHome);
 
+        rv1 = findViewById(R.id.rv_buatkamu);
+        rv2 = findViewById(R.id.rv_palingLaris);
+        rv3 = findViewById(R.id.rv_lagiPromo);
+
         fAuth = FirebaseAuth.getInstance();
         fUser = fAuth.getCurrentUser();
+
+        swipeRefreshLayout = findViewById(R.id.sw_home);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        loadBuatKamu();
+        loadPalingLaris();
+        loadLagiPromo();
 
         Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("Uid").equalTo(fUser.getUid());
         query.addValueEventListener(new ValueEventListener() {
@@ -98,8 +135,13 @@ public class MainActivity extends AppCompatActivity {
                     tv_voucherHome.setText(total_voucher);
                     tv_saldoKamu.setText("Saldo Kamu");
                     tv_voucherKamu.setText("Voucher Kamu");
-                    Picasso.get().load(fotoprofil)
-                            .centerCrop().fit().into(iv_profil);
+                    try {
+                        Glide.with(MainActivity.this).load(fotoprofil)
+                                .centerCrop().fitCenter().into(iv_profil);
+                    } catch (Exception e){
+                        Picasso.get().load(R.drawable.none_image_profile)
+                                .centerCrop().fit().into(iv_profil);
+                    }
                 }
             }
 
@@ -117,9 +159,37 @@ public class MainActivity extends AppCompatActivity {
                 final String iconSaldo = dataSnapshot.child("ic_dompet").getValue().toString();
                 final String iconVoucher = dataSnapshot.child("ic_voucher").getValue().toString();
 
+                final String iconMakanan = dataSnapshot.child("ic_makanan").child("url_images_icon").getValue().toString();
+                final String namaMakanan = dataSnapshot.child("ic_makanan").child("nama_icon").getValue().toString();
+
+                final String iconMinuman = dataSnapshot.child("ic_minuman").child("url_images_icon").getValue().toString();
+                final String namaMinuman = dataSnapshot.child("ic_minuman").child("nama_icon").getValue().toString();
+
+                final String iconPaket = dataSnapshot.child("ic_paket").child("url_images_icon").getValue().toString();
+                final String namaPaket = dataSnapshot.child("ic_paket").child("nama_icon").getValue().toString();
+
+                final String iconCemilan = dataSnapshot.child("ic_cemilan").child("url_images_icon").getValue().toString();
+                final String namaCemilan = dataSnapshot.child("ic_cemilan").child("nama_icon").getValue().toString();
+
                 //set data
-                Picasso.get().load(iconSaldo).centerCrop().fit().into(ic_saldo);
-                Picasso.get().load(iconVoucher).centerCrop().fit().into(ic_voucher);
+                tvcatHomeMakanan.setText(namaMakanan);
+                tvcatHomeMinuman.setText(namaMinuman);
+                tvcatHomePaket.setText(namaPaket);
+                tvcatHomeCemilan.setText(namaCemilan);
+                try {
+                    //saldo&voucher
+                    Glide.with(MainActivity.this).load(iconSaldo).centerCrop().fitCenter().into(ic_saldo);
+                    Glide.with(MainActivity.this).load(iconVoucher).centerCrop().fitCenter().into(ic_voucher);
+
+                    //kategori
+                    Glide.with(MainActivity.this).load(iconMakanan).centerCrop().fitCenter().into(ic_catMakanan);
+                    Glide.with(MainActivity.this).load(iconMinuman).centerCrop().fitCenter().into(ic_catMinuman);
+                    Glide.with(MainActivity.this).load(iconPaket).centerCrop().fitCenter().into(ic_catPaket);
+                    Glide.with(MainActivity.this).load(iconCemilan).centerCrop().fitCenter().into(ic_catCemilan);
+                } catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Coba lagi", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
             @Override
@@ -143,8 +213,8 @@ public class MainActivity extends AppCompatActivity {
                 tv_catContent1.setText(catContent);
                 tv_isiContent1.setText(catDesc);
                 tv_judulContent1.setText(catJudul);
-                Picasso.get().load(catIcon).centerCrop().fit().into(ic_content1);
                 try {
+                    Glide.with(MainActivity.this).load(catIcon).centerCrop().fitCenter().into(ic_content1);
                     Glide.with(MainActivity.this).load(catImages).centerCrop().fitCenter().into(iv_content1);
                 } catch (Exception e){
                     Toast.makeText(MainActivity.this, "Gagal memuat gambar 1", Toast.LENGTH_SHORT).show();
@@ -173,9 +243,9 @@ public class MainActivity extends AppCompatActivity {
                 tv_catContent2.setText(catContent);
                 tv_isiContent2.setText(catDesc);
                 tv_judulContent2.setText(catJudul);
-                Picasso.get().load(catIcon).centerCrop().fit().into(ic_content2);
                 try {
-                    Picasso.get().load(catImages).centerCrop().fit().into(iv_content2);
+                    Glide.with(MainActivity.this).load(catIcon).centerCrop().fitCenter().into(ic_content2);
+                    Glide.with(MainActivity.this).load(catImages).centerCrop().fitCenter().into(iv_content2);
                 } catch (Exception e){
                     Toast.makeText(MainActivity.this, "Gagal memuat gambar 2", Toast.LENGTH_SHORT).show();
                 }
@@ -203,10 +273,10 @@ public class MainActivity extends AppCompatActivity {
                 tv_catContent3.setText(catContent);
                 tv_isiContent3.setText(catDesc);
                 tv_judulContent3.setText(catJudul);
-                Picasso.get().load(catIcon).centerCrop().fit().into(ic_content3);
+
                 try {
-                    Glide.with(MainActivity.this).load(catImages)
-                            .centerCrop().fitCenter().into(iv_content3);
+                    Glide.with(MainActivity.this).load(catIcon).centerCrop().fitCenter().into(ic_content3);
+                    Glide.with(MainActivity.this).load(catImages).centerCrop().fitCenter().into(iv_content3);
                 } catch (Exception e){
                     Toast.makeText(MainActivity.this, "Gagal memuat gambar 3", Toast.LENGTH_SHORT).show();
                 }
@@ -218,6 +288,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
 
         iv_profil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,6 +302,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentFood = new Intent(MainActivity.this, Category.class);
                 intentFood.putExtra("nama_kategori", "makanan");
+                intentFood.putExtra("list_produk1", "kuahseger");
+                intentFood.putExtra("list_produk2", "anekaburger");
+                intentFood.putExtra("list_produk3", "anekamie");
                 startActivity(intentFood);
             }
         });
@@ -239,6 +313,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentDrink = new Intent(MainActivity.this, Category.class);
                 intentDrink.putExtra("nama_kategori", "minuman");
+                intentDrink.putExtra("list_produk1", "dingin");
+                intentDrink.putExtra("list_produk2", "panas");
+                intentDrink.putExtra("list_produk3", "jus");
                 startActivity(intentDrink);
             }
         });
@@ -247,6 +324,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentPaket = new Intent(MainActivity.this, Category.class);
                 intentPaket.putExtra("nama_kategori", "paketcombo");
+                intentPaket.putExtra("list_produk1", "paketsarapan");
+                intentPaket.putExtra("list_produk2", "paketmakansiang");
+                intentPaket.putExtra("list_produk3", "paketkeluarga");
                 startActivity(intentPaket);
             }
         });
@@ -263,6 +343,64 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void loadBuatKamu(){
+        dRef4 = FirebaseDatabase.getInstance().getReference().child("landingPage").child("recomend1");
+        dRef4.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    CategoryModel categoryModel = ds.getValue(CategoryModel.class);
+                    list1.add(categoryModel);
+                }
+                categoryAdapter = new CategoryAdapter(MainActivity.this, list1);
+                rv1.setAdapter(categoryAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void loadPalingLaris(){
+        dRef4 = FirebaseDatabase.getInstance().getReference().child("landingPage").child("recomend2");
+        dRef4.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    CategoryModel categoryModel = ds.getValue(CategoryModel.class);
+                    list2.add(categoryModel);
+                }
+                categoryAdapter = new CategoryAdapter(MainActivity.this, list2);
+                rv2.setAdapter(categoryAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void loadLagiPromo(){
+        dRef4 = FirebaseDatabase.getInstance().getReference().child("landingPage").child("recomend3");
+        dRef4.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    CategoryModel categoryModel = ds.getValue(CategoryModel.class);
+                    list3.add(categoryModel);
+                }
+                categoryAdapter = new CategoryAdapter(MainActivity.this, list3);
+                rv3.setAdapter(categoryAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void getUserLocal(){
         SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
         userkekey = sharedPreferences.getString(userkey, "");
@@ -273,5 +411,10 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
         System.exit(0);
+    }
+
+    @Override
+    public void onRefresh() {
+        loadBuatKamu();
     }
 }

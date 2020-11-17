@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.candra.kedai.R;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -84,10 +85,10 @@ public class Profile extends AppCompatActivity {
                 tulisan_saldo_kamu.setText("Saldo Kamu");
                 tulisan_voucher_kamu.setText("Voucher Kamu");
                 try {
-                    Picasso.get().load(iconSaldo).centerCrop()
-                            .fit().into(ic_saldo);
-                    Picasso.get().load(iconVoucher).centerCrop()
-                            .fit().into(ic_voucher);
+                    Glide.with(Profile.this).load(iconSaldo)
+                            .centerCrop().fitCenter().into(ic_saldo);
+                    Glide.with(Profile.this).load(iconVoucher)
+                            .centerCrop().fitCenter().into(ic_voucher);
                 } catch (Exception e){
                     Toast.makeText(Profile.this, "Icon gagal memuat", Toast.LENGTH_SHORT).show();
                 }
@@ -114,14 +115,16 @@ public class Profile extends AppCompatActivity {
                     final String foto_profil = "" +ds.child("url_images_profil").getValue();
 
                     //setdata
+                    tv_namaLengkap.setText(namalengkap);
+                    tv_saldo.setText(saldo);
+                    tv_voucher.setText(voucher);
                     try {
-                        Picasso.get().load(foto_profil).centerCrop()
-                                .fit().into(iv_profil);
-                        tv_namaLengkap.setText(namalengkap);
-                        tv_saldo.setText(saldo);
-                        tv_voucher.setText(voucher);
+                        Glide.with(Profile.this).load(foto_profil)
+                                .centerCrop().fitCenter().into(iv_profil);
+
                     } catch (Exception e){
-                        Picasso.get().load(R.drawable.none_image_profile).into(iv_profil);
+                        Glide.with(Profile.this).load(R.drawable.none_image_profile)
+                                .centerCrop().fitCenter().into(iv_profil);
                     }
 
                 }

@@ -4,20 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grayPrimary"
+    android:background="@color/navyPrimary"
     tools:context=".activity.EditProfile">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@color/navyPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/btn_backEditProf"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="24dp"
+            android:src="@drawable/back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/btn_backEditProf"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center_vertical"
+            android:text="Edit Profile"
+            android:textColor="@color/whitePrimary"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <View
+                android:id="@+id/view5"
                 android:layout_width="match_parent"
                 android:layout_height="356dp"
                 android:background="@color/navyPrimary"
@@ -25,36 +63,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-                <ImageView
-                    android:id="@+id/btn_backEditProf"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="24dp"
-                    android:src="@drawable/back"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/btn_backEditProf"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="Edit Profile"
-                    android:textColor="@color/whitePrimary"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
@@ -62,9 +70,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
-
-
+                app:layout_constraintTop_toTopOf="@+id/view5">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -77,7 +83,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginBottom="25dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -100,13 +106,14 @@
                             android:layout_width="43dp"
                             android:layout_height="43dp"
                             android:layout_marginEnd="10dp"
-                            android:src="@drawable/ic_baseline_add_a_photo_24"
                             android:background="@drawable/button_add_photo"
+                            android:src="@drawable/ic_baseline_add_a_photo_24"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/iv_fotoEdit" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,15 +132,16 @@
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <EditText
                     android:id="@+id/et_namaEdit"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:layout_marginTop="6dp"
                     android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
                     android:layout_marginEnd="24dp"
-                    android:paddingStart="12dp"
                     android:background="@drawable/bg_input_active"
+                    android:paddingStart="12dp"
                     app:layout_constraintTop_toBottomOf="@id/txt_namalengkap"
                     tools:layout_editor_absoluteX="24dp" />
 
@@ -149,16 +157,17 @@
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/et_namaEdit" />
+
                 <EditText
                     android:id="@+id/et_emailEdit"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:layout_marginTop="6dp"
                     android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
                     android:layout_marginEnd="24dp"
-                    android:paddingStart="12dp"
                     android:background="@drawable/bg_input_active"
-                    app:layout_constraintTop_toBottomOf="@id/txt_emailEdit"/>
+                    android:paddingStart="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/txt_emailEdit" />
 
                 <TextView
                     android:id="@+id/txt_noHP"
@@ -172,16 +181,17 @@
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/et_emailEdit" />
+
                 <EditText
                     android:id="@+id/et_nohpEdit"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:layout_marginTop="6dp"
                     android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
                     android:layout_marginEnd="24dp"
-                    android:paddingStart="12dp"
                     android:background="@drawable/bg_input_active"
-                    app:layout_constraintTop_toBottomOf="@id/txt_noHP"/>
+                    android:paddingStart="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/txt_noHP" />
 
                 <TextView
                     android:id="@+id/txt_jkEdit"
@@ -195,17 +205,19 @@
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/et_nohpEdit" />
+
                 <Spinner
                     android:id="@+id/sp_jkEdit"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:layout_marginTop="6dp"
                     android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
                     android:layout_marginEnd="24dp"
-                    android:paddingStart="6dp"
-                    android:entries="@array/jenis_kelamin"
                     android:background="@drawable/bg_input_active"
-                    app:layout_constraintTop_toBottomOf="@id/txt_jkEdit"/>
+                    android:entries="@array/jenis_kelamin"
+                    android:paddingStart="6dp"
+                    app:layout_constraintTop_toBottomOf="@id/txt_jkEdit" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -227,19 +239,20 @@
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sp_jkEdit" />
+
                 <EditText
                     android:id="@+id/et_tglEdit"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:layout_marginTop="6dp"
                     android:layout_marginStart="24dp"
+                    android:layout_marginTop="6dp"
                     android:layout_marginEnd="24dp"
+                    android:background="@drawable/bg_input_active"
                     android:clickable="true"
+                    android:entries="@array/jenis_kelamin"
                     android:focusable="false"
                     android:paddingStart="12dp"
-                    android:entries="@array/jenis_kelamin"
-                    android:background="@drawable/bg_input_active"
-                    app:layout_constraintTop_toBottomOf="@id/txt_tglLahirEdit"/>
+                    app:layout_constraintTop_toBottomOf="@id/txt_tglLahirEdit" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -254,15 +267,15 @@
                     android:id="@+id/btn_simpanEdit"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="30dp"
+                    android:layout_marginEnd="24dp"
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/button_secondary"
-                    android:textColor="@color/whitePrimary"
-                    android:textSize="22sp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="SIMPAN"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
+                    android:textColor="@color/whitePrimary"
+                    android:textSize="22sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

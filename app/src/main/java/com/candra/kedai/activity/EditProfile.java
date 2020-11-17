@@ -31,6 +31,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.candra.kedai.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -128,13 +129,10 @@ public class EditProfile extends AppCompatActivity {
                     } else {
                         sp_jenisKel.setSelection(1);
                     }
-
                     try {
-                        Picasso.get().load(foto_profil).centerCrop()
-                                .fit().into(iv_profil);
-
+                        Glide.with(EditProfile.this).load(foto_profil).centerCrop().fitCenter().into(iv_profil);
                     } catch (Exception e){
-                        Toast.makeText(EditProfile.this, "Error jenis kelamin", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditProfile.this, "Gagal memuat...", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -214,7 +212,8 @@ public class EditProfile extends AppCompatActivity {
                             dataSnapshot.getRef().child("no_hp").setValue(nohp);
                             dataSnapshot.getRef().child("jenis_kelamin").setValue(jk);
                             dataSnapshot.getRef().child("tgl_lahir").setValue(tgl_lahir);
-
+                            Toast.makeText(EditProfile.this, "Profil berhasil diperbaharui", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
 
                         @Override
@@ -222,9 +221,6 @@ public class EditProfile extends AppCompatActivity {
                             Toast.makeText(EditProfile.this, "Gagal memperbarui profil", Toast.LENGTH_SHORT).show();
                         }
                     });
-
-                    Toast.makeText(EditProfile.this, "Profil berhasil diperbaharui", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
 
                     progressDialog.show();
                     if (lokasi_foto !=null){
@@ -247,8 +243,8 @@ public class EditProfile extends AppCompatActivity {
                             }
                         });
                     } else {
-                        Picasso.get().load(R.drawable.none_image_profile)
-                                .centerCrop().fit().into(iv_profil);
+                        Glide.with(EditProfile.this).load(R.drawable.none_image_profile)
+                                .centerCrop().fitCenter().into(iv_profil);
                     }
                 }
             }
@@ -268,12 +264,8 @@ public class EditProfile extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK){
             assert data !=null;
             lokasi_foto = data.getData();
-            Picasso.get().load(lokasi_foto).centerCrop()
-                    .fit().into(iv_profil);
-
-        } else {
-            Picasso.get().load(R.drawable.none_image_profile).centerCrop()
-                    .fit().into(iv_profil);
+            Glide.with(EditProfile.this).load(lokasi_foto)
+                    .centerCrop().fitCenter().into(iv_profil);
         }
     }
 

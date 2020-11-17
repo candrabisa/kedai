@@ -1,15 +1,15 @@
 package com.candra.kedai.model.category;
 
-public class FoodModel {
+public class CategoryModel {
 
     private String nama_produk, desc, url_images_produk;
     private int harga;
 
-    public FoodModel(){
+    public CategoryModel(){
 
     }
 
-    public FoodModel(String nama_produk, String desc, String url_images_produk, int harga) {
+    public CategoryModel(String nama_produk, String desc, String url_images_produk, int harga) {
         this.nama_produk = nama_produk;
         this.desc = desc;
         this.url_images_produk = url_images_produk;

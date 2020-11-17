@@ -101,17 +101,16 @@
                     android:id="@+id/ic_catMakanan"
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:src="@drawable/ic_makanan"
                     app:layout_constraintBottom_toBottomOf="@+id/bg_foodHome"
                     app:layout_constraintEnd_toEndOf="@id/bg_foodHome"
                     app:layout_constraintStart_toStartOf="@+id/bg_foodHome"
                     app:layout_constraintTop_toTopOf="@+id/bg_foodHome" />
 
                 <TextView
+                    android:id="@+id/tvcatHomeMakanan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/makanan"
                     android:textColor="@color/whitePrimary"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -143,17 +142,16 @@
                     android:id="@+id/ic_catMinuman"
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:src="@drawable/ic_minuman"
                     app:layout_constraintBottom_toBottomOf="@+id/bg_drinkHome"
                     app:layout_constraintEnd_toEndOf="@id/bg_drinkHome"
                     app:layout_constraintStart_toStartOf="@+id/bg_drinkHome"
                     app:layout_constraintTop_toTopOf="@+id/bg_drinkHome" />
 
                 <TextView
+                    android:id="@+id/tvcatHomeMinuman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/minuman"
                     android:textColor="@color/whitePrimary"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -184,17 +182,16 @@
                     android:id="@+id/ic_catPaket"
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:src="@drawable/ic_paket"
                     app:layout_constraintBottom_toBottomOf="@+id/bg_paketHome"
                     app:layout_constraintEnd_toEndOf="@id/bg_paketHome"
                     app:layout_constraintStart_toStartOf="@+id/bg_paketHome"
                     app:layout_constraintTop_toTopOf="@+id/bg_paketHome" />
 
                 <TextView
+                    android:id="@+id/tvcatHomePaket"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/paket_combo"
                     android:textColor="@color/whitePrimary"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -225,17 +222,16 @@
                     android:id="@+id/ic_catCemilan"
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:src="@drawable/ic_cemilan"
                     app:layout_constraintBottom_toBottomOf="@+id/bg_cemilanHome"
                     app:layout_constraintEnd_toEndOf="@id/bg_cemilanHome"
                     app:layout_constraintStart_toStartOf="@+id/bg_cemilanHome"
                     app:layout_constraintTop_toTopOf="@+id/bg_cemilanHome" />
 
                 <TextView
+                    android:id="@+id/tvcatHomeCemilan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="CEMILAN"
                     android:textColor="@color/whitePrimary"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -246,6 +242,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/sw_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -391,16 +388,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView4">
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_buatkamu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:paddingEnd="24dp"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal"
+                        android:paddingEnd="24dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_buatkamu" />
                 </HorizontalScrollView>

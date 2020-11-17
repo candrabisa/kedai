@@ -12,21 +12,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.candra.kedai.R;
 import com.candra.kedai.activity.ProductDetails;
-import com.candra.kedai.model.category.FoodModel;
+import com.candra.kedai.model.category.CategoryModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyHolder> {
 
     Context context;
-    List<FoodModel>listFood;
+    List<CategoryModel>listCategory;
 
-    public FoodAdapter(Context context, List<FoodModel> listFood) {
+    public CategoryAdapter(Context context, List<CategoryModel> listCategory) {
         this.context = context;
-        this.listFood = listFood;
+        this.listCategory = listCategory;
     }
 
     @NonNull
@@ -39,17 +40,17 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
         //ambil data
-        final String foto_produk = listFood.get(position).getUrl_images_produk();
-        final String nama_produk = listFood.get(position).getNama_produk();
-        final int harga_produk = listFood.get(position).getHarga();
+        final String foto_produk = listCategory.get(position).getUrl_images_produk();
+        final String nama_produk = listCategory.get(position).getNama_produk();
+        final int harga_produk = listCategory.get(position).getHarga();
 
-        final String id_produk = listFood.get(position).getNama_produk();
+        final String id_produk = listCategory.get(position).getNama_produk();
 
         //set data
         holder.tv_namaProduk.setText(nama_produk);
-        holder.tv_hargaProduk.setText(harga_produk);
+        holder.tv_hargaProduk.setText(String.valueOf(harga_produk));
         try {
-            Picasso.get().load(foto_produk).placeholder(R.drawable.burger).into(holder.iv_Produk);
+            Glide.with(context).load(foto_produk).centerCrop().fitCenter().into(holder.iv_Produk);
         } catch (Exception e){
             Toast.makeText(context, "Gagal memuat gambar", Toast.LENGTH_SHORT).show();
         }
@@ -65,7 +66,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyHolder> {
 
     @Override
     public int getItemCount() {
-        return listFood.size();
+        return listCategory.size();
     }
 
     static class MyHolder extends RecyclerView.ViewHolder{
