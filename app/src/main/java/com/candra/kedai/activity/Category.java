@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,17 +39,13 @@ public class Category extends AppCompatActivity {
     List<CategoryModel>listkedua = new ArrayList<>();
     List<CategoryModel>listketiga = new ArrayList<>();
 
-    DatabaseReference dRef, dRef1;
-
-    String userkey_ = "userkey";
-    String userkey = "";
-    String userkekey = "";
+    DatabaseReference dRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-        getUserLocal();
+
 
         tv_namaKategori = findViewById(R.id.tv_namaKategori);
         tv_cat1 = findViewById(R.id.tv_cat1);
@@ -71,6 +69,8 @@ public class Category extends AppCompatActivity {
         final String list1 = bundle.getString("list_produk1");
         final String list2 = bundle.getString("list_produk2");
         final String list3 = bundle.getString("list_produk3");
+
+        final String id_produk = bundle.getString("id_produk");
 
         dRef = FirebaseDatabase.getInstance().getReference().child("kategori").child(nama_kategori);
         dRef.addValueEventListener(new ValueEventListener() {
@@ -104,7 +104,18 @@ public class Category extends AppCompatActivity {
                         listkesatu.add(categoryModel);
 
                         catAdapter1 = new CategoryAdapter(Category.this, listkesatu);
+                        catAdapter1.notifyDataSetChanged();
                         rv1.setAdapter(catAdapter1);
+                        rv1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Category.this, CategoryAdapter.class);
+                                intent.putExtra("kategori_detail", nama_kategori);
+                                intent.putExtra("produk_detail", list1);
+                                startActivity(intent);
+                            }
+                        });
+
                     }
                 } catch (Exception e){
 
@@ -116,7 +127,17 @@ public class Category extends AppCompatActivity {
                         listkedua.add(categoryModel);
 
                         catAdapter2 = new CategoryAdapter(Category.this, listkedua);
+                        catAdapter2.notifyDataSetChanged();
                         rv2.setAdapter(catAdapter2);
+                        rv2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Category.this, ProductDetails.class);
+                                intent.putExtra("kategori_detail", nama_kategori);
+                                intent.putExtra("produk_detail", list2);
+                                startActivity(intent);
+                            }
+                        });
                     }
                 } catch (Exception e){
 
@@ -128,6 +149,7 @@ public class Category extends AppCompatActivity {
                         listketiga.add(categoryModel);
 
                         catAdapter3 = new CategoryAdapter(Category.this, listketiga);
+                        catAdapter3.notifyDataSetChanged();
                         rv3.setAdapter(catAdapter3);
                     }   
                 } catch (Exception e){
@@ -141,11 +163,6 @@ public class Category extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void getUserLocal(){
-        SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
-        userkekey = sharedPreferences.getString(userkey, "");
     }
 
 }

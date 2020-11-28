@@ -9,6 +9,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,13 +40,13 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 tv_judulContent1, tv_judulContent2, tv_judulContent3,
                 tv_isiContent1, tv_isiContent2, tv_isiContent3,
                 tv_catContent1, tv_catContent2, tv_catContent3,
-                tvcatHomeCemilan, tvcatHomePaket, tvcatHomeMinuman, tvcatHomeMakanan;
+                tvcatHomeCemilan, tvcatHomePaket, tvcatHomeMinuman, tvcatHomeMakanan,
+                tv_lagipromo, tv_buatkamu, tv_palinglaris;
     ConstraintLayout btn_catFood, btn_drinkHome, btn_paketHome, btn_cemilanHome;
 
     FirebaseUser fUser;
     FirebaseAuth fAuth;
-    DatabaseReference dRef, dRef1, dRef2, dRef3,
-                        dRef4, dRef5,dRef6;
+    DatabaseReference dRef, dRef1, dRef2;
 
     RecyclerView rv1, rv2, rv3;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     List<CategoryModel>list2 = new ArrayList<>();
     List<CategoryModel>list3 = new ArrayList<>();
 
+    Boolean keluar;
     String userkey_ = "userkey";
     String userkey = "";
     String userkekey = "";
@@ -70,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         tv_saldoHome = findViewById(R.id.t2);
         tv_voucherKamu = findViewById(R.id.t3);
         tv_voucherHome = findViewById(R.id.t4);
+        tv_buatkamu = findViewById(R.id.textView4);
+        tv_palinglaris = findViewById(R.id.textView5);
+        tv_lagipromo = findViewById(R.id.textView6);
 
         ic_catMakanan = findViewById(R.id.ic_catMakanan);
         ic_catMinuman = findViewById(R.id.ic_catMinuman);
@@ -116,40 +121,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         swipeRefreshLayout = findViewById(R.id.sw_home);
         swipeRefreshLayout.setOnRefreshListener(this);
-        loadBuatKamu();
-        loadPalingLaris();
-        loadLagiPromo();
-
-        Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("Uid").equalTo(fUser.getUid());
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    //ambildata
-                    final String total_saldo = "Rp. " + ds.child("saldo").getValue();
-                    final String total_voucher = "" + ds.child("voucher").getValue();
-                    final String fotoprofil = "" + ds.child("url_images_profil").getValue();
-
-                    //setdata
-                    tv_saldoHome.setText(total_saldo);
-                    tv_voucherHome.setText(total_voucher);
-                    tv_saldoKamu.setText("Saldo Kamu");
-                    tv_voucherKamu.setText("Voucher Kamu");
-                    try {
-                        Glide.with(MainActivity.this).load(fotoprofil)
-                                .centerCrop().fitCenter().into(iv_profil);
-                    } catch (Exception e){
-                        Picasso.get().load(R.drawable.none_image_profile)
-                                .centerCrop().fit().into(iv_profil);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        loadRekomendasiHome();
+        loadContentHome();
+        loadUserFromDatabase();
 
         dRef = FirebaseDatabase.getInstance().getReference().child("Icon");
         dRef.addValueEventListener(new ValueEventListener() {
@@ -176,6 +150,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 tvcatHomeMinuman.setText(namaMinuman);
                 tvcatHomePaket.setText(namaPaket);
                 tvcatHomeCemilan.setText(namaCemilan);
+                tv_buatkamu.setText("BUAT KAMU");
+                tv_palinglaris.setText("PALING LARIS");
+                tv_lagipromo.setText("LAGI PROMO");
+
                 try {
                     //saldo&voucher
                     Glide.with(MainActivity.this).load(iconSaldo).centerCrop().fitCenter().into(ic_saldo);
@@ -190,97 +168,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     Toast.makeText(MainActivity.this, "Coba lagi", Toast.LENGTH_SHORT).show();
                 }
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        dRef1 = FirebaseDatabase.getInstance().getReference().child("landingPage").child("Content").child("content1");
-        dRef1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //ambil data
-                final String catContent = dataSnapshot.child("kategori").getValue().toString();
-                final String catDesc = dataSnapshot.child("desc").getValue().toString();
-                final String catJudul = dataSnapshot.child("judul_desc").getValue().toString();
-                final String catIcon = dataSnapshot.child("ic_kategori").getValue().toString();
-                final String catImages = dataSnapshot.child("url_images_content").getValue().toString();
-
-                //set data
-                tv_catContent1.setText(catContent);
-                tv_isiContent1.setText(catDesc);
-                tv_judulContent1.setText(catJudul);
-                try {
-                    Glide.with(MainActivity.this).load(catIcon).centerCrop().fitCenter().into(ic_content1);
-                    Glide.with(MainActivity.this).load(catImages).centerCrop().fitCenter().into(iv_content1);
-                } catch (Exception e){
-                    Toast.makeText(MainActivity.this, "Gagal memuat gambar 1", Toast.LENGTH_SHORT).show();
-                }
-               
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        dRef2 = FirebaseDatabase.getInstance().getReference().child("landingPage").child("Content").child("content2");
-        dRef2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //ambil data
-                final String catContent = dataSnapshot.child("kategori").getValue().toString();
-                final String catDesc = dataSnapshot.child("desc").getValue().toString();
-                final String catJudul = dataSnapshot.child("judul_desc").getValue().toString();
-                final String catIcon = dataSnapshot.child("ic_kategori").getValue().toString();
-                final String catImages = dataSnapshot.child("url_images_content").getValue().toString();
-
-                //set data
-                tv_catContent2.setText(catContent);
-                tv_isiContent2.setText(catDesc);
-                tv_judulContent2.setText(catJudul);
-                try {
-                    Glide.with(MainActivity.this).load(catIcon).centerCrop().fitCenter().into(ic_content2);
-                    Glide.with(MainActivity.this).load(catImages).centerCrop().fitCenter().into(iv_content2);
-                } catch (Exception e){
-                    Toast.makeText(MainActivity.this, "Gagal memuat gambar 2", Toast.LENGTH_SHORT).show();
-                }
-                
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        dRef3 = FirebaseDatabase.getInstance().getReference().child("landingPage").child("Content").child("content3");
-        dRef3.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //ambil data
-                final String catContent = dataSnapshot.child("kategori").getValue().toString();
-                final String catDesc = dataSnapshot.child("desc").getValue().toString();
-                final String catJudul = dataSnapshot.child("judul_desc").getValue().toString();
-                final String catIcon = dataSnapshot.child("ic_kategori").getValue().toString();
-                final String catImages = dataSnapshot.child("url_images_content").getValue().toString();
-
-                //set data
-                tv_catContent3.setText(catContent);
-                tv_isiContent3.setText(catDesc);
-                tv_judulContent3.setText(catJudul);
-
-                try {
-                    Glide.with(MainActivity.this).load(catIcon).centerCrop().fitCenter().into(ic_content3);
-                    Glide.with(MainActivity.this).load(catImages).centerCrop().fitCenter().into(iv_content3);
-                } catch (Exception e){
-                    Toast.makeText(MainActivity.this, "Gagal memuat gambar 3", Toast.LENGTH_SHORT).show();
-                }
-                
             }
 
             @Override
@@ -343,36 +230,76 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         });
     }
 
-    private void loadBuatKamu(){
-        dRef4 = FirebaseDatabase.getInstance().getReference().child("landingPage").child("recomend1");
-        dRef4.addValueEventListener(new ValueEventListener() {
+    private void refreshing(boolean b) {
+        if (b){
+            swipeRefreshLayout.setRefreshing(true);
+        } else {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    private void loadUserFromDatabase(){
+        Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("Uid").equalTo(fUser.getUid());
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    //ambildata
+                    final String total_saldo = "Rp. " + ds.child("saldo").getValue();
+                    final String total_voucher = "" + ds.child("voucher").getValue();
+                    final String fotoprofil = "" + ds.child("url_images_profil").getValue();
+
+                    //setdata
+                    tv_saldoHome.setText(total_saldo);
+                    tv_voucherHome.setText(total_voucher);
+                    tv_saldoKamu.setText("Saldo Kamu");
+                    tv_voucherKamu.setText("Voucher Kamu");
+                    try {
+                        Glide.with(MainActivity.this).load(fotoprofil)
+                                .centerCrop().fitCenter().into(iv_profil);
+                    } catch (Exception e){
+                        Picasso.get().load(R.drawable.none_image_profile)
+                                .centerCrop().fit().into(iv_profil);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void loadRekomendasiHome(){
+        dRef2 = FirebaseDatabase.getInstance().getReference().child("landingPage");
+        dRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.child("recomend1").getChildren()){
                     CategoryModel categoryModel = ds.getValue(CategoryModel.class);
                     list1.add(categoryModel);
+
+                    categoryAdapter = new CategoryAdapter(MainActivity.this, list1);
+                    rv1.setAdapter(categoryAdapter);
                 }
-                categoryAdapter = new CategoryAdapter(MainActivity.this, list1);
-                rv1.setAdapter(categoryAdapter);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-    private void loadPalingLaris(){
-        dRef4 = FirebaseDatabase.getInstance().getReference().child("landingPage").child("recomend2");
-        dRef4.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    CategoryModel categoryModel = ds.getValue(CategoryModel.class);
+                for (DataSnapshot ds1 : dataSnapshot.child("recomend2").getChildren()){
+                    CategoryModel categoryModel = ds1.getValue(CategoryModel.class);
                     list2.add(categoryModel);
+
+                    categoryAdapter = new CategoryAdapter(MainActivity.this, list2);
+                    rv2.setAdapter(categoryAdapter);
                 }
-                categoryAdapter = new CategoryAdapter(MainActivity.this, list2);
-                rv2.setAdapter(categoryAdapter);
+
+                for (DataSnapshot ds2 : dataSnapshot.child("recomend3").getChildren()) {
+                    CategoryModel categoryModel = ds2.getValue(CategoryModel.class);
+                    list3.add(categoryModel);
+
+                    categoryAdapter = new CategoryAdapter(MainActivity.this, list3);
+                    rv3.setAdapter(categoryAdapter);
+                }
+                refreshing(false);
             }
 
             @Override
@@ -381,17 +308,66 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         });
     }
-    private void loadLagiPromo(){
-        dRef4 = FirebaseDatabase.getInstance().getReference().child("landingPage").child("recomend3");
-        dRef4.addValueEventListener(new ValueEventListener() {
+    private void loadContentHome(){
+        dRef1 = FirebaseDatabase.getInstance().getReference().child("landingPage").child("Content");
+        dRef1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    CategoryModel categoryModel = ds.getValue(CategoryModel.class);
-                    list3.add(categoryModel);
+                //ambil content ke 1
+                final String catContent1 = dataSnapshot.child("content1").child("kategori").getValue().toString();
+                final String catDesc1 = dataSnapshot.child("content1").child("desc").getValue().toString();
+                final String catJudul1 = dataSnapshot.child("content1").child("judul_desc").getValue().toString();
+                final String catIcon1 = dataSnapshot.child("content1").child("ic_kategori").getValue().toString();
+                final String catImages1 = dataSnapshot.child("content1").child("url_images_content").getValue().toString();
+
+                //set data
+                tv_catContent1.setText(catContent1);
+                tv_isiContent1.setText(catDesc1);
+                tv_judulContent1.setText(catJudul1);
+                try {
+                    Glide.with(MainActivity.this).load(catIcon1).centerCrop().fitCenter().into(ic_content1);
+                    Glide.with(MainActivity.this).load(catImages1).centerCrop().fitCenter().into(iv_content1);
+                } catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Gagal memuat gambar 1", Toast.LENGTH_SHORT).show();
                 }
-                categoryAdapter = new CategoryAdapter(MainActivity.this, list3);
-                rv3.setAdapter(categoryAdapter);
+
+                //ambil content ke 2
+                final String catContent2 = dataSnapshot.child("content2").child("kategori").getValue().toString();
+                final String catDesc2 = dataSnapshot.child("content2").child("desc").getValue().toString();
+                final String catJudul2 = dataSnapshot.child("content2").child("judul_desc").getValue().toString();
+                final String catIcon2 = dataSnapshot.child("content2").child("ic_kategori").getValue().toString();
+                final String catImages2 = dataSnapshot.child("content2").child("url_images_content").getValue().toString();
+
+                //set data
+                tv_catContent2.setText(catContent2);
+                tv_isiContent2.setText(catDesc2);
+                tv_judulContent2.setText(catJudul2);
+                try {
+                    Glide.with(MainActivity.this).load(catIcon2).centerCrop().fitCenter().into(ic_content2);
+                    Glide.with(MainActivity.this).load(catImages2).centerCrop().fitCenter().into(iv_content2);
+                } catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Gagal memuat gambar 2", Toast.LENGTH_SHORT).show();
+                }
+
+                //ambil content ke 3
+                final String catContent3 = dataSnapshot.child("content3").child("kategori").getValue().toString();
+                final String catDesc3 = dataSnapshot.child("content3").child("desc").getValue().toString();
+                final String catJudul3 = dataSnapshot.child("content3").child("judul_desc").getValue().toString();
+                final String catIcon3 = dataSnapshot.child("content3").child("ic_kategori").getValue().toString();
+                final String catImages3 = dataSnapshot.child("content3").child("url_images_content").getValue().toString();
+
+                //set data
+                tv_catContent3.setText(catContent3);
+                tv_isiContent3.setText(catDesc3);
+                tv_judulContent3.setText(catJudul3);
+
+                try {
+                    Glide.with(MainActivity.this).load(catIcon3).centerCrop().fitCenter().into(ic_content3);
+                    Glide.with(MainActivity.this).load(catImages3).centerCrop().fitCenter().into(iv_content3);
+                } catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Gagal memuat gambar 3", Toast.LENGTH_SHORT).show();
+                }
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -406,15 +382,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         userkekey = sharedPreferences.getString(userkey, "");
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-        System.exit(0);
-    }
 
     @Override
     public void onRefresh() {
-        loadBuatKamu();
+        loadContentHome();
+        loadUserFromDatabase();
     }
 }

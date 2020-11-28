@@ -27,9 +27,9 @@
             android:id="@+id/constraint1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -72,9 +72,9 @@
             android:id="@+id/constraint6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/constraint1">
@@ -245,6 +245,7 @@
         android:id="@+id/sw_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/c1">
 
@@ -270,9 +271,9 @@
                     android:id="@+id/constraintLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/dimensatu"
                     android:layout_marginTop="6dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="@dimen/dimensatu"
                     android:background="@drawable/bg_voucher_saldo_home"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -294,7 +295,7 @@
                             android:id="@+id/a1"
                             android:layout_width="42dp"
                             android:layout_height="26dp"
-                            android:layout_centerVertical="true"/>
+                            android:layout_centerVertical="true" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -374,20 +375,20 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/dimensatu"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="BUAT KAMU"
+
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-                <HorizontalScrollView
+                <LinearLayout
                     android:id="@+id/hsv1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="none"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView4">
@@ -396,21 +397,18 @@
                         android:id="@+id/rv_buatkamu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="10dp"
                         android:orientation="horizontal"
-                        android:paddingEnd="24dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_buatkamu" />
-                </HorizontalScrollView>
+                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/content1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/dimensatu"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="@dimen/dimensatu"
                     android:background="@drawable/bg_content_home"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -439,31 +437,39 @@
 
                     <TextView
                         android:id="@+id/tv_judulContentHome"
-                        android:layout_width="145dp"
+                        android:layout_width="148dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="30dp"
+                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/roboto_medium"
+                        android:gravity="start"
+                        android:textAlignment="textStart"
                         android:textColor="@color/whitePrimary"
                         android:textSize="18sp"
+                        app:layout_constraintStart_toEndOf="@+id/cardView"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_kategoriContentHome" />
 
                     <TextView
                         android:id="@+id/tv_isiContentHome"
-                        android:layout_width="145dp"
+                        android:layout_width="148dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/roboto_light"
+                        android:gravity="start"
+                        android:textAlignment="textStart"
                         android:textColor="@color/whitePrimary"
                         android:textSize="10sp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cardView"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_judulContentHome" />
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
                         android:layout_width="144dp"
                         android:layout_height="133dp"
                         android:layout_marginEnd="8dp"
@@ -476,7 +482,7 @@
                         <ImageView
                             android:id="@+id/iv1_isiContent"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
                     </androidx.cardview.widget.CardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -484,41 +490,39 @@
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/dimensatu"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/paling_laris"
+
                     android:textColor="@color/blackPrimary"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/content1" />
 
-                <HorizontalScrollView
+                <LinearLayout
                     android:id="@+id/hsv2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="none"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textView5">
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_palingLaris"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:layout_marginTop="10dp"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_buatkamu" />
-                </HorizontalScrollView>
+                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/content2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/dimensatu"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="@dimen/dimensatu"
                     android:background="@drawable/bg_content_home"
                     android:backgroundTint="#329898"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -548,24 +552,31 @@
 
                     <TextView
                         android:id="@+id/tv2_judulContentHome"
-                        android:layout_width="145dp"
+                        android:layout_width="148dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="30dp"
+                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/roboto_medium"
+                        android:gravity="start"
+                        android:textAlignment="textStart"
                         android:textColor="@color/whitePrimary"
                         android:textSize="18sp"
+                        app:layout_constraintStart_toEndOf="@+id/cardView2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv2_kategoriContentHome" />
 
                     <TextView
                         android:id="@+id/tv2_isiContentHome"
-                        android:layout_width="145dp"
+                        android:layout_width="148dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/roboto_light"
+                        android:gravity="start"
+                        android:textAlignment="textStart"
                         android:textColor="@color/whitePrimary"
                         android:textSize="10sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -573,6 +584,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv2_judulContentHome" />
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
@@ -583,10 +595,9 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:layout_width="144dp"
-                            android:layout_height="133dp"
                             android:id="@+id/iv2_isiContent"
-                            />
+                            android:layout_width="144dp"
+                            android:layout_height="133dp" />
                     </androidx.cardview.widget.CardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -594,41 +605,39 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/dimensatu"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/lagi_promo"
+
                     android:textColor="@color/blackPrimary"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/content2" />
 
-                <HorizontalScrollView
+                <LinearLayout
                     android:id="@+id/hsv3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="none"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textView6">
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_lagiPromo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:layout_marginTop="10dp"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_buatkamu" />
-                </HorizontalScrollView>
+                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/content3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/dimensatu"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="@dimen/dimensatu"
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/bg_content_home"
                     android:backgroundTint="#8D198F"
@@ -660,11 +669,14 @@
 
                     <TextView
                         android:id="@+id/tv3_judulContentHome"
-                        android:layout_width="145dp"
+                        android:layout_width="148dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="30dp"
+                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/roboto_medium"
+                        android:gravity="start"
+                        android:textAlignment="textStart"
                         android:textColor="@color/whitePrimary"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -672,12 +684,15 @@
 
                     <TextView
                         android:id="@+id/tv3_isiContentHome"
-                        android:layout_width="145dp"
+                        android:layout_width="148dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/roboto_light"
+                        android:gravity="start"
+                        android:textAlignment="textStart"
                         android:textColor="@color/whitePrimary"
                         android:textSize="10sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -685,6 +700,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv3_judulContentHome" />
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView3"
                         android:layout_width="144dp"
                         android:layout_height="133dp"
                         android:layout_marginEnd="8dp"

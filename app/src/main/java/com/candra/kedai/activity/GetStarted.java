@@ -16,7 +16,7 @@ public class GetStarted extends AppCompatActivity {
 
     Button btnLogin, btnRegister;
 
-    Boolean keluar = false;
+    private Boolean keluar = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,6 @@ public class GetStarted extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(GetStarted.this, Login.class));
-                finish();
             }
         });
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -44,13 +43,19 @@ public class GetStarted extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        if (keluar){
-            finish();
+        if (keluar) {
+            finish(); // finish activity
+            System.exit(0);
         } else {
-            Toast.makeText(this, "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Tekan back sekali lagi",
+                    Toast.LENGTH_SHORT).show();
             keluar = true;
-            new Handler().postDelayed(() -> keluar = false, 2 * 1000);
-            finish();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    keluar = true;
+                }
+            }, 3 * 1000);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.candra.kedai.adapter.category;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyHold
         final String nama_produk = listCategory.get(position).getNama_produk();
         final int harga_produk = listCategory.get(position).getHarga();
 
-        final String id_produk = listCategory.get(position).getNama_produk();
+        final String id_produk = listCategory.get(position).getId_produk();
 
         //set data
         holder.tv_namaProduk.setText(nama_produk);
@@ -58,7 +59,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyHold
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductDetails.class);
-                intent.putExtra("nama_produk", nama_produk);
+                intent.putExtra("id_produk", id_produk);
                 context.startActivity(intent);
             }
         });

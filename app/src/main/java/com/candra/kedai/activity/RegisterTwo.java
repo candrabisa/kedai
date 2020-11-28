@@ -80,7 +80,6 @@ public class RegisterTwo extends AppCompatActivity {
     StorageReference sRef;
 
     Uri lokasi_foto;
-    Integer max_foto = 1;
 
     String userkey_ = "userkey";
     String userkey = "";
@@ -189,7 +188,7 @@ public class RegisterTwo extends AppCompatActivity {
                                         public void onSuccess(Uri uri) {
                                             Intent intent = new Intent(RegisterTwo.this, SuccessRegister.class);
                                             startActivity(intent);
-                                            progressDialog.dismiss();
+                                            finish();
                                         }
                                     });
                                 }

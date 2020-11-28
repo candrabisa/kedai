@@ -3,12 +3,16 @@ package com.candra.kedai.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,18 +36,17 @@ import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 
 public class Profile extends AppCompatActivity {
 
-    CircularProgressButton btn_logout;
-    ImageView iv_profil, ic_saldo, ic_voucher;
+    Button btn_logout;
+    ImageView iv_profil, ic_saldo, ic_voucher, btn_backProfile;
     TextView tv_namaLengkap, tv_saldo, tv_voucher, tulisan_saldo_kamu, tulisan_voucher_kamu;
 
-    RelativeLayout btn_editProfil;
+    RelativeLayout btn_editProfil, btn_alamatPengiriman;
 
     ShimmerFrameLayout shimmer1;
 
     FirebaseUser fUser;
     FirebaseAuth fAuth;
     DatabaseReference dRef;
-    StorageReference sRef;
 
     String userkey_ = "userkey";
     String userkey = "";
@@ -68,7 +71,9 @@ public class Profile extends AppCompatActivity {
         tulisan_saldo_kamu = findViewById(R.id.tulisan_saldo_kamu);
         tulisan_voucher_kamu = findViewById(R.id.tulisan_voucher_kamu);
 
+        btn_backProfile = findViewById(R.id.btn_backProfile);
         btn_editProfil = findViewById(R.id.rl_editProfil);
+        btn_alamatPengiriman = findViewById(R.id.rl_alamatPengiriman);
 
         btn_logout = findViewById(R.id.btn_logout);
         shimmer1 = findViewById(R.id.shimmer_profil);
@@ -147,17 +152,46 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        btn_alamatPengiriman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAddress = new Intent(Profile.this, Address.class);
+                startActivity(intentAddress);
+            }
+        });
+
+        btn_backProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_logout.startAnimation();
-                SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(userkey, null);
-                editor.apply();
-                btn_logout.stopProgressAnimation();
-                startActivity(new Intent(Profile.this, Login.class));
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+                builder.setMessage("Apa yakin ingin keluar?");
+                builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(userkey, null);
+                        editor.clear().apply();
+
+                        Intent intent = new Intent(Profile.this, GetStarted.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
             }
         });
 

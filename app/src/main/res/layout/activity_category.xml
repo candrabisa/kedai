@@ -33,7 +33,7 @@
                 android:id="@+id/btn_backProfile"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/back"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,32 +56,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="@dimen/dimensatu"
                 android:textSize="16sp"
                 android:textColor="@color/blackPrimary"
                 android:fontFamily="@font/roboto_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bg_category" />
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView"
-                android:layout_width="match_parent"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                android:scrollbars="none"
-                app:layout_constraintTop_toBottomOf="@id/tv_cat1">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_category1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:paddingEnd="24dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_buatkamu" />
-            </HorizontalScrollView>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_cat1"
+                tools:listitem="@layout/item_buatkamu" />
 
             <TextView
                 android:id="@+id/tv_cat2"
@@ -90,28 +81,22 @@
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/blackPrimary"
                 android:textSize="16sp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="@dimen/dimensatu"
                 android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"/>
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                app:layout_constraintTop_toBottomOf="@id/tv_cat2">
+                app:layout_constraintTop_toBottomOf="@+id/rv_category1"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_category2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingEnd="24dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_buatkamu" />
-            </HorizontalScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_cat2"
+                tools:listitem="@layout/item_buatkamu" />
 
             <TextView
                 android:id="@+id/tv_cat3"
@@ -120,32 +105,24 @@
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/blackPrimary"
                 android:textSize="16sp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="@dimen/dimensatu"
                 android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView1"/>
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView2"
-                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_category2"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_category3"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_cat3">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_category3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingEnd="24dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_buatkamu" />
-            </HorizontalScrollView>
-
-
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_cat3"
+                tools:listitem="@layout/item_buatkamu" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

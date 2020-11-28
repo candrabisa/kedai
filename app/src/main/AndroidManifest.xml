@@ -20,7 +20,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ProductDetails"></activity>
+        <activity android:name=".activity.ChangeAddress"
+            android:theme="@style/AppTheme.NoAction"></activity>
+        <activity android:name=".activity.Address"
+            android:theme="@style/AppTheme.NoAction"/>
+        <activity
+            android:name=".activity.ProductDetails"
+            android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.Category"
             android:theme="@style/AppTheme.NoAction" />
@@ -45,12 +51,12 @@
         <activity
             android:name=".activity.Login"
             android:theme="@style/AppTheme.NoAction" />
-        <activity
-            android:name=".activity.GetStarted"
-            android:theme="@style/AppTheme.NoAction" />
         <activity android:name=".activity.OnBoard" />
         <activity
             android:name=".activity.MainActivity"
+            android:theme="@style/AppTheme.NoAction" />
+        <activity
+            android:name=".activity.GetStarted"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.SplashScreen"

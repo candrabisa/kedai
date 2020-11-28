@@ -2,17 +2,18 @@ package com.candra.kedai.model.category;
 
 public class CategoryModel {
 
-    private String nama_produk, desc, url_images_produk;
+    private String nama_produk, desc, url_images_produk, id_produk;
     private int harga;
 
     public CategoryModel(){
 
     }
 
-    public CategoryModel(String nama_produk, String desc, String url_images_produk, int harga) {
+    public CategoryModel(String nama_produk, String desc, String url_images_produk, String id_produk, int harga) {
         this.nama_produk = nama_produk;
         this.desc = desc;
         this.url_images_produk = url_images_produk;
+        this.id_produk = id_produk;
         this.harga = harga;
     }
 
@@ -40,6 +41,14 @@ public class CategoryModel {
         this.url_images_produk = url_images_produk;
     }
 
+    public String getId_produk() {
+        return id_produk;
+    }
+
+    public void setId_produk(String id_produk) {
+        this.id_produk = id_produk;
+    }
+
     public int getHarga() {
         return harga;
     }
@@ -47,4 +56,8 @@ public class CategoryModel {
     public void setHarga(int harga) {
         this.harga = harga;
     }
+
+
+
+
 }

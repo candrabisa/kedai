@@ -13,9 +13,19 @@
     <string name="saldo">SALDO</string>
     <string name="belum_dipilih">Belum dipilih</string>
     <string name="close">Tutup</string>
+    <string name="ubah_alamat">Pastikan alamat yang kamu cantumkan sudah sesuai dengan alamat tujuan kamu</string>
 
     <string-array name="jenis_kelamin">
         <item>Laki-laki</item>
         <item>Perempuan</item>
+    </string-array>
+
+    <string-array name="jenis_alamat">
+        <item>Rumah</item>
+        <item>Kantor</item>
+        <item>Sekolah</item>
+        <item>Kampus</item>
+        <item>Panti</item>
+        <item>Tempat Usaha</item>
     </string-array>
 </resources>

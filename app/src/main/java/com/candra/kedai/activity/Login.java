@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.candra.kedai.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,7 +45,7 @@ public class Login extends AppCompatActivity {
 
     FirebaseAuth fAuth;
 
-    String userkey_ = "emailkey";
+    String userkey_ = "userkey";
     String userkey = "";
 
     @Override
@@ -134,8 +137,5 @@ public class Login extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(Login.this, GetStarted.class);
-        startActivity(intent);
-        finish();
     }
 }

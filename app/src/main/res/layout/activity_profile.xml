@@ -2,21 +2,64 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/grayPrimary"
+    android:background="@color/navyPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.Profile">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_baseline_settings_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profil"
+            android:textSize="20sp"
+            android:textColor="@color/whitePrimary"
+            android:fontFamily="@font/roboto_bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_backProfile"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="356dp"
@@ -26,41 +69,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="24dp"
-                    android:src="@drawable/ic_baseline_settings_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/btn_backProfile"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/back"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+                app:layout_constraintTop_toTopOf="parent"
+                >
 
                 <com.facebook.shimmer.ShimmerFrameLayout
                     android:id="@+id/shimmer_profil"
@@ -222,6 +237,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:paddingBottom="30dp"
                 android:background="@drawable/bg_detail"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
@@ -229,7 +245,7 @@
                     android:id="@+id/akun_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/dimendua"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="AKUN"
@@ -243,8 +259,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:paddingStart="38dp"
-                    android:paddingEnd="38dp"
+                    android:paddingStart="@dimen/dimendua"
+                    android:paddingEnd="@dimen/dimendua"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/akun_detail">
@@ -277,8 +293,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:paddingStart="38dp"
-                    android:paddingEnd="38dp"
+                    android:paddingStart="@dimen/dimendua"
+                    android:paddingEnd="@dimen/dimendua"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rl_editProfil">
@@ -311,8 +327,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:paddingStart="38dp"
-                    android:paddingEnd="38dp"
+                    android:paddingStart="@dimen/dimendua"
+                    android:paddingEnd="@dimen/dimendua"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rl_alamatPengiriman">
@@ -344,8 +360,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:paddingStart="38dp"
-                    android:paddingEnd="38dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rl_riwayatPesanan">
@@ -384,7 +400,7 @@
                     android:id="@+id/txtPusatBantuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/dimendua"
                     android:layout_marginTop="16dp"
                     android:textSize="16sp"
                     android:fontFamily="@font/roboto_medium"
@@ -398,8 +414,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:paddingStart="38dp"
-                    android:paddingEnd="38dp"
+                    android:paddingStart="@dimen/dimendua"
+                    android:paddingEnd="@dimen/dimendua"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtPusatBantuan">
@@ -431,8 +447,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:paddingStart="38dp"
-                    android:paddingEnd="38dp"
+                    android:paddingStart="@dimen/dimendua"
+                    android:paddingEnd="@dimen/dimendua"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rl_caraIsiSaldo">
@@ -464,8 +480,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:paddingStart="38dp"
-                    android:paddingEnd="38dp"
+                    android:paddingStart="@dimen/dimendua"
+                    android:paddingEnd="@dimen/dimendua"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rl_caraPesan">
@@ -497,8 +513,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:paddingStart="38dp"
-                    android:paddingEnd="38dp"
+                    android:paddingStart="@dimen/dimendua"
+                    android:paddingEnd="@dimen/dimendua"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rl_caraMenggunakanVoucher">
@@ -537,7 +553,7 @@
                     android:id="@+id/txt_lainnya"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/dimendua"
                     android:layout_marginTop="16dp"
                     android:textSize="16sp"
                     android:fontFamily="@font/roboto_medium"
@@ -551,8 +567,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:paddingStart="38dp"
-                    android:paddingEnd="38dp"
+                    android:paddingStart="@dimen/dimendua"
+                    android:paddingEnd="@dimen/dimendua"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txt_lainnya">
@@ -584,8 +600,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:paddingStart="38dp"
-                    android:paddingEnd="38dp"
+                    android:paddingStart="@dimen/dimendua"
+                    android:paddingEnd="@dimen/dimendua"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rl_kebijakanPrivasi">
@@ -617,8 +633,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:paddingStart="38dp"
-                    android:paddingEnd="38dp"
+                    android:paddingStart="@dimen/dimendua"
+                    android:paddingEnd="@dimen/dimendua"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rl_ketentuanLayanan">
@@ -645,7 +661,7 @@
                         android:background="@color/grayPrimary" />
                 </RelativeLayout>
 
-                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                <Button
                     android:id="@+id/btn_logout"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
@@ -657,8 +673,8 @@
                     android:textSize="22sp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="LOGOUT"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginStart="@dimen/dimensatu"
+                    android:layout_marginEnd="@dimen/dimensatu"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

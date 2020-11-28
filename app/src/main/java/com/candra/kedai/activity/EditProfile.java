@@ -132,7 +132,7 @@ public class EditProfile extends AppCompatActivity {
                     try {
                         Glide.with(EditProfile.this).load(foto_profil).centerCrop().fitCenter().into(iv_profil);
                     } catch (Exception e){
-                        Toast.makeText(EditProfile.this, "Gagal memuat...", Toast.LENGTH_SHORT).show();
+
                     }
 
                 }

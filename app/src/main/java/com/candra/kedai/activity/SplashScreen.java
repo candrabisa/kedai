@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 
 public class SplashScreen extends AppCompatActivity {
 
-    String userkey_ = "emailkey";
+    String userkey_ = "userkey";
     String userkey = "";
     String userkekey = "";
 
@@ -47,12 +47,12 @@ public class SplashScreen extends AppCompatActivity {
                 }
             }, 2000);
         } else {
-
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if (Build.VERSION.SDK_INT<Build.VERSION_CODES.P){
-                        startActivity(new Intent(SplashScreen.this, MainActivity.class));
+                        Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                        startActivity(intent);
                         finish();
                     } else {
                         fingerPrint();
