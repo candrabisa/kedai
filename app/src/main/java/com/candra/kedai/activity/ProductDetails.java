@@ -1,20 +1,29 @@
 package com.candra.kedai.activity;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.candra.kedai.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProductDetails extends AppCompatActivity {
@@ -23,17 +32,24 @@ public class ProductDetails extends AppCompatActivity {
     TextView tv_hargaProduk, tv_namaProduk, tv_descProduk, tv_qty, tv_saldoKamu, tv_totalHarga;
     Button btn_pesan, btn_min, btn_plus;
 
-    DatabaseReference dRef;
+    Integer saldo_saya = 0;
+    Integer harga_produk = 0;
+    Integer total_harga = 0;
+    Integer qty = 1;
+    Integer sisa_saldo = 0;
 
-    String userkey_ = "userkey";
-    String userkey = "";
-    String userkekey = "";
+    FirebaseUser fUser;
+
+    DatabaseReference dRef;
+    private static final String TAG = "ProductDetails";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
-        getUserLocal();
+
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
 
         btn_back = findViewById(R.id.btn_backProdukDetail);
         btn_pesan = findViewById(R.id.btn_pesanSekarang);
@@ -48,20 +64,26 @@ public class ProductDetails extends AppCompatActivity {
         tv_saldoKamu = findViewById(R.id.tv_saldoKamu);
         tv_totalHarga = findViewById(R.id.tv_totalHarga);
 
-        String bundle1 = getIntent().getStringExtra("id_produk");
+        tv_qty.setText(qty.toString());
+
         Bundle bundle = getIntent().getExtras();
         final String id_produk = bundle.getString("id_produk");
-        final String nama_kategori = bundle.getString("kategori_detail");
-        final String produk_detail = bundle.getString("produk_detail");
+        final String kategori = bundle.getString("kategori");
+        final String produk_detail = bundle.getString("detail_kategori");
+        Log.d(TAG, "cek nama kategori: "+kategori);
 
-        dRef = FirebaseDatabase.getInstance().getReference().child("kategori").child(nama_kategori).child(produk_detail).child(id_produk);
+        dRef = FirebaseDatabase.getInstance().getReference().child("kategori").child(kategori).child(produk_detail).child(id_produk);
         dRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                harga_produk = Integer.valueOf(snapshot.child("harga").getValue().toString());
+                total_harga = harga_produk * qty;
+                tv_totalHarga.setText("Rp. " +total_harga+"");
+
                 tv_namaProduk.setText(snapshot.child("nama_produk").getValue().toString());
                 tv_descProduk.setText(snapshot.child("desc").getValue().toString());
-                tv_hargaProduk.setText(snapshot.child("harga").getValue().toString());
-                Glide.with(ProductDetails.this).load("url_images_produk")
+                tv_hargaProduk.setText("Rp." +harga_produk+"");
+                Glide.with(ProductDetails.this).load(snapshot.child("url_images_produk").getValue().toString())
                         .centerCrop().fitCenter().into(iv_produkDetail);
             }
 
@@ -70,10 +92,59 @@ public class ProductDetails extends AppCompatActivity {
 
             }
         });
+
+        Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("Uid").equalTo(fUser.getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()){
+                    saldo_saya = Integer.valueOf(ds.child("saldo").getValue().toString());
+                    tv_saldoKamu.setText("Rp. " + saldo_saya+"");
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        btn_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qty += 1;
+                tv_qty.setText(qty.toString());
+                if (qty > 1){
+                    btn_min.setEnabled(true);
+                }
+                total_harga = harga_produk * qty;
+                tv_totalHarga.setText("Rp. " +total_harga+"");
+                if (saldo_saya < total_harga){
+                    btn_pesan.setBackgroundResource(R.drawable.bg_input_satu);
+                    btn_pesan.setEnabled(false);
+                }
+            }
+        });
+        btn_min.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qty -= 1;
+                tv_qty.setText(qty.toString());
+                if (qty < 2 ){
+                    btn_min.setEnabled(false);
+                }
+                total_harga = harga_produk * qty;
+                tv_totalHarga.setText("Rp. " + total_harga+"");
+                if (saldo_saya > total_harga){
+                    btn_pesan.setBackgroundResource(R.drawable.button_primary);
+                    btn_pesan.setEnabled(true);
+                } else if (saldo_saya.equals(total_harga)){
+                    btn_pesan.setBackgroundResource(R.drawable.button_primary);
+                    btn_pesan.setEnabled(true);
+                }
+            }
+        });
     }
 
-    public void getUserLocal(){
-        SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
-        userkekey = sharedPreferences.getString(userkey, "");
-    }
 }

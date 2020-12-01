@@ -71,15 +71,10 @@ public class EditProfile extends AppCompatActivity {
     Calendar munculTgl;
     DatePickerDialog.OnDateSetListener date;
 
-    FirebaseAuth fAuth;
     FirebaseUser fUser;
 
     DatabaseReference dRef;
     StorageReference sRef;
-
-    String userkey_ = "userkey";
-    String userkey = "";
-    String userkekey = "";
 
     Uri lokasi_foto;
 
@@ -88,7 +83,8 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        getUserLocal();
+
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
 
         et_nama = findViewById(R.id.et_namaEdit);
         et_email = findViewById(R.id.et_emailEdit);
@@ -102,8 +98,6 @@ public class EditProfile extends AppCompatActivity {
         btn_backAppbar = findViewById(R.id.btn_backEditProf);
 
         progressDialog = new ProgressDialog(EditProfile.this);
-        fAuth = FirebaseAuth.getInstance();
-        fUser = fAuth.getCurrentUser();
 
         Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("Uid").equalTo(fUser.getUid());
         query.addValueEventListener(new ValueEventListener() {
@@ -249,6 +243,13 @@ public class EditProfile extends AppCompatActivity {
                 }
             }
         });
+
+        btn_backAppbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     String getFileExtension(Uri uri){
@@ -270,8 +271,4 @@ public class EditProfile extends AppCompatActivity {
     }
 
 
-    public void getUserLocal(){
-        SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
-        userkekey = sharedPreferences.getString(userkey, "");
-    }
 }

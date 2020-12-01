@@ -33,13 +33,14 @@ public class Category extends AppCompatActivity {
     TextView tv_namaKategori, tv_cat1, tv_cat2, tv_cat3;
     ImageView iv_headerKategori;
 
-    RecyclerView rv1, rv2, rv3;
+    RecyclerView rv1, rv2, rv3;//kenapa recycle view onclick? ngarang2 gw wkwkk abis bingung
     CategoryAdapter catAdapter1, catAdapter2, catAdapter3;
     List<CategoryModel>listkesatu = new ArrayList<>();
     List<CategoryModel>listkedua = new ArrayList<>();
     List<CategoryModel>listketiga = new ArrayList<>();
 
     DatabaseReference dRef;
+    private static final String TAG = "Category";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +97,6 @@ public class Category extends AppCompatActivity {
                 tv_cat2.setText(varian2);
                 tv_cat3.setText(varian3);
 
-
                 //list variannya
                 try {
                     for (DataSnapshot ds : dataSnapshot.child(list1).getChildren()){
@@ -106,16 +106,6 @@ public class Category extends AppCompatActivity {
                         catAdapter1 = new CategoryAdapter(Category.this, listkesatu);
                         catAdapter1.notifyDataSetChanged();
                         rv1.setAdapter(catAdapter1);
-                        rv1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(Category.this, CategoryAdapter.class);
-                                intent.putExtra("kategori_detail", nama_kategori);
-                                intent.putExtra("produk_detail", list1);
-                                startActivity(intent);
-                            }
-                        });
-
                     }
                 } catch (Exception e){
 
@@ -129,15 +119,6 @@ public class Category extends AppCompatActivity {
                         catAdapter2 = new CategoryAdapter(Category.this, listkedua);
                         catAdapter2.notifyDataSetChanged();
                         rv2.setAdapter(catAdapter2);
-                        rv2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(Category.this, ProductDetails.class);
-                                intent.putExtra("kategori_detail", nama_kategori);
-                                intent.putExtra("produk_detail", list2);
-                                startActivity(intent);
-                            }
-                        });
                     }
                 } catch (Exception e){
 

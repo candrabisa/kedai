@@ -45,7 +45,6 @@ public class Profile extends AppCompatActivity {
     ShimmerFrameLayout shimmer1;
 
     FirebaseUser fUser;
-    FirebaseAuth fAuth;
     DatabaseReference dRef;
 
     String userkey_ = "userkey";
@@ -59,8 +58,7 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         getUserLocal();
 
-        fAuth = FirebaseAuth.getInstance();
-        fUser = fAuth.getCurrentUser();
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
 
         iv_profil = findViewById(R.id.iv_profilProf);
         ic_saldo = findViewById(R.id.ic_saldoProfil);

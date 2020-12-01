@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     ConstraintLayout btn_catFood, btn_drinkHome, btn_paketHome, btn_cemilanHome;
 
     FirebaseUser fUser;
-    FirebaseAuth fAuth;
     DatabaseReference dRef, dRef1, dRef2;
 
     RecyclerView rv1, rv2, rv3;
@@ -56,15 +55,14 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     List<CategoryModel>list3 = new ArrayList<>();
 
     Boolean keluar;
-    String userkey_ = "userkey";
-    String userkey = "";
-    String userkekey = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getUserLocal();
+
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
 
         ic_saldo = findViewById(R.id.a1);
         ic_voucher = findViewById(R.id.a2);
@@ -115,9 +113,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         rv1 = findViewById(R.id.rv_buatkamu);
         rv2 = findViewById(R.id.rv_palingLaris);
         rv3 = findViewById(R.id.rv_lagiPromo);
-
-        fAuth = FirebaseAuth.getInstance();
-        fUser = fAuth.getCurrentUser();
 
         swipeRefreshLayout = findViewById(R.id.sw_home);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -176,7 +171,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         });
 
-
         iv_profil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -184,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 startActivity(intentprofil);
             }
         });
+
         btn_catFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 startActivity(intentFood);
             }
         });
+
         btn_drinkHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -376,12 +372,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         });
     }
-
-    public void getUserLocal(){
-        SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
-        userkekey = sharedPreferences.getString(userkey, "");
-    }
-
 
     @Override
     public void onRefresh() {

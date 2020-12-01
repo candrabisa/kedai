@@ -3,6 +3,7 @@ package com.candra.kedai.adapter.category;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,14 +39,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyHold
                 .inflate(R.layout.item_buatkamu, parent, false));
     }
 
+    private static final String TAG = "CategoryAdapter";
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+
         //ambil data
         final String foto_produk = listCategory.get(position).getUrl_images_produk();
         final String nama_produk = listCategory.get(position).getNama_produk();
+        final String desc = listCategory.get(position).getDesc();
         final int harga_produk = listCategory.get(position).getHarga();
 
         final String id_produk = listCategory.get(position).getId_produk();
+        final String kategori = listCategory.get(position).getKategori();
+        final String detail_kategri = listCategory.get(position).getDetail_kategori();
 
         //set data
         holder.tv_namaProduk.setText(nama_produk);
@@ -60,6 +66,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyHold
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductDetails.class);
                 intent.putExtra("id_produk", id_produk);
+                intent.putExtra("kategori", kategori);
+                intent.putExtra("detail_kategori", detail_kategri);
                 context.startActivity(intent);
             }
         });

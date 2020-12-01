@@ -59,78 +59,83 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
+
+            <TextView
+                android:id="@+id/tvJenisAlamat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jenis Alamat"
+                android:layout_marginTop="@dimen/dimendua"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"/>
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/sp_jenisAlamat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimendua"
-                app:layout_constraintTop_toBottomOf="@+id/textView3">
+                android:entries="@array/jenis_alamat"
+                app:hintText="Jenis Alamat"
+                app:layout_constraintTop_toBottomOf="@id/tvJenisAlamat"/>
 
-                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                    android:id="@+id/sp_jenisAlamat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/jenis_alamat"
-                    app:hintText="Jenis Alamat" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout2"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvProvinsi"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimendua"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
-
-                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                    android:id="@+id/sp_provinsi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    app:hintText="Provinsi" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout3"
+                android:text="Provinsi"
+                app:layout_constraintTop_toBottomOf="@id/sp_jenisAlamat"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/sp_provinsi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimendua"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+                android:focusable="false"
+                app:hintText="Provinsi"
+                app:layout_constraintTop_toBottomOf="@id/tvProvinsi"/>
 
-                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                    android:id="@+id/sp_kabKota"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:hintText="Kab/Kota" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout4"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvKabKota"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimendua"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
-                tools:layout_editor_absoluteX="12dp">
-
-                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                    android:id="@+id/sp_kecamatan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:hintText="Kecamatan" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout5"
+                android:text="Kabupaten/Kota"
+                app:layout_constraintTop_toBottomOf="@id/sp_provinsi"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/sp_kabKota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimendua"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+                app:hintText="Kab/Kota"
+                app:layout_constraintTop_toBottomOf="@id/tvKabKota"/>
 
-                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                    android:id="@+id/sp_kelurahan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:hintText="Kelurahan" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/tvKecamatan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimendua"
+                android:text="Kecamatan"
+                app:layout_constraintTop_toBottomOf="@id/sp_kabKota"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/sp_kecamatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintText="Kecamatan"
+                app:layout_constraintTop_toBottomOf="@id/tvKecamatan"/>
+
+            <TextView
+                android:id="@+id/tvKelurahan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimendua"
+                android:text="Kelurahan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sp_kecamatan"/>
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/sp_kelurahan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintText="Kelurahan"
+                app:layout_constraintTop_toBottomOf="@id/tvKelurahan"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout6"
@@ -139,7 +144,7 @@
                 android:layout_marginTop="@dimen/dimendua"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
+                app:layout_constraintTop_toBottomOf="@+id/sp_kelurahan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_alamatLengkap"
                     android:layout_width="match_parent"
