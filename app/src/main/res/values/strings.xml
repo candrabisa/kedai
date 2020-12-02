@@ -14,6 +14,8 @@
     <string name="belum_dipilih">Belum dipilih</string>
     <string name="close">Tutup</string>
     <string name="ubah_alamat">Pastikan alamat yang kamu cantumkan sudah sesuai dengan alamat tujuan kamu</string>
+    <string name="transaksi_berhasil">Transaksi berhasil, silahkan menunggu pesanan anda tiba.</string>
+    <string name="pesan_suksesbuy">Mohon tetap untuk patuhi protokol kesehatan dirumah. Himbauan untuk segera mencuci tangan setelah bertemu kurir.</string>
 
     <string-array name="jenis_kelamin">
         <item>Laki-laki</item>

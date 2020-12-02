@@ -4,6 +4,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -36,7 +37,6 @@ public class ProductDetails extends AppCompatActivity {
     Integer harga_produk = 0;
     Integer total_harga = 0;
     Integer qty = 1;
-    Integer sisa_saldo = 0;
 
     FirebaseUser fUser;
 
@@ -66,6 +66,9 @@ public class ProductDetails extends AppCompatActivity {
 
         tv_qty.setText(qty.toString());
 
+        btn_min.animate().alpha(0).setDuration(100).start();
+        btn_min.setEnabled(false);
+
         Bundle bundle = getIntent().getExtras();
         final String id_produk = bundle.getString("id_produk");
         final String kategori = bundle.getString("kategori");
@@ -85,6 +88,8 @@ public class ProductDetails extends AppCompatActivity {
                 tv_hargaProduk.setText("Rp." +harga_produk+"");
                 Glide.with(ProductDetails.this).load(snapshot.child("url_images_produk").getValue().toString())
                         .centerCrop().fitCenter().into(iv_produkDetail);
+
+
             }
 
             @Override
@@ -100,6 +105,11 @@ public class ProductDetails extends AppCompatActivity {
                 for (DataSnapshot ds : snapshot.getChildren()){
                     saldo_saya = Integer.valueOf(ds.child("saldo").getValue().toString());
                     tv_saldoKamu.setText("Rp. " + saldo_saya+"");
+
+                    if (saldo_saya < total_harga){
+                        btn_pesan.setBackgroundResource(R.drawable.bg_input_satu);
+                        btn_pesan.setEnabled(false);
+                    }
                 }
 
             }
@@ -116,6 +126,7 @@ public class ProductDetails extends AppCompatActivity {
                 qty += 1;
                 tv_qty.setText(qty.toString());
                 if (qty > 1){
+                    btn_min.animate().alpha(1).setDuration(100).start();
                     btn_min.setEnabled(true);
                 }
                 total_harga = harga_produk * qty;
@@ -132,6 +143,7 @@ public class ProductDetails extends AppCompatActivity {
                 qty -= 1;
                 tv_qty.setText(qty.toString());
                 if (qty < 2 ){
+                    btn_min.animate().alpha(0).setDuration(100).start();
                     btn_min.setEnabled(false);
                 }
                 total_harga = harga_produk * qty;
@@ -143,6 +155,25 @@ public class ProductDetails extends AppCompatActivity {
                     btn_pesan.setBackgroundResource(R.drawable.button_primary);
                     btn_pesan.setEnabled(true);
                 }
+            }
+        });
+        btn_pesan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentPesan = new Intent(ProductDetails.this, ProductCheckout.class);
+                intentPesan.putExtra("kategori", kategori);
+                intentPesan.putExtra("produk_detail", produk_detail);
+                intentPesan.putExtra("id_produk", id_produk);
+                intentPesan.putExtra("qty_pesanan", qty);
+                intentPesan.putExtra("total_harga_pesanan", total_harga);
+                intentPesan.putExtra("saldo_saya", saldo_saya);
+                startActivity(intentPesan);
+            }
+        });
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }

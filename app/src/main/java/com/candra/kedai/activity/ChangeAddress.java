@@ -49,10 +49,6 @@ public class ChangeAddress extends AppCompatActivity {
     Button btn_simpanAlamat;
     ImageView btn_backUbahAlamat;
 
-    String userkey_ = "userkey";
-    String userkey = "";
-    String userkekey = "";
-
     List<String> listProvinsi = new ArrayList<>();
     List<Region> provinsiItem = new ArrayList<>();
 
