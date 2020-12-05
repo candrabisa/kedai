@@ -40,7 +40,7 @@ public class Profile extends AppCompatActivity {
     ImageView iv_profil, ic_saldo, ic_voucher, btn_backProfile;
     TextView tv_namaLengkap, tv_saldo, tv_voucher, tulisan_saldo_kamu, tulisan_voucher_kamu;
 
-    RelativeLayout btn_editProfil, btn_alamatPengiriman;
+    RelativeLayout btn_editProfil, btn_alamatPengiriman, btn_riwayatPesanan;
 
     ShimmerFrameLayout shimmer1;
 
@@ -72,6 +72,7 @@ public class Profile extends AppCompatActivity {
         btn_backProfile = findViewById(R.id.btn_backProfile);
         btn_editProfil = findViewById(R.id.rl_editProfil);
         btn_alamatPengiriman = findViewById(R.id.rl_alamatPengiriman);
+        btn_riwayatPesanan = findViewById(R.id.rl_riwayatPesanan);
 
         btn_logout = findViewById(R.id.btn_logout);
         shimmer1 = findViewById(R.id.shimmer_profil);
@@ -155,6 +156,14 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentAddress = new Intent(Profile.this, Address.class);
                 startActivity(intentAddress);
+            }
+        });
+
+        btn_riwayatPesanan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentRiwayat = new Intent(Profile.this, OrderHistory.class);
+                startActivity(intentRiwayat);
             }
         });
 

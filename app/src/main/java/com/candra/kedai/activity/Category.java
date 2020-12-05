@@ -33,7 +33,7 @@ public class Category extends AppCompatActivity {
     TextView tv_namaKategori, tv_cat1, tv_cat2, tv_cat3;
     ImageView iv_headerKategori;
 
-    RecyclerView rv1, rv2, rv3;//kenapa recycle view onclick? ngarang2 gw wkwkk abis bingung
+    RecyclerView rv1, rv2, rv3;
     CategoryAdapter catAdapter1, catAdapter2, catAdapter3;
     List<CategoryModel>listkesatu = new ArrayList<>();
     List<CategoryModel>listkedua = new ArrayList<>();

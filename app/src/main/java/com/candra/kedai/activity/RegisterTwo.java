@@ -55,12 +55,12 @@ import retrofit2.Response;
 
 public class RegisterTwo extends AppCompatActivity {
 
-    SearchableSpinner sProvinsi, sKota, sKecamatan, sKelurahan;
+    SearchableSpinner sJenisAlamat, sProvinsi, sKota, sKecamatan, sKelurahan;
 
     CircularProgressButton btn_register;
     ImageView btn_back, iv_foto;
     ImageButton btn_addFoto;
-    EditText et_alamatLengkap, et_jenisAlamat;
+    EditText et_alamatLengkap;
 
     ProgressDialog progressDialog;
 
@@ -91,7 +91,7 @@ public class RegisterTwo extends AppCompatActivity {
         setContentView(R.layout.activity_register_two);
         getUserLokal();
 
-        et_jenisAlamat = findViewById(R.id.etJenisAlamat_Reg);
+        sJenisAlamat = findViewById(R.id.etJenisAlamat_Reg);
         et_alamatLengkap = findViewById(R.id.et_alamatReg);
         sProvinsi = findViewById(R.id.et_province);
         sKota = findViewById(R.id.et_kota);
@@ -109,7 +109,7 @@ public class RegisterTwo extends AppCompatActivity {
             public void onClick(View view) {
 
                 try {
-                    String jenis_alamat = et_jenisAlamat.getText().toString();
+                    String jenis_alamat = sJenisAlamat.getSelectedItem().toString();
                     String alamat = et_alamatLengkap.getText().toString();
                     String provinsi = sProvinsi.getSelectedItem().toString();
                     String kota = sKota.getSelectedItem().toString();
@@ -118,8 +118,7 @@ public class RegisterTwo extends AppCompatActivity {
 
 
                     if (jenis_alamat.isEmpty()){
-                        et_jenisAlamat.setError("Nama belum diisi");
-                        et_jenisAlamat.setFocusable(true);
+                        Toast.makeText(RegisterTwo.this, "Jenis alamat belum dipilih", Toast.LENGTH_SHORT).show();
                         return;
                     } else if (sProvinsi.equals("")){
                         Toast.makeText(RegisterTwo.this, "Provinsi belum dipilih", Toast.LENGTH_SHORT).show();

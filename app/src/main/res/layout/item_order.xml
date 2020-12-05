@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dimensatu"
+    android:orientation="horizontal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimensatu"
+        android:background="@drawable/bg_item_list_order">
+        <TextView
+            android:id="@+id/tv_tglPembelian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="20-10-2020"
+            android:textColor="@color/blackPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_invoicePembelian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INV-12121291021"
+            android:textColor="@color/blackPrimary"
+            android:fontFamily="@font/roboto_medium"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <View
+            android:id="@+id/view12"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/dimensatu"
+            android:background="@color/greyStrip"
+            app:layout_constraintTop_toBottomOf="@id/tv_tglPembelian"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView4"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="@dimen/dimensatu"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view12">
+
+            <ImageView
+                android:id="@+id/iv_produkListOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/esteh" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_namaProdukListOrder"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimensatu"
+            android:layout_marginStart="8dp"
+            android:text="Burger Hot With 2 Cheese"
+            android:textColor="@color/blackPrimary"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/cardView4"
+            app:layout_constraintTop_toBottomOf="@id/view12"/>
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="@dimen/dimensatu"
+            android:background="@drawable/button_add_photo"
+            android:backgroundTint="@color/greyStrip"
+            android:src="@drawable/ic_navigate_next_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view12" />
+
+        <TextView
+            android:id="@+id/tv_qtyPembelian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="@dimen/dimensatu"
+            android:text="2x"
+            android:textColor="@color/blackPrimary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/view13"
+            app:layout_constraintStart_toEndOf="@+id/cardView4" />
+
+        <TextView
+            android:id="@+id/tv_hargaProdukListOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimensatu"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Rp. 24.000"
+            android:textColor="@color/pinkPrimary"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/view13"/>
+
+        <View
+            android:id="@+id/view13"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/dimensatu"
+            android:background="@color/greyStrip"
+            app:layout_constraintTop_toBottomOf="@id/cardView4" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimensatu"
+            android:text="Total Pembayaran"
+            android:textColor="@color/blackPrimary"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view13" />
+
+        <TextView
+            android:id="@+id/tv_totalPembayaranListOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimensatu"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Rp. 48.000"
+            android:textColor="@color/orangePrimary"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/view13"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <View
+            android:id="@+id/view14"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/dimensatu"
+            android:background="@color/greyStrip"
+            app:layout_constraintTop_toBottomOf="@+id/textView13"/>
+
+        <TextView
+            android:id="@+id/tv_statusPesananListOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DALAM PROSES"
+            android:textColor="@color/navyPrimary"
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_marginTop="@dimen/dimensatu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view14" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

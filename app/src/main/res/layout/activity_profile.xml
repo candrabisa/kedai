@@ -303,7 +303,7 @@
                         android:id="@+id/txt0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Alamat Pengiriman"
+                        android:text="Alamat pengiriman"
                         android:textColor="@color/blackPrimary"
                         android:textSize="16sp" />
 

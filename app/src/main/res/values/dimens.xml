@@ -2,4 +2,5 @@
 <resources>
     <dimen name="dimensatu">12dp</dimen>
     <dimen name="dimendua">24dp</dimen>
+    <dimen name="card_radius">6dp</dimen>
 </resources>

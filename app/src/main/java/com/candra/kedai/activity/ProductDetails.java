@@ -107,7 +107,7 @@ public class ProductDetails extends AppCompatActivity {
                     tv_saldoKamu.setText("Rp. " + saldo_saya+"");
 
                     if (saldo_saya < total_harga){
-                        btn_pesan.setBackgroundResource(R.drawable.bg_input_satu);
+                        btn_pesan.setBackgroundResource(R.color.grayPrimary);
                         btn_pesan.setEnabled(false);
                     }
                 }
@@ -132,7 +132,7 @@ public class ProductDetails extends AppCompatActivity {
                 total_harga = harga_produk * qty;
                 tv_totalHarga.setText("Rp. " +total_harga+"");
                 if (saldo_saya < total_harga){
-                    btn_pesan.setBackgroundResource(R.drawable.bg_input_satu);
+                    btn_pesan.setBackgroundResource(R.drawable.button_false);
                     btn_pesan.setEnabled(false);
                 }
             }

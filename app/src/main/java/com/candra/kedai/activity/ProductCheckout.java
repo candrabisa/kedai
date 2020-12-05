@@ -45,13 +45,15 @@ public class ProductCheckout extends AppCompatActivity {
     Integer total_pembayaran = 0;
     Integer ongkos_kirim = 10000;
     Integer sisa_saldo = 0;
+    Integer pakai_voucher = 0;
 
     DatabaseReference dRef, dRef1, dRef2;
     FirebaseUser fUser;
 
-    ProgressDialog progressDialog = new ProgressDialog(this);
+    ProgressDialog progressDialog;
 
     String waktu, tanggal;
+    String url_images_produk;
     Integer nomor_transaksi = new Random().nextInt();
 
     @Override
@@ -95,6 +97,8 @@ public class ProductCheckout extends AppCompatActivity {
         tanggal = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         waktu = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
 
+        progressDialog = new ProgressDialog(ProductCheckout.this);
+
         dRef = FirebaseDatabase.getInstance().getReference("kategori").child(nama_kategori).child(detail_kategori).child(id_produk);
         dRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -110,8 +114,9 @@ public class ProductCheckout extends AppCompatActivity {
 
                 tv_checkoutProductNama.setText(snapshot.child("nama_produk").getValue().toString());
                 tv_checkoutProductHarga.setText("Rp. " + harga_produk+"");
-                Glide.with(ProductCheckout.this).load(snapshot.child("url_images_produk").getValue().toString())
-                        .centerCrop().fitCenter().into(iv_productCheckout);
+
+                url_images_produk = snapshot.child("url_images_produk").getValue().toString();
+                Glide.with(ProductCheckout.this).load(url_images_produk).centerCrop().into(iv_productCheckout);
 
 
             }
@@ -135,8 +140,6 @@ public class ProductCheckout extends AppCompatActivity {
                     final String kab_kota = ds.child("kab_kota").getValue().toString();
                     final String provinsi = ds.child("provinsi").getValue().toString();
                     saldo_kamu = Integer.valueOf(saldo_saya.toString());
-//                    total_harga = harga_produk * saldo_kamu;
-//                    tv_totalHargaCheckout.setText(total_harga);
 
                     tv_namaPembeliCheckout.setText(namapembeli);
                     tv_jenisAlamatCheckout.setText(jenis_alamat);
@@ -146,6 +149,14 @@ public class ProductCheckout extends AppCompatActivity {
                     tv_kabKotaCheckout.setText(kab_kota);
                     tv_provinsiCheckout.setText(provinsi);
                     tv_saldoKamuCheckout.setText("Rp. " + saldo_kamu+"");
+
+                    if (saldo_kamu < total_pembayaran){
+                        tv_saldoKamuCheckout.setError("Saldo tidak mencukupi");
+                        btn_bayarCheckout.setBackgroundResource(R.color.grayPrimary);
+                        btn_bayarCheckout.setEnabled(false);
+                    } else {
+                        btn_bayarCheckout.setEnabled(true);
+                    }
                 }
             }
 
@@ -162,28 +173,36 @@ public class ProductCheckout extends AppCompatActivity {
                 progressDialog.setCancelable(false);
                 progressDialog.show();
 
-                dRef1 = FirebaseDatabase.getInstance().getReference().child("Pembelian").child(fUser.getUid()).child("INV" + nomor_transaksi);
+                dRef1 = FirebaseDatabase.getInstance().getReference().child("Pesanan").child(fUser.getUid()).child("INV" + nomor_transaksi);
                 dRef1.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         snapshot.getRef().child("invoice").setValue("INV" + nomor_transaksi.toString());
                         snapshot.getRef().child("tgl_transaksi").setValue(tanggal);
                         snapshot.getRef().child("waktu_transaksi").setValue(waktu);
+                        snapshot.getRef().child("nama_kategori").setValue(nama_kategori);
+                        snapshot.getRef().child("detail_kategori").setValue(detail_kategori);
                         snapshot.getRef().child("id_produk").setValue(id_produk);
+                        snapshot.getRef().child("url_images_produk").setValue(url_images_produk);
                         snapshot.getRef().child("nama_produk").setValue(tv_checkoutProductNama.getText().toString());
-                        snapshot.getRef().child("harga_produk").setValue(tv_checkoutProductHarga.getText().toString());
+                        snapshot.getRef().child("harga_produk").setValue(harga_produk);
                         snapshot.getRef().child("qty").setValue(qty_pesanan);
-                        snapshot.getRef().child("nama_pembeli").setValue(tv_namaPembeliCheckout.getText().toString());
+                        snapshot.getRef().child("nama_pemesan").setValue(tv_namaPembeliCheckout.getText().toString());
                         snapshot.getRef().child("jenis_alamat").setValue(tv_jenisAlamatCheckout.getText().toString());
                         snapshot.getRef().child("alamat_lengkap").setValue(tv_alamatLengkapCheckout.getText().toString());
                         snapshot.getRef().child("kelurahan").setValue(tv_kelurahanCheckout.getText().toString().toLowerCase());
                         snapshot.getRef().child("kecamatan").setValue(tv_kecamatanCheckout.getText().toString().toLowerCase());
                         snapshot.getRef().child("kab_kota").setValue(tv_kabKotaCheckout.getText().toString().toLowerCase());
                         snapshot.getRef().child("provinsi").setValue(tv_provinsiCheckout.getText().toString().toLowerCase());
+                        snapshot.getRef().child("total_harga_pesanan").setValue(total_pesanan);
+                        snapshot.getRef().child("harga_ongkir").setValue(ongkos_kirim);
+                        snapshot.getRef().child("pakai_voucher").setValue(pakai_voucher);
                         snapshot.getRef().child("total_pembayaran").setValue(total_pembayaran);
                         snapshot.getRef().child("metode_pembayaran").setValue("Saldo Kedai");
                         snapshot.getRef().child("status_pembayaran").setValue("Dibayar");
-                        snapshot.getRef().child("status_pesanan").setValue("Diproses");
+                        snapshot.getRef().child("status_pesanan").setValue("Sedang diproses");
+
+                        progressDialog.dismiss();
                     }
 
                     @Override
@@ -200,6 +219,7 @@ public class ProductCheckout extends AppCompatActivity {
 
                         Intent intentSuccess = new Intent(ProductCheckout.this, SuccessBuy.class);
                         startActivity(intentSuccess);
+                        finish();
                     }
 
                     @Override
@@ -209,7 +229,7 @@ public class ProductCheckout extends AppCompatActivity {
                 });
             }
         });
-        progressDialog.dismiss();
+
 
         btn_editAlamatCheckout.setOnClickListener(new View.OnClickListener() {
             @Override

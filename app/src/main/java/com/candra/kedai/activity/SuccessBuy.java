@@ -33,7 +33,7 @@ public class SuccessBuy extends AppCompatActivity {
         btn_lihatPesanan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentPesanan = new Intent(SuccessBuy.this, ListOrder.class);
+                Intent intentPesanan = new Intent(SuccessBuy.this, OrderHistory.class);
                 startActivity(intentPesanan);
             }
         });
