@@ -20,6 +20,8 @@ public class CategoryModel {
     private String kategori;
     @SerializedName("detail_kategori")
     private String detail_kategori;
+    @SerializedName("rekomendasi")
+    private String rekomendasi;
 
     // bsa ngga lu tambahin variabel nama_kategori sama nama makanan
 
@@ -34,7 +36,7 @@ public class CategoryModel {
 
     }
 
-    public CategoryModel(String id_produk, String nama_produk, String desc, String url_images_produk, int harga, String kategori, String detail_kategori) {
+    public CategoryModel(String id_produk, String nama_produk, String desc, String url_images_produk, int harga, String kategori, String detail_kategori, String rekomendasi) {
         this.id_produk = id_produk;
         this.nama_produk = nama_produk;
         this.desc = desc;
@@ -42,6 +44,7 @@ public class CategoryModel {
         this.harga = harga;
         this.kategori = kategori;
         this.detail_kategori = detail_kategori;
+        this.rekomendasi = rekomendasi;
     }
 
     public String getId_produk() {
@@ -98,5 +101,13 @@ public class CategoryModel {
 
     public void setDetail_kategori(String detail_kategori) {
         this.detail_kategori = detail_kategori;
+    }
+
+    public String getRekomendasi() {
+        return rekomendasi;
+    }
+
+    public void setRekomendasi(String rekomendasi) {
+        this.rekomendasi = rekomendasi;
     }
 }

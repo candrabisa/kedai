@@ -31,7 +31,7 @@ import java.util.List;
 public class Category extends AppCompatActivity {
 
     TextView tv_namaKategori, tv_cat1, tv_cat2, tv_cat3;
-    ImageView iv_headerKategori;
+    ImageView iv_headerKategori, btn_backProfile;
 
     RecyclerView rv1, rv2, rv3;
     CategoryAdapter catAdapter1, catAdapter2, catAdapter3;
@@ -47,6 +47,7 @@ public class Category extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
+        btn_backProfile = findViewById(R.id.btn_backProfile);
 
         tv_namaKategori = findViewById(R.id.tv_namaKategori);
         tv_cat1 = findViewById(R.id.tv_cat1);
@@ -141,6 +142,12 @@ public class Category extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 
+            }
+        });
+        btn_backProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

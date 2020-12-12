@@ -103,32 +103,38 @@ public class EditProfile extends AppCompatActivity {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        //ambil data
+                        final String namalengkap = "" + ds.child("nama_lengkap").getValue().toString();
+                        final String email = "" + ds.child("email").getValue().toString();
+                        final String nohp = "" + ds.child("no_hp").getValue().toString();
 
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    //ambil data
-                    final String namalengkap = "" + ds.child("nama_lengkap").getValue().toString();
-                    final String email = "" + ds.child("email").getValue().toString();
-                    final String nohp = "" + ds.child("no_hp").getValue().toString();
-                    final String foto_profil = "" + ds.child("url_images_profil").getValue().toString();
-                    final String tgl_lahir = "" + ds.child("tgl_lahir").getValue().toString();
-                    final String jenis_kelamin = "" + ds.child("jenis_kelamin").getValue().toString();
+                        final String tgl_lahir = "" + ds.child("tgl_lahir").getValue().toString();
+                        final String jenis_kelamin = "" + ds.child("jenis_kelamin").getValue().toString();
 
-                    //set data
-                    et_nama.setText(namalengkap);
-                    et_email.setText(email);
-                    et_nohp.setText(nohp);
-                    et_tgl.setText(tgl_lahir);
-                    if (jenis_kelamin.equals("Laki-laki")){
-                        sp_jenisKel.setSelection(0);
-                    } else {
-                        sp_jenisKel.setSelection(1);
+                        //set data
+                        et_nama.setText(namalengkap);
+                        et_email.setText(email);
+                        et_nohp.setText(nohp);
+                        et_tgl.setText(tgl_lahir);
+                        if (jenis_kelamin.equals("Laki-laki")){
+                            sp_jenisKel.setSelection(0);
+                        } else {
+                            sp_jenisKel.setSelection(1);
+                        }
+                        try {
+                            final String foto_profil = "" + ds.child("url_images_profil").getValue().toString();
+                            Glide.with(EditProfile.this).load(foto_profil)
+                                    .centerCrop().into(iv_profil);
+                        } catch (Exception e){
+                            Glide.with(EditProfile.this).load(R.drawable.none_image_profile)
+                                    .centerCrop().into(iv_profil);
+                        }
+
                     }
-                    try {
-                        Glide.with(EditProfile.this).load(foto_profil).centerCrop().fitCenter().into(iv_profil);
-                    } catch (Exception e){
-
-                    }
-
+                } catch (Exception e){
+                    Glide.with(EditProfile.this).load(R.drawable.none_image_profile).centerCrop().into(iv_profil);
                 }
 
             }
@@ -206,8 +212,7 @@ public class EditProfile extends AppCompatActivity {
                             dataSnapshot.getRef().child("no_hp").setValue(nohp);
                             dataSnapshot.getRef().child("jenis_kelamin").setValue(jk);
                             dataSnapshot.getRef().child("tgl_lahir").setValue(tgl_lahir);
-                            Toast.makeText(EditProfile.this, "Profil berhasil diperbaharui", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
+                            
                         }
 
                         @Override
@@ -215,8 +220,7 @@ public class EditProfile extends AppCompatActivity {
                             Toast.makeText(EditProfile.this, "Gagal memperbarui profil", Toast.LENGTH_SHORT).show();
                         }
                     });
-
-                    progressDialog.show();
+                    
                     if (lokasi_foto !=null){
                         sRef = FirebaseStorage.getInstance().getReference("PhotoUsers").child(fUser.getUid());
                         final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." +
@@ -237,6 +241,8 @@ public class EditProfile extends AppCompatActivity {
                             }
                         });
                     } else {
+                        progressDialog.dismiss();
+                        Toast.makeText(EditProfile.this, "Profil berhasil di perbaharui", Toast.LENGTH_SHORT).show();
                         Glide.with(EditProfile.this).load(R.drawable.none_image_profile)
                                 .centerCrop().fitCenter().into(iv_profil);
                     }
@@ -247,7 +253,7 @@ public class EditProfile extends AppCompatActivity {
         btn_backAppbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
             }
         });
     }

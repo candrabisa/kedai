@@ -1,6 +1,7 @@
 package com.candra.kedai.adapter.listorder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.candra.kedai.R;
+import com.candra.kedai.activity.OrderDetails;
 import com.candra.kedai.model.listorder.ListOrderModel;
 
 import java.util.List;
@@ -58,7 +60,9 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.MyHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, OrderDetails.class);
+                intent.putExtra("invoice", invoice);
+                context.startActivity(intent);
             }
         });
     }

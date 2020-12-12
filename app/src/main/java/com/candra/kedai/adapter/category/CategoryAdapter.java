@@ -52,6 +52,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyHold
         final String id_produk = listCategory.get(position).getId_produk();
         final String kategori = listCategory.get(position).getKategori();
         final String detail_kategri = listCategory.get(position).getDetail_kategori();
+        final String rekomendasi = listCategory.get(position).getRekomendasi();
 
         //set data
         holder.tv_namaProduk.setText(nama_produk);
@@ -64,11 +65,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ProductDetails.class);
-                intent.putExtra("id_produk", id_produk);
-                intent.putExtra("kategori", kategori);
-                intent.putExtra("detail_kategori", detail_kategri);
-                context.startActivity(intent);
+                try {
+                    Intent intent = new Intent(context, ProductDetails.class);
+                    intent.putExtra("id_produk", id_produk);
+                    intent.putExtra("kategori", kategori);
+                    intent.putExtra("detail_kategori", detail_kategri);
+                    context.startActivity(intent);
+                } catch (Exception e){
+                    Toast.makeText(context, "Lihat di kategori", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

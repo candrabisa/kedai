@@ -37,17 +37,15 @@ public class RegisterOne extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
-    FirebaseAuth fAuth;
-    DatabaseReference dRef;
-    String userkey_ = "userkey";
-    String userkey = "" ;
+//    FirebaseAuth fAuth;
+//    DatabaseReference dRef;
+//    String userkey_ = "userkey";
+//    String userkey = "" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_one);
-
-        fAuth = FirebaseAuth.getInstance();
 
         etNama = findViewById(R.id.etUserName_Reg);
         etEmail = findViewById(R.id.etEmail_Reg);
@@ -71,7 +69,6 @@ public class RegisterOne extends AppCompatActivity {
                 final String password = etPassword.getText().toString();
                 final String cpassword = etCPass.getText().toString();
                 final String jenis_kelamin = sp_jenisKel.getSelectedItem().toString();
-
 
                 if (nama_lengkap.isEmpty()) {
                     etNama.setError("Username belum diisi");
@@ -102,57 +99,66 @@ public class RegisterOne extends AppCompatActivity {
                     etCPass.requestFocus();
                     return;
                 } else {
-                    progressDialog = new ProgressDialog(RegisterOne.this);
-                    progressDialog.setMessage("Mohon menunggu...");
-                    progressDialog.setCancelable(false);
-                    progressDialog.show();
-                    fAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(RegisterOne.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()){
-                                        (fAuth.getCurrentUser()).sendEmailVerification()
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()){
+                    Intent intentNext = new Intent(RegisterOne.this, RegisterTwo.class);
+                    intentNext.putExtra("nama_lengkap", nama_lengkap);
+                    intentNext.putExtra("email", email);
+                    intentNext.putExtra("no_hp", no_hp);
+                    intentNext.putExtra("password", password);
+                    intentNext.putExtra("jenis_kelamin", jenis_kelamin);
+                    startActivity(intentNext);
 
-                                                            String emailID = fAuth.getCurrentUser().getEmail();
-                                                            String UserID = fAuth.getCurrentUser().getUid();
-
-                                                            Map<String, String> user = new HashMap<>();
-                                                            user.put("nama_lengkap", nama_lengkap);
-                                                            user.put("email", email);
-                                                            user.put("no_hp", no_hp);
-                                                            user.put("password", password);
-                                                            user.put("Uid", UserID);
-                                                            user.put("online_status", "offline");
-                                                            user.put("typing", "tidak");
-                                                            user.put("jenis_kelamin", jenis_kelamin);
-                                                            user.put("tgl_lahir", "Belum diisi");
-
-                                                            dRef = FirebaseDatabase.getInstance().getReference("Users");
-                                                            dRef.child(UserID).setValue(user);
-
-                                                            SharedPreferences sPref = getSharedPreferences(userkey_, MODE_PRIVATE);
-                                                            SharedPreferences.Editor editor = sPref.edit();
-                                                            editor.putString(userkey, UserID);
-                                                            editor.apply();
-                                                            Intent intentNext = new Intent(RegisterOne.this, RegisterTwo.class);
-                                                            startActivity(intentNext);
-                                                        } else {
-                                                            Toast.makeText(RegisterOne.this,"Email telah digunakan", Toast.LENGTH_SHORT).show();
-                                                            progressDialog.dismiss();
-                                                        }
-                                                    }
-                                                });
-                                    } else {
-                                        Toast.makeText(RegisterOne.this, "Email tidak valid atau telah digunakan", Toast.LENGTH_SHORT).show();
-                                        etEmail.setFocusable(true);
-                                        progressDialog.dismiss();
-                                    }
-                                }
-                            });
+//                    progressDialog = new ProgressDialog(RegisterOne.this);
+//                    progressDialog.setMessage("Mohon menunggu...");
+//                    progressDialog.setCancelable(false);
+//                    progressDialog.show();
+//
+//                    fAuth.createUserWithEmailAndPassword(email, password)
+//                            .addOnCompleteListener(RegisterOne.this, new OnCompleteListener<AuthResult>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<AuthResult> task) {
+//                                    if (task.isSuccessful()){
+//                                        (fAuth.getCurrentUser()).sendEmailVerification()
+//                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                    @Override
+//                                                    public void onComplete(@NonNull Task<Void> task) {
+//                                                        if (task.isSuccessful()){
+//
+//                                                            String emailID = fAuth.getCurrentUser().getEmail();
+//                                                            String UserID = fAuth.getCurrentUser().getUid();
+//
+//                                                            Map<String, String> user = new HashMap<>();
+//                                                            user.put("nama_lengkap", nama_lengkap);
+//                                                            user.put("email", email);
+//                                                            user.put("no_hp", no_hp);
+//                                                            user.put("password", password);
+//                                                            user.put("Uid", UserID);
+//                                                            user.put("online_status", "offline");
+//                                                            user.put("typing", "tidak");
+//                                                            user.put("jenis_kelamin", jenis_kelamin);
+//                                                            user.put("tgl_lahir", "Belum diisi");
+//
+//                                                            dRef = FirebaseDatabase.getInstance().getReference("Users");
+//                                                            dRef.child(UserID).setValue(user);
+//
+//                                                            SharedPreferences sPref = getSharedPreferences(userkey_, MODE_PRIVATE);
+//                                                            SharedPreferences.Editor editor = sPref.edit();
+//                                                            editor.putString(userkey, UserID);
+//                                                            editor.apply();
+//                                                            Intent intentNext = new Intent(RegisterOne.this, RegisterTwo.class);
+//                                                            startActivity(intentNext);
+//                                                        } else {
+//                                                            Toast.makeText(RegisterOne.this,"Email telah digunakan", Toast.LENGTH_SHORT).show();
+//                                                            progressDialog.dismiss();
+//                                                        }
+//                                                    }
+//                                                });
+//                                    } else {
+//                                        Toast.makeText(RegisterOne.this, "Email tidak valid atau telah digunakan", Toast.LENGTH_SHORT).show();
+//                                        etEmail.setFocusable(true);
+//                                        progressDialog.dismiss();
+//                                    }
+//                                }
+//                            });
                 }
             }
         });
@@ -160,7 +166,7 @@ public class RegisterOne extends AppCompatActivity {
         iv_kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                finish();
             }
         });
     }

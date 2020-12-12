@@ -110,28 +110,33 @@ public class Profile extends AppCompatActivity {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
 
-                    //ambildata
-                    final String namalengkap = "" + ds.child("nama_lengkap").getValue();
-                    final String saldo = "Rp. " + ds.child("saldo").getValue();
-                    final String voucher = ds.child("voucher").getValue() + " Voucher";
-                    final String foto_profil = "" +ds.child("url_images_profil").getValue();
+                try {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()){
+                        //ambildata
+                        final String namalengkap = "" + ds.child("nama_lengkap").getValue();
+                        final String saldo = "Rp. " + ds.child("saldo").getValue();
+                        final String voucher = ds.child("voucher").getValue() + " Voucher";
 
-                    //setdata
-                    tv_namaLengkap.setText(namalengkap);
-                    tv_saldo.setText(saldo);
-                    tv_voucher.setText(voucher);
-                    try {
-                        Glide.with(Profile.this).load(foto_profil)
-                                .centerCrop().fitCenter().into(iv_profil);
+                        //setdata
+                        tv_namaLengkap.setText(namalengkap);
+                        tv_saldo.setText(saldo);
+                        tv_voucher.setText(voucher);
 
-                    } catch (Exception e){
-                        Glide.with(Profile.this).load(R.drawable.none_image_profile)
-                                .centerCrop().fitCenter().into(iv_profil);
+                        try {
+                            final String fotoprofil = "" +ds.child("url_images_profil").getValue().toString();
+                            Glide.with(Profile.this).load(fotoprofil)
+                                    .centerCrop().fitCenter().into(iv_profil);
+                        } catch (Exception e){
+                            Glide.with(Profile.this).load(R.drawable.none_image_profile)
+                                    .centerCrop().fitCenter().into(iv_profil);
+                        }
+
                     }
+                } catch (Exception e){
 
                 }
+
                 shimmer1.stopShimmer();
                 shimmer1.setVisibility(View.GONE);
             }
@@ -170,7 +175,7 @@ public class Profile extends AppCompatActivity {
         btn_backProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
             }
         });
 
@@ -186,6 +191,8 @@ public class Profile extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(userkey, null);
                         editor.clear().apply();
+
+                        FirebaseAuth.getInstance().signOut();
 
                         Intent intent = new Intent(Profile.this, GetStarted.class);
                         startActivity(intent);

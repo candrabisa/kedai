@@ -32,7 +32,12 @@ import com.candra.kedai.model.address.Data;
 import com.candra.kedai.model.address.Region;
 import com.candra.kedai.model.address.UniqueCode;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,7 +51,9 @@ import com.squareup.picasso.Picasso;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import retrofit2.Call;
@@ -76,20 +83,26 @@ public class RegisterTwo extends AppCompatActivity {
     private List<String> listKelurahan = new ArrayList<>();
     List<Region> kelurahanItems = new ArrayList<>();
 
-    DatabaseReference dRef;
+    DatabaseReference dRef, dRef1;
     StorageReference sRef;
 
-    Uri lokasi_foto;
+//    FirebaseUser fUser;
+    FirebaseAuth fAuth;
 
-    String userkey_ = "userkey";
-    String userkey = "";
-    String userkekey = "";
+    Uri lokasi_foto, lokasi_foto1;
+
+//    String userkey_ = "userkey";
+//    String userkey = "";
+//    String userkekey = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_two);
-        getUserLokal();
+//        getUserLokal();
+        ambilUniqueCode();
+
+        fAuth = FirebaseAuth.getInstance();
 
         sJenisAlamat = findViewById(R.id.etJenisAlamat_Reg);
         et_alamatLengkap = findViewById(R.id.et_alamatReg);
@@ -102,20 +115,24 @@ public class RegisterTwo extends AppCompatActivity {
         btn_back = findViewById(R.id.iv_kembaliReg2);
         btn_addFoto = findViewById(R.id.btn_addPhotoReg);
 
-        ambilUniqueCode();
+        Bundle bundle = getIntent().getExtras();
+        final String nama_lengkap = bundle.getString("nama_lengkap");
+        final String email = bundle.getString("email");
+        final String no_hp = bundle.getString("no_hp");
+        final String password = bundle.getString("password");
+        final String jenis_kelamin = bundle.getString("jenis_kelamin");
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 try {
-                    String jenis_alamat = sJenisAlamat.getSelectedItem().toString();
-                    String alamat = et_alamatLengkap.getText().toString();
-                    String provinsi = sProvinsi.getSelectedItem().toString();
-                    String kota = sKota.getSelectedItem().toString();
-                    String kecamatan = sKecamatan.getSelectedItem().toString();
-                    String kelurahan = sKelurahan.getSelectedItem().toString();
-
+                    final String jenis_alamat = sJenisAlamat.getSelectedItem().toString();
+                    final String alamat = et_alamatLengkap.getText().toString();
+                    final String provinsi = sProvinsi.getSelectedItem().toString();
+                    final String kota = sKota.getSelectedItem().toString();
+                    final String kecamatan = sKecamatan.getSelectedItem().toString();
+                    final String kelurahan = sKelurahan.getSelectedItem().toString();
 
                     if (jenis_alamat.isEmpty()){
                         Toast.makeText(RegisterTwo.this, "Jenis alamat belum dipilih", Toast.LENGTH_SHORT).show();
@@ -148,52 +165,112 @@ public class RegisterTwo extends AppCompatActivity {
                         progressDialog.setCancelable(false);
                         progressDialog.show();
 
-                        dRef = FirebaseDatabase.getInstance().getReference().child("Users")
-                                .child(userkekey);
-                        dRef.addValueEventListener(new ValueEventListener() {
+                        fAuth.createUserWithEmailAndPassword(email, password)
+                                .addOnCompleteListener(RegisterTwo.this, new OnCompleteListener<AuthResult>() {
                             @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                dataSnapshot.getRef().child("provinsi").setValue(provinsi);
-                                dataSnapshot.getRef().child("kab_kota").setValue(kota);
-                                dataSnapshot.getRef().child("kecamatan").setValue(kecamatan);
-                                dataSnapshot.getRef().child("kelurahan").setValue(kelurahan);
-                                dataSnapshot.getRef().child("jenis_alamat").setValue(jenis_alamat);
-                                dataSnapshot.getRef().child("alamat_lengkap").setValue(alamat);
-                                dataSnapshot.getRef().child("saldo").setValue(60000);
-                                dataSnapshot.getRef().child("voucher").setValue(0);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-                        sRef = FirebaseStorage.getInstance().getReference().child("PhotoUsers").child(userkekey);
-                        if (lokasi_foto !=null){
-                            final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." +
-                                    getFileExtension(lokasi_foto));
-                            storageReference.putFile(lokasi_foto).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){
+                                    fAuth.getCurrentUser().sendEmailVerification()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
-                                        public void onSuccess(Uri uri) {
-                                            String uri_photo = uri.toString();
-                                            dRef.getRef().child("url_images_profil").setValue(uri_photo);
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()){
+                                                final String user_id = fAuth.getCurrentUser().getUid();
 
-                                        }
-                                    }).addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            Intent intent = new Intent(RegisterTwo.this, SuccessRegister.class);
-                                            startActivity(intent);
-                                            finish();
+                                                dRef = FirebaseDatabase.getInstance().getReference("Users").child(user_id);
+                                                dRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        snapshot.getRef().child("Uid").setValue(user_id);
+                                                        snapshot.getRef().child("nama_lengkap").setValue(nama_lengkap);
+                                                        snapshot.getRef().child("email").setValue(email);
+                                                        snapshot.getRef().child("no_hp").setValue(no_hp);
+                                                        snapshot.getRef().child("password").setValue(password);
+                                                        snapshot.getRef().child("online_status").setValue("Offline");
+                                                        snapshot.getRef().child("typing").setValue("no");
+                                                        snapshot.getRef().child("jenis_kelamin").setValue(jenis_kelamin);
+                                                        snapshot.getRef().child("tgl_lahir").setValue("Belum di isi");
+                                                        snapshot.getRef().child("provinsi").setValue(provinsi);
+                                                        snapshot.getRef().child("kab_kota").setValue(kota);
+                                                        snapshot.getRef().child("kecamatan").setValue(kecamatan);
+                                                        snapshot.getRef().child("kelurahan").setValue(kelurahan);
+                                                        snapshot.getRef().child("jenis_alamat").setValue(jenis_alamat);
+                                                        snapshot.getRef().child("alamat_lengkap").setValue(alamat);
+                                                        snapshot.getRef().child("saldo").setValue(60000);
+                                                        snapshot.getRef().child("voucher").setValue(0);
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                });
+
+                                                sRef = FirebaseStorage.getInstance().getReference().child("PhotoUsers").child(user_id);
+                                                if (lokasi_foto !=null){
+                                                    final StorageReference storageReference = sRef.child(System.currentTimeMillis() + "." +
+                                                            getFileExtension(lokasi_foto));
+                                                    storageReference.putFile(lokasi_foto).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                                @Override
+                                                                public void onSuccess(Uri uri) {
+                                                                    String uri_photo = uri.toString();
+                                                                    dRef.getRef().child("url_images_profil").setValue(uri_photo);
+
+                                                                }
+                                                            }).addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                                @Override
+                                                                public void onSuccess(Uri uri) {
+                                                                    Intent intent = new Intent(RegisterTwo.this, SuccessRegister.class);
+                                                                    startActivity(intent);
+                                                                    finish();
+                                                                }
+                                                            });
+                                                        }
+
+                                                    });
+                                                } else {
+                                                    progressDialog.dismiss();
+                                                    Intent intent = new Intent(RegisterTwo.this, SuccessRegister.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+
+                                            } else {
+                                                Toast.makeText(RegisterTwo.this, "Email telah digunakan", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
                                     });
-                                }
 
-                            });
-                        }
+                                } else {
+                                    Toast.makeText(RegisterTwo.this, "Email tidak valid atau telah digunakan", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+//                        dRef = FirebaseDatabase.getInstance().getReference().child("Users")
+//                                .child(user_id);
+//                        dRef.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                fu
+//                                dataSnapshot.getRef().child("provinsi").setValue(provinsi);
+//                                dataSnapshot.getRef().child("kab_kota").setValue(kota);
+//                                dataSnapshot.getRef().child("kecamatan").setValue(kecamatan);
+//                                dataSnapshot.getRef().child("kelurahan").setValue(kelurahan);
+//                                dataSnapshot.getRef().child("jenis_alamat").setValue(jenis_alamat);
+//                                dataSnapshot.getRef().child("alamat_lengkap").setValue(alamat);
+//                                dataSnapshot.getRef().child("saldo").setValue(60000);
+//                                dataSnapshot.getRef().child("voucher").setValue(0);
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//                        });
                     }
                 } catch (Exception e){
                     Toast.makeText(RegisterTwo.this, "Data regiter belum lengkap", Toast.LENGTH_SHORT).show();
@@ -216,7 +293,7 @@ public class RegisterTwo extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                finish();
             }
         });
     }
@@ -411,10 +488,10 @@ public class RegisterTwo extends AppCompatActivity {
 
 
 
-    public void getUserLokal(){
-        SharedPreferences sPref = getSharedPreferences(userkey_, MODE_PRIVATE);
-        userkekey = sPref.getString(userkey, "");
-    }
+//    public void getUserLokal(){
+//        SharedPreferences sPref = getSharedPreferences(userkey_, MODE_PRIVATE);
+//        userkekey = sPref.getString(userkey, "");
+//    }
 
     @Override
     public void onBackPressed() {

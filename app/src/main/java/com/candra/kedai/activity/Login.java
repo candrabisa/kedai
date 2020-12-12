@@ -100,14 +100,14 @@ public class Login extends AppCompatActivity {
                                             finish();
                                         } else {
                                             progressDialog.dismiss();
-                                            Toast.makeText(Login.this, "Kamu belum melakukan verifikasi email, Silahkan cek email.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(Login.this, "Kamu belum melakukan verifikasi, Silahkan cek email.", Toast.LENGTH_SHORT).show();
                                         }
                                     } else if (!Patterns.EMAIL_ADDRESS.matcher(username).matches()){
                                         progressDialog.dismiss();
-                                        Toast.makeText(Login.this, "Username atau email belum terdaftar", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "Email belum terdaftar", Toast.LENGTH_SHORT).show();
                                     } else {
                                         progressDialog.dismiss();
-                                        Toast.makeText(Login.this, "Login gagal", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "Login gagal, coba beberapa saat lagi", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

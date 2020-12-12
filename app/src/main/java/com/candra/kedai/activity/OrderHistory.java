@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.candra.kedai.R;
@@ -26,12 +28,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderHistory extends AppCompatActivity {
+public class OrderHistory extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = "Asu";
     ImageView btn_back;
     TextView tv_belumPernahBeli;
     RecyclerView rv_listOrder;
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    ProgressBar pb_orderHistory;
 
     ListOrderAdapter listOrderAdapter;
     List<ListOrderModel> listRiwayatPesanan = new ArrayList<>();
@@ -46,6 +51,8 @@ public class OrderHistory extends AppCompatActivity {
 
         fUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        pb_orderHistory = findViewById(R.id.pb_orderHistory);
+
         btn_back = findViewById(R.id.btn_backRiwayatPesanan);
         tv_belumPernahBeli = findViewById(R.id.tv_belumPernahBeli);
         rv_listOrder = findViewById(R.id.rv_riwayatPesanan);
@@ -53,31 +60,40 @@ public class OrderHistory extends AppCompatActivity {
         rv_listOrder.setHasFixedSize(true);
         rv_listOrder.setLayoutManager(new LinearLayoutManager(this));
 
+        swipeRefreshLayout = findViewById(R.id.refresh_orderHistory);
+        swipeRefreshLayout.setOnRefreshListener(this);
+//        swipeRefreshLayout.setRefreshing(true);
+        loadDataPesanan();
+
+    }
+
+    private void loadDataPesanan(){
+        tv_belumPernahBeli.setVisibility(View.INVISIBLE);
+        listRiwayatPesanan.clear();
         Query query = FirebaseDatabase.getInstance().getReference().child("Pesanan").child(fUser.getUid());
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                try {
-                    for (DataSnapshot ds : snapshot.getChildren()){
-                        ListOrderModel listOrderModel = ds.getValue(ListOrderModel.class);
-                        listRiwayatPesanan.add(listOrderModel);
+                for (DataSnapshot ds : snapshot.getChildren()){
+                    ListOrderModel listOrderModel = ds.getValue(ListOrderModel.class);
+                    listRiwayatPesanan.add(listOrderModel);
 
-                        Log.d(TAG, "datafrom Firebase: " + listRiwayatPesanan);
-                        listOrderAdapter = new ListOrderAdapter(OrderHistory.this, listRiwayatPesanan);
-                        listOrderAdapter.notifyDataSetChanged();
-                        rv_listOrder.setAdapter(listOrderAdapter);
-
-                        if (rv_listOrder != null){
-                            tv_belumPernahBeli.setVisibility(View.GONE);
-                        } else {
-                            tv_belumPernahBeli.setVisibility(View.VISIBLE);
-                            rv_listOrder.setVisibility(View.GONE);
-                        }
-                    }
-                } catch (Exception e){
+                    Log.d(TAG, "datafrom Firebase: " + listRiwayatPesanan);
+                    listOrderAdapter = new ListOrderAdapter(OrderHistory.this, listRiwayatPesanan);
+                    listOrderAdapter.notifyDataSetChanged();
+                    rv_listOrder.setAdapter(listOrderAdapter);
 
                 }
-
+                if (listOrderAdapter ==null ){
+                    rv_listOrder.setVisibility(View.GONE);
+                    tv_belumPernahBeli.setText("Kamu belum pernah belanja");
+                    tv_belumPernahBeli.setVisibility(View.VISIBLE);
+                } else {
+                    tv_belumPernahBeli.setVisibility(View.GONE);
+                    rv_listOrder.setVisibility(View.VISIBLE);
+                }
+                pb_orderHistory.setVisibility(View.GONE);
+                refreshing(false);
             }
 
             @Override
@@ -85,5 +101,18 @@ public class OrderHistory extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void refreshing(boolean b) {
+        if (b){
+            swipeRefreshLayout.setRefreshing(true);
+        } else {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        loadDataPesanan();
     }
 }

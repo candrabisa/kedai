@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.candra.kedai.R;
 import com.candra.kedai.adapter.category.CategoryAdapter;
 import com.candra.kedai.model.category.CategoryModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 tvcatHomeCemilan, tvcatHomePaket, tvcatHomeMinuman, tvcatHomeMakanan,
                 tv_lagipromo, tv_buatkamu, tv_palinglaris;
     ConstraintLayout btn_catFood, btn_drinkHome, btn_paketHome, btn_cemilanHome;
+    ShimmerFrameLayout shimmerFrameLayout;
 
     FirebaseUser fUser;
     DatabaseReference dRef, dRef1, dRef2;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     Boolean keluar;
 
+    Integer saldo_kamu = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         setContentView(R.layout.activity_main);
 
         fUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        shimmerFrameLayout = findViewById(R.id.shimmer_home);
 
         ic_saldo = findViewById(R.id.a1);
         ic_voucher = findViewById(R.id.a2);
@@ -163,6 +169,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     Toast.makeText(MainActivity.this, "Coba lagi", Toast.LENGTH_SHORT).show();
                 }
 
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+
             }
 
             @Override
@@ -239,23 +248,25 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     //ambildata
-                    final String total_saldo = "Rp. " + ds.child("saldo").getValue();
+                    saldo_kamu = Integer.valueOf(ds.child("saldo").getValue().toString());
                     final String total_voucher = "" + ds.child("voucher").getValue();
-                    final String fotoprofil = "" + ds.child("url_images_profil").getValue();
 
                     //setdata
-                    tv_saldoHome.setText(total_saldo);
+                    tv_saldoHome.setText("Rp. "+saldo_kamu+"");
                     tv_voucherHome.setText(total_voucher);
                     tv_saldoKamu.setText("Saldo Kamu");
                     tv_voucherKamu.setText("Voucher Kamu");
+
                     try {
+                        final String fotoprofil = "" + ds.child("url_images_profil").getValue().toString();
                         Glide.with(MainActivity.this).load(fotoprofil)
                                 .centerCrop().fitCenter().into(iv_profil);
                     } catch (Exception e){
-                        Picasso.get().load(R.drawable.none_image_profile)
-                                .centerCrop().fit().into(iv_profil);
+                        Glide.with(MainActivity.this).load(R.drawable.none_image_profile)
+                                .centerCrop().into(iv_profil);
                     }
                 }
             }
@@ -268,6 +279,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     private void loadRekomendasiHome(){
+        list1.clear();
+        list2.clear();
+        list3.clear();
         dRef2 = FirebaseDatabase.getInstance().getReference().child("landingPage");
         dRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -324,7 +338,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     Glide.with(MainActivity.this).load(catIcon1).centerCrop().fitCenter().into(ic_content1);
                     Glide.with(MainActivity.this).load(catImages1).centerCrop().fitCenter().into(iv_content1);
                 } catch (Exception e){
-                    Toast.makeText(MainActivity.this, "Gagal memuat gambar 1", Toast.LENGTH_SHORT).show();
+
                 }
 
                 //ambil content ke 2
@@ -342,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     Glide.with(MainActivity.this).load(catIcon2).centerCrop().fitCenter().into(ic_content2);
                     Glide.with(MainActivity.this).load(catImages2).centerCrop().fitCenter().into(iv_content2);
                 } catch (Exception e){
-                    Toast.makeText(MainActivity.this, "Gagal memuat gambar 2", Toast.LENGTH_SHORT).show();
+
                 }
 
                 //ambil content ke 3
@@ -361,7 +375,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     Glide.with(MainActivity.this).load(catIcon3).centerCrop().fitCenter().into(ic_content3);
                     Glide.with(MainActivity.this).load(catImages3).centerCrop().fitCenter().into(iv_content3);
                 } catch (Exception e){
-                    Toast.makeText(MainActivity.this, "Gagal memuat gambar 3", Toast.LENGTH_SHORT).show();
+
                 }
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -377,5 +391,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     public void onRefresh() {
         loadContentHome();
         loadUserFromDatabase();
+        loadRekomendasiHome();
     }
 }

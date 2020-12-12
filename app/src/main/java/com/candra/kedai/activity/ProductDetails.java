@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.candra.kedai.R;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +29,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProductDetails extends AppCompatActivity {
+
+    ShimmerFrameLayout shimmerProduk;
 
     ImageView btn_back, iv_produkDetail;
     TextView tv_hargaProduk, tv_namaProduk, tv_descProduk, tv_qty, tv_saldoKamu, tv_totalHarga;
@@ -50,6 +53,8 @@ public class ProductDetails extends AppCompatActivity {
         setContentView(R.layout.activity_product_details);
 
         fUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        shimmerProduk = findViewById(R.id.shimmer_produkDetail);
 
         btn_back = findViewById(R.id.btn_backProdukDetail);
         btn_pesan = findViewById(R.id.btn_pesanSekarang);
@@ -83,12 +88,19 @@ public class ProductDetails extends AppCompatActivity {
                 total_harga = harga_produk * qty;
                 tv_totalHarga.setText("Rp. " +total_harga+"");
 
+                if (saldo_saya < total_harga) {
+                    btn_pesan.setBackgroundResource(R.drawable.button_false);
+                    btn_pesan.setEnabled(false);
+                }
+
                 tv_namaProduk.setText(snapshot.child("nama_produk").getValue().toString());
                 tv_descProduk.setText(snapshot.child("desc").getValue().toString());
-                tv_hargaProduk.setText("Rp." +harga_produk+"");
+                tv_hargaProduk.setText("Rp. " +harga_produk+"");
                 Glide.with(ProductDetails.this).load(snapshot.child("url_images_produk").getValue().toString())
                         .centerCrop().fitCenter().into(iv_produkDetail);
 
+                shimmerProduk.stopShimmer();
+                shimmerProduk.setVisibility(View.GONE);
 
             }
 
@@ -106,9 +118,9 @@ public class ProductDetails extends AppCompatActivity {
                     saldo_saya = Integer.valueOf(ds.child("saldo").getValue().toString());
                     tv_saldoKamu.setText("Rp. " + saldo_saya+"");
 
-                    if (saldo_saya < total_harga){
-                        btn_pesan.setBackgroundResource(R.color.grayPrimary);
-                        btn_pesan.setEnabled(false);
+                    if (saldo_saya > total_harga){
+                        btn_pesan.setEnabled(true);
+                        btn_pesan.setBackgroundResource(R.drawable.button_primary);
                     }
                 }
 
@@ -173,7 +185,7 @@ public class ProductDetails extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
             }
         });
     }
