@@ -323,6 +323,40 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_favorit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingStart="@dimen/dimendua"
+                    android:paddingEnd="@dimen/dimendua"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rl_alamatPengiriman">
+
+                    <TextView
+                        android:id="@+id/txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Wishlist"
+                        android:textColor="@color/blackPrimary"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/ic_next"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_navigate_next_black_24dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/ic_next"
+                        android:background="@color/grayPrimary" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/rl_riwayatPesanan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -331,7 +365,7 @@
                     android:paddingEnd="@dimen/dimendua"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rl_alamatPengiriman">
+                    app:layout_constraintTop_toBottomOf="@id/rl_favorit">
 
                     <TextView
                         android:id="@+id/txt2"

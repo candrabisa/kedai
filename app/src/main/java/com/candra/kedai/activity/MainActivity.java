@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 tv_lagipromo, tv_buatkamu, tv_palinglaris;
     ConstraintLayout btn_catFood, btn_drinkHome, btn_paketHome, btn_cemilanHome;
     ShimmerFrameLayout shimmerFrameLayout;
+    EditText et_cari;
 
     FirebaseUser fUser;
     DatabaseReference dRef, dRef1, dRef2;
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         fUser = FirebaseAuth.getInstance().getCurrentUser();
 
         shimmerFrameLayout = findViewById(R.id.shimmer_home);
+        et_cari = findViewById(R.id.et_cari);
 
         ic_saldo = findViewById(R.id.a1);
         ic_voucher = findViewById(R.id.a2);
@@ -231,6 +234,14 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 intentCemilan.putExtra("list_produk2", "anekabutter");
                 intentCemilan.putExtra("list_produk3", "anekadonat");
                 startActivity(intentCemilan);
+            }
+        });
+
+        et_cari.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentCari = new Intent(MainActivity.this, Search.class);
+                startActivity(intentCari);
             }
         });
     }

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.candra.kedai.activity.ProductDetails;
 import com.candra.kedai.model.category.CategoryModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyHolder> {
@@ -62,6 +64,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyHold
         } catch (Exception e){
             Toast.makeText(context, "Gagal memuat gambar", Toast.LENGTH_SHORT).show();
         }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +85,37 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyHold
     public int getItemCount() {
         return listCategory.size();
     }
+
+    public Filter getFilterProduk() {
+        return filterProduk;
+    }
+
+    private Filter filterProduk = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<CategoryModel> filterList = new ArrayList<>();
+            if (constraint == null || constraint.length() ==0 ){
+                filterList.addAll(listCategory);
+            } else {
+                final String filterPattern = constraint.toString().toLowerCase().trim();
+                for (CategoryModel model : listCategory){
+                    if (model.getNama_produk().toLowerCase().contains(filterPattern)){
+                        filterList.add(model);
+                    }
+                }
+            }
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filterList;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            listCategory.clear();
+            listCategory.addAll((List<CategoryModel>)results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     static class MyHolder extends RecyclerView.ViewHolder{
         ImageView iv_Produk;

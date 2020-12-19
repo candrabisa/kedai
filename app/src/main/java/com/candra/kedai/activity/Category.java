@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,8 @@ import com.candra.kedai.R;
 import com.candra.kedai.adapter.category.CategoryAdapter;
 import com.candra.kedai.model.address.Data;
 import com.candra.kedai.model.category.CategoryModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +42,7 @@ public class Category extends AppCompatActivity {
     List<CategoryModel>listkedua = new ArrayList<>();
     List<CategoryModel>listketiga = new ArrayList<>();
 
+    FirebaseUser fUser;
     DatabaseReference dRef;
     private static final String TAG = "Category";
 
@@ -46,6 +50,8 @@ public class Category extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
 
         btn_backProfile = findViewById(R.id.btn_backProfile);
 
@@ -152,5 +158,7 @@ public class Category extends AppCompatActivity {
         });
 
     }
+
+
 
 }

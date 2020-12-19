@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dimensatu"
+    android:layout_marginTop="@dimen/dimensatu"
+    android:layout_marginEnd="@dimen/dimensatu"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_item_favorite"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv3"
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            app:cardCornerRadius="@dimen/card_radius">
+            <ImageView
+                android:id="@+id/iv_fotoProdukFav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/esteh"
+                android:scaleType="centerCrop"/>
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/tv_namaProdukFav"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:text="Bubur sum-sum strawberi"
+            android:textColor="@color/blackPrimary"
+            android:layout_below="@id/cv3"/>
+        <TextView
+            android:id="@+id/tv_hargaProdukFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="6dp"
+            android:textColor="@color/pinkPrimary"
+            android:text="Rp. 15.000"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_below="@id/tv_namaProdukFav"/>
+        <LinearLayout
+            android:id="@+id/ll_deleteFav"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:background="@drawable/bg_item_favorite"
+            android:layout_below="@id/tv_hargaProdukFav">
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_delete_24"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_beliFav"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="BELI"
+            android:textColor="@color/whitePrimary"
+            android:layout_toRightOf="@id/ll_deleteFav"
+            android:layout_below="@id/tv_hargaProdukFav"
+            android:layout_marginEnd="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="@dimen/dimensatu"
+            android:background="@drawable/bg_item_favorite"
+            android:backgroundTint="@color/orangePrimary"/>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

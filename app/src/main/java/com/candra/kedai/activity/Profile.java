@@ -40,7 +40,7 @@ public class Profile extends AppCompatActivity {
     ImageView iv_profil, ic_saldo, ic_voucher, btn_backProfile;
     TextView tv_namaLengkap, tv_saldo, tv_voucher, tulisan_saldo_kamu, tulisan_voucher_kamu;
 
-    RelativeLayout btn_editProfil, btn_alamatPengiriman, btn_riwayatPesanan;
+    RelativeLayout btn_editProfil, btn_alamatPengiriman, btn_riwayatPesanan, btn_wishlist;
 
     ShimmerFrameLayout shimmer1;
 
@@ -73,6 +73,7 @@ public class Profile extends AppCompatActivity {
         btn_editProfil = findViewById(R.id.rl_editProfil);
         btn_alamatPengiriman = findViewById(R.id.rl_alamatPengiriman);
         btn_riwayatPesanan = findViewById(R.id.rl_riwayatPesanan);
+        btn_wishlist = findViewById(R.id.rl_favorit);
 
         btn_logout = findViewById(R.id.btn_logout);
         shimmer1 = findViewById(R.id.shimmer_profil);
@@ -172,6 +173,14 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        btn_wishlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentWishlist = new Intent(Profile.this, Favorite.class);
+                startActivity(intentWishlist);
+            }
+        });
+
         btn_backProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,10 +196,10 @@ public class Profile extends AppCompatActivity {
                 builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(userkey, null);
-                        editor.clear().apply();
+//                        SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
+//                        SharedPreferences.Editor editor = sharedPreferences.edit();
+//                        editor.putString(userkey, null);
+//                        editor.clear().apply();
 
                         FirebaseAuth.getInstance().signOut();
 
