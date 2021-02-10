@@ -118,12 +118,12 @@ public class ProductCheckout extends AppCompatActivity {
                 url_images_produk = snapshot.child("url_images_produk").getValue().toString();
                 Glide.with(ProductCheckout.this).load(url_images_produk).centerCrop().into(iv_productCheckout);
 
-                if (saldo_kamu < total_pembayaran){
+                if (total_pembayaran > saldo_saya){
                     tv_saldoKamuCheckout.setError("Saldo tidak mencukupi");
                     btn_bayarCheckout.setBackgroundResource(R.color.grayPrimary);
                     btn_bayarCheckout.setEnabled(false);
                 } else {
-                    btn_bayarCheckout.setEnabled(true);
+//                    btn_bayarCheckout.setEnabled(true);
                 }
 
             }
@@ -157,12 +157,12 @@ public class ProductCheckout extends AppCompatActivity {
                     tv_provinsiCheckout.setText(provinsi);
                     tv_saldoKamuCheckout.setText("Rp. " + saldo_kamu+"");
 
-                    if (saldo_kamu < total_pembayaran){
+                    if (saldo_saya < total_pembayaran){
                         tv_saldoKamuCheckout.setError("Saldo tidak mencukupi");
                         btn_bayarCheckout.setBackgroundResource(R.color.grayPrimary);
                         btn_bayarCheckout.setEnabled(false);
                     } else {
-                        btn_bayarCheckout.setEnabled(true);
+//                        btn_bayarCheckout.setEnabled(true);
                     }
                 }
             }

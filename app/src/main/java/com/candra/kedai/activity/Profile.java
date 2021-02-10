@@ -196,10 +196,10 @@ public class Profile extends AppCompatActivity {
                 builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
-//                        SharedPreferences.Editor editor = sharedPreferences.edit();
-//                        editor.putString(userkey, null);
-//                        editor.clear().apply();
+                        SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(userkey, null);
+                        editor.clear().apply();
 
                         FirebaseAuth.getInstance().signOut();
 

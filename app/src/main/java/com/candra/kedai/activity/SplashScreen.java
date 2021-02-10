@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.candra.kedai.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -24,6 +25,8 @@ public class SplashScreen extends AppCompatActivity {
     String userkey = "";
     String userkekey = "";
 
+    FirebaseAuth fAuth;
+
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +35,14 @@ public class SplashScreen extends AppCompatActivity {
 
         getUserLocal();
 
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     private void getUserLocal() {
         SharedPreferences preferences = getSharedPreferences(userkey_, MODE_PRIVATE);
         userkekey = preferences.getString(userkey, "");
-        if (userkekey.isEmpty()){
+        if (userkekey.equals("") || userkekey.isEmpty()){
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -46,7 +50,8 @@ public class SplashScreen extends AppCompatActivity {
                     finish();
                 }
             }, 2000);
-        } else {
+        }
+        else {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
