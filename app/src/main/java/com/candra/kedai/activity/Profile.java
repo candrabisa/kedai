@@ -37,7 +37,7 @@ import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 public class Profile extends AppCompatActivity {
 
     Button btn_logout;
-    ImageView iv_profil, ic_saldo, ic_voucher, btn_backProfile;
+    ImageView iv_profil, ic_saldo, ic_voucher, btn_backProfile, btn_settings;
     TextView tv_namaLengkap, tv_saldo, tv_voucher, tulisan_saldo_kamu, tulisan_voucher_kamu;
 
     RelativeLayout btn_editProfil, btn_alamatPengiriman, btn_riwayatPesanan, btn_wishlist;
@@ -47,16 +47,11 @@ public class Profile extends AppCompatActivity {
     FirebaseUser fUser;
     DatabaseReference dRef;
 
-    String userkey_ = "userkey";
-    String userkey = "";
-    String userkekey = "";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        getUserLocal();
 
         fUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -74,6 +69,7 @@ public class Profile extends AppCompatActivity {
         btn_alamatPengiriman = findViewById(R.id.rl_alamatPengiriman);
         btn_riwayatPesanan = findViewById(R.id.rl_riwayatPesanan);
         btn_wishlist = findViewById(R.id.rl_favorit);
+        btn_settings = findViewById(R.id.imageView3);
 
         btn_logout = findViewById(R.id.btn_logout);
         shimmer1 = findViewById(R.id.shimmer_profil);
@@ -164,6 +160,12 @@ public class Profile extends AppCompatActivity {
                 startActivity(intentAddress);
             }
         });
+        btn_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this, Settings.class));
+            }
+        });
 
         btn_riwayatPesanan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,41 +190,8 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        btn_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
-                builder.setMessage("Apa yakin ingin keluar?");
-                builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(userkey, null);
-                        editor.clear().apply();
-
-                        FirebaseAuth.getInstance().signOut();
-
-                        Intent intent = new Intent(Profile.this, GetStarted.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-                builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
-            }
-        });
-
     }
 
 
-    public void getUserLocal(){
-        SharedPreferences sharedPreferences = getSharedPreferences(userkey_, MODE_PRIVATE);
-        userkekey = sharedPreferences.getString(userkey, "");
-    }
+
 }

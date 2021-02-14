@@ -667,10 +667,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="30dp"
                     android:paddingStart="@dimen/dimendua"
                     android:paddingEnd="@dimen/dimendua"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rl_ketentuanLayanan">
 
                     <TextView
@@ -695,24 +697,7 @@
                         android:background="@color/grayPrimary" />
                 </RelativeLayout>
 
-                <Button
-                    android:id="@+id/btn_logout"
-                    android:layout_width="186dp"
-                    android:layout_height="38dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="30dp"
-                    android:backgroundTint="@android:color/holo_red_light"
-                    android:background="@drawable/button_secondary"
-                    android:textColor="@color/whitePrimary"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="LOGOUT"
-                    android:layout_marginStart="@dimen/dimensatu"
-                    android:layout_marginEnd="@dimen/dimensatu"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rl_tentangKami" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

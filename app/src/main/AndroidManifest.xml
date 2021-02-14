@@ -20,8 +20,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.Favorite"
+        <activity android:name=".activity.ChangePassword"
             android:theme="@style/AppTheme.NoAction"></activity>
+        <activity
+            android:name=".activity.Settings"
+            android:theme="@style/SwitchTheme" />
+        <activity
+            android:name=".activity.Favorite"
+            android:theme="@style/AppTheme.NoAction" />
         <activity android:name=".activity.ResultSearch" />
         <activity
             android:name=".activity.Search"
