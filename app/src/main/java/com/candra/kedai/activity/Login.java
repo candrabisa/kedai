@@ -85,7 +85,6 @@ public class Login extends AppCompatActivity {
 //                    progressDialog.setCancelable(false);
 //                    progressDialog.show();
                     btn_login.startAnimation();
-
                     fAuth.signInWithEmailAndPassword(username, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -95,7 +94,6 @@ public class Login extends AppCompatActivity {
                                             Toast.makeText(Login.this, "Login Berhasil", Toast.LENGTH_LONG).show();
                                             SharedPreferences sPref = getSharedPreferences(userkey_, MODE_PRIVATE);
                                             SharedPreferences.Editor editor = sPref.edit();
-                                            editor.putString(userkey, et_Username.getText().toString());
                                             editor.putString(userkey, et_Username.getText().toString());
                                             editor.apply();
 
