@@ -218,11 +218,6 @@ public class RegisterTwo extends AppCompatActivity {
                                                                 public void onSuccess(Uri uri) {
                                                                     String uri_photo = uri.toString();
                                                                     dRef.getRef().child("url_images_profil").setValue(uri_photo);
-
-                                                                }
-                                                            }).addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                                @Override
-                                                                public void onSuccess(Uri uri) {
                                                                     Intent intent = new Intent(RegisterTwo.this, SuccessRegister.class);
                                                                     startActivity(intent);
                                                                     finish();

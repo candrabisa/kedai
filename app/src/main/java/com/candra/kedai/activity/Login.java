@@ -4,6 +4,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,12 +33,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
+import br.com.simplepass.loadingbutton.customViews.OnAnimationEndListener;
+
 public class Login extends AppCompatActivity {
 
     TextView btn_lupaPass;
     EditText et_Username, et_Password;
     ImageView btn_kembali;
-    Button btn_login;
+    CircularProgressButton btn_login;
 
     ProgressDialog progressDialog;
 
@@ -76,10 +80,11 @@ public class Login extends AppCompatActivity {
                     et_Password.setFocusable(true);
                     return;
                 } else {
-                    progressDialog = new ProgressDialog(Login.this);
-                    progressDialog.setMessage("Mohon menunggu...");
-                    progressDialog.setCancelable(false);
-                    progressDialog.show();
+//                    progressDialog = new ProgressDialog(Login.this);
+//                    progressDialog.setMessage("Mohon menunggu...");
+//                    progressDialog.setCancelable(false);
+//                    progressDialog.show();
+                    btn_login.startAnimation();
 
                     fAuth.signInWithEmailAndPassword(username, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -87,27 +92,27 @@ public class Login extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
                                         if (fAuth.getCurrentUser().isEmailVerified()) {
-
-                                            progressDialog.dismiss();
-                                            Toast.makeText(Login.this, "Login Berhasil", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(Login.this, "Login Berhasil", Toast.LENGTH_LONG).show();
                                             SharedPreferences sPref = getSharedPreferences(userkey_, MODE_PRIVATE);
                                             SharedPreferences.Editor editor = sPref.edit();
                                             editor.putString(userkey, et_Username.getText().toString());
+                                            editor.putString(userkey, et_Username.getText().toString());
                                             editor.apply();
 
+                                            btn_login.revertAnimation();
                                             Intent intentMain = new Intent(Login.this, MainActivity.class);
                                             startActivity(intentMain);
                                             finish();
                                         } else {
-                                            progressDialog.dismiss();
+                                            btn_login.revertAnimation();
                                             Toast.makeText(Login.this, "Kamu belum melakukan verifikasi, Silahkan cek email.", Toast.LENGTH_SHORT).show();
                                         }
                                     } else if (!Patterns.EMAIL_ADDRESS.matcher(username).matches()){
-                                        progressDialog.dismiss();
+                                        btn_login.revertAnimation();
                                         Toast.makeText(Login.this, "Email belum terdaftar", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        progressDialog.dismiss();
-                                        Toast.makeText(Login.this, "Login gagal, coba beberapa saat lagi", Toast.LENGTH_SHORT).show();
+                                        btn_login.revertAnimation();
+                                        Toast.makeText(Login.this, "Email atau Password salah", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -138,4 +143,5 @@ public class Login extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
 }
