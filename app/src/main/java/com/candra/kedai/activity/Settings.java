@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Settings extends AppCompatActivity {
 
-    ConstraintLayout btn_setPassword;
+    ConstraintLayout btn_setPassword, btn_setVerifDiri;
     Button btn_logout;
     ImageView btn_backSetting;
 
@@ -34,11 +34,19 @@ public class Settings extends AppCompatActivity {
         btn_logout = findViewById(R.id.btn_logout);
         btn_backSetting = findViewById(R.id.btn_backSetting);
         btn_setPassword = findViewById(R.id.btn_setPassword);
+        btn_setVerifDiri = findViewById(R.id.btn_setVerifDiri);
 
         btn_setPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Settings.this, ChangePassword.class));
+            }
+        });
+
+        btn_setVerifDiri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Settings.this, PersonalDataVerification.class));
             }
         });
 

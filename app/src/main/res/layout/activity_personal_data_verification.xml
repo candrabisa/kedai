@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grayPrimary"
+    tools:context=".activity.PersonalDataVerification">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_verifikasi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/whitePrimary"
+        android:padding="@dimen/dimensatu"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/btn_backVerif"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/btn_back_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Verifikasi Data Diri"
+            android:textSize="@dimen/font_size_16"
+            android:textColor="@color/blackPrimary"
+            android:fontFamily="@font/roboto_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:background="@color/whitePrimary"
+        app:layout_constraintTop_toBottomOf="@id/constraint_verifikasi">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimensatu"
+            android:paddingStart="@dimen/dimensatu"
+            android:paddingEnd="@dimen/dimensatu"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_nomorKTP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_nomorKTP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="16"
+                    android:hint="Masukkan Nomor KTP"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_namaKTP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_nomorKTP">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_namaKTP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Sesuai KTP"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_tglLahirKTP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_namaKTP">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_tglLahirKTP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="Tanggal Lahir Sesuai KTP"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_tempatLahirKTP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_tglLahirKTP">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_tempatLahirKTP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tempat Lahir Sesuai KTP"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_alamatKTP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_tempatLahirKTP">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_alamatKTP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Alamat Tinggal Sesuai KTP"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_haha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimensatu"
+                android:text="Harap mengunggah foto selfie anda sambil memegang KTP dibawah ini:"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/layout_alamatKTP"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <ImageView
+                android:id="@+id/btn_bukaKamera"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="@dimen/dimensatu"
+                android:src="@drawable/opencamera"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_haha"/>
+
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/btn_kirimDataVerif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimendua"
+                android:text="Kirim Data"
+                android:textColor="@color/whitePrimary"
+                android:background="@drawable/button_primary"
+                app:layout_constraintTop_toBottomOf="@id/btn_bukaKamera"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
