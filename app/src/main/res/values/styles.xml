@@ -16,7 +16,6 @@
 
     <style name="SwitchTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorControlActivated">@color/greenPrimary</item>
-        <item name="android:trackTint">@color/orangePrimary</item>
         <item name="android:textColorPrimaryDisableOnly">@color/blackPrimary</item>
         <item name="android:colorForeground">@color/colorPrimary</item>
 

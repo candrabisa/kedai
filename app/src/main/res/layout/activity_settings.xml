@@ -161,9 +161,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Switch
+                    android:id="@+id/switch_smartLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:theme="@style/SwitchTheme"
+                    android:thumb="@drawable/sw_primary"
+                    android:track="@drawable/sw_track"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />

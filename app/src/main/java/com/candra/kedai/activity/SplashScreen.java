@@ -25,6 +25,10 @@ public class SplashScreen extends AppCompatActivity {
     String userkey = "";
     String userkekey = "";
 
+    String smartLogin_ = "smartlogin";
+    String smartlogin = "";
+    String smartLog = "";
+
     FirebaseAuth fAuth;
 
     @RequiresApi(api = Build.VERSION_CODES.P)
@@ -55,12 +59,14 @@ public class SplashScreen extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (Build.VERSION.SDK_INT<Build.VERSION_CODES.P){
+                    SharedPreferences sharedPreferences = getSharedPreferences(smartLogin_, MODE_PRIVATE);
+                    smartLog = sharedPreferences.getString(smartlogin, "");
+                    if (smartLog.equals("nyala")){
+                        fingerPrint();
+                    } else {
                         Intent intent = new Intent(SplashScreen.this, MainActivity.class);
                         startActivity(intent);
                         finish();
-                    } else {
-                        fingerPrint();
                     }
                 }
             }, 2000);

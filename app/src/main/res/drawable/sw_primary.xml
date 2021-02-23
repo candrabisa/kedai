@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:drawable="@drawable/ic_switch_on">
+        <shape android:shape="oval">
+            <solid android:color="@color/greenPrimary" />
+            <size android:width="20dp" android:height="20dp"/>
+        </shape>
+    </item>
+
+    <item android:state_checked="false" android:drawable="@drawable/ic_switch_off">
+        <shape android:shape="oval">
+            <solid android:color="@color/fontGrey"/>
+            <size android:width="20dp" android:height="20dp"/>
+        </shape>
+    </item>
+</selector>

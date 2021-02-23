@@ -1,6 +1,7 @@
 package com.candra.kedai.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.AlertDialog;
@@ -10,20 +11,29 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.candra.kedai.R;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Settings extends AppCompatActivity {
 
     ConstraintLayout btn_setPassword, btn_setVerifDiri;
     Button btn_logout;
+    Switch switch_smartLogin;
     ImageView btn_backSetting;
 
     String userkey_ = "userkey";
     String userkey = "";
     String userkekey = "";
+
+    String smartLogin_ = "smartlogin";
+    String smartlogin = "";
+    String smartLog = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +45,37 @@ public class Settings extends AppCompatActivity {
         btn_backSetting = findViewById(R.id.btn_backSetting);
         btn_setPassword = findViewById(R.id.btn_setPassword);
         btn_setVerifDiri = findViewById(R.id.btn_setVerifDiri);
+        switch_smartLogin = findViewById(R.id.switch_smartLogin);
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences(smartLogin_, MODE_PRIVATE);
+        smartLog = sharedPreferences.getString(smartlogin, "");
+        if (smartLog.equals("nyala")){
+            switch_smartLogin.setChecked(true);
+        } else {
+            switch_smartLogin.setChecked(false);
+        }
+
+
+        switch_smartLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (switch_smartLogin.isChecked()){
+                    SharedPreferences preferences = getSharedPreferences(smartLogin_, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(smartlogin, "nyala");
+                    editor.apply();
+                    Toast.makeText(Settings.this, "Smartlogin aktif", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    SharedPreferences preferences = getSharedPreferences(smartLogin_, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(smartlogin, "");
+                    editor.apply();
+                    Toast.makeText(Settings.this, "Smartlogin nonaktif", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         btn_setPassword.setOnClickListener(new View.OnClickListener() {
             @Override
