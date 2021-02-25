@@ -46,23 +46,17 @@
             android:text="Rp. 15.000"
             android:fontFamily="@font/roboto_medium"
             android:layout_below="@id/tv_namaProdukFav"/>
-        <LinearLayout
-            android:id="@+id/ll_deleteFav"
+        <ImageButton
+            android:id="@+id/btn_deleteFav"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginTop="12dp"
             android:layout_marginStart="6dp"
             android:layout_marginBottom="12dp"
+            android:src="@drawable/ic_baseline_delete_24"
             android:gravity="center"
             android:background="@drawable/bg_item_favorite"
-            android:layout_below="@id/tv_hargaProdukFav">
-            <ImageView
-                android:id="@+id/iv_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_delete_24"/>
-        </LinearLayout>
+            android:layout_below="@id/tv_hargaProdukFav"/>
 
         <Button
             android:id="@+id/btn_beliFav"
@@ -70,7 +64,7 @@
             android:layout_height="35dp"
             android:text="BELI"
             android:textColor="@color/whitePrimary"
-            android:layout_toRightOf="@id/ll_deleteFav"
+            android:layout_toRightOf="@id/btn_deleteFav"
             android:layout_below="@id/tv_hargaProdukFav"
             android:layout_marginEnd="6dp"
             android:layout_marginStart="6dp"

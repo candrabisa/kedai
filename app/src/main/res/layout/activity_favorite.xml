@@ -34,18 +34,25 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_favorit"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/dimensatu"
-        android:paddingBottom="60dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout21"
-        app:spanCount="2"
-        tools:listitem="@layout/item_favorite" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout21">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_favorit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/dimensatu"
+            android:paddingBottom="60dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+
+            app:spanCount="2"
+            tools:listitem="@layout/item_favorite" />
+    </androidx.core.widget.NestedScrollView>
+
 
     <TextView
         android:id="@+id/tv_belumAdaFavorit"

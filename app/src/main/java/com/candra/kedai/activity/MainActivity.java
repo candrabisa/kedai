@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 tv_lagipromo, tv_buatkamu, tv_palinglaris;
     ConstraintLayout btn_catFood, btn_drinkHome, btn_paketHome, btn_cemilanHome;
     ShimmerFrameLayout shimmerFrameLayout;
+    RelativeLayout btn_saldo, btn_voucher;
+
     EditText et_cari;
 
     FirebaseUser fUser;
@@ -118,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         btn_drinkHome = findViewById(R.id.btn_drinkHome);
         btn_paketHome = findViewById(R.id.btn_paketHome);
         btn_cemilanHome = findViewById(R.id.btn_cemilanHome);
+        btn_saldo = findViewById(R.id.rl_saldo);
+        btn_voucher = findViewById(R.id.rl_voucher);
 
         rv1 = findViewById(R.id.rv_buatkamu);
         rv2 = findViewById(R.id.rv_palingLaris);
@@ -188,6 +193,20 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             public void onClick(View view) {
                 Intent intentprofil = new Intent(MainActivity.this, Profile.class);
                 startActivity(intentprofil);
+            }
+        });
+
+        btn_voucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Voucher.class));
+            }
+        });
+
+        btn_saldo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Topup.class));
             }
         });
 
