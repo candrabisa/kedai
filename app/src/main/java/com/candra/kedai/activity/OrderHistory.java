@@ -14,8 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.candra.kedai.R;
-import com.candra.kedai.adapter.listorder.ListOrderAdapter;
-import com.candra.kedai.model.listorder.ListOrderModel;
+import com.candra.kedai.adapter.ListOrderAdapter;
+import com.candra.kedai.model.ListOrderModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,7 +41,6 @@ public class OrderHistory extends AppCompatActivity implements SwipeRefreshLayou
     ListOrderAdapter listOrderAdapter;
     List<ListOrderModel> listRiwayatPesanan = new ArrayList<>();
 
-    DatabaseReference dRef;
     FirebaseUser fUser;
 
     @Override

@@ -333,6 +333,8 @@
                     android:layout_marginEnd="90dp"
                     android:background="@drawable/bg_input_active"
                     android:hint="Masukkan kode voucher"
+                    android:inputType="textFilter"
+                    android:digits="@string/digit_password"
                     app:layout_constraintEnd_toStartOf="@+id/btn_pakaiVoucher"
                     app:layout_constraintTop_toBottomOf="@id/view11" />
 

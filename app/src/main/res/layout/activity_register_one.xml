@@ -163,6 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:inputType="textPassword"
+                android:digits="@string/digit_password"
                 android:background="@drawable/bg_input_active"
                 android:hint="Password"
                 android:padding="12dp" />
@@ -179,6 +180,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40dp"
                 android:inputType="textPassword"
+                android:digits="@string/digit_password"
                 android:background="@drawable/bg_input_active"
                 android:hint="Confirm Password"
                 android:padding="12dp" />

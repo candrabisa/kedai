@@ -1,23 +1,19 @@
 package com.candra.kedai.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.SearchView;
+import android.widget.ImageView;
 
 import com.candra.kedai.R;
-import com.candra.kedai.adapter.category.CategoryAdapter;
-import com.candra.kedai.model.category.CategoryModel;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.candra.kedai.adapter.CategoryAdapter;
+import com.candra.kedai.model.CategoryModel;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +22,7 @@ public class Search extends AppCompatActivity {
 
     EditText et_cariDetail;
     RecyclerView rv_hasilSearch;
+    ImageView btn_backSearch;
 
     List<CategoryModel> catModel = new ArrayList<>();
     CategoryAdapter adapter;
@@ -37,26 +34,34 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        adapter = new CategoryAdapter(this, catModel);
-
-        dRef = FirebaseDatabase.getInstance().getReference().child("kategori");
-        dRef.addValueEventListener(new ValueEventListener() {
+        btn_backSearch = findViewById(R.id.btn_backSearch);
+        btn_backSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()){
-                    CategoryModel categoryModel = ds.getValue(CategoryModel.class);
-                    catModel.add(categoryModel);
-                    adapter = new CategoryAdapter(Search.this, catModel);
-                    adapter.notifyDataSetChanged();
-                    rv_hasilSearch.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onClick(View v) {
+                finish();
             }
         });
+
+        adapter = new CategoryAdapter(this, catModel);
+
+//        dRef = FirebaseDatabase.getInstance().getReference().child("kategori");
+//        dRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot ds : snapshot.getChildren()){
+//                    CategoryModel categoryModel = ds.getValue(CategoryModel.class);
+//                    catModel.add(categoryModel);
+//                    adapter = new CategoryAdapter(Search.this, catModel);
+//                    adapter.notifyDataSetChanged();
+//                    rv_hasilSearch.setAdapter(adapter);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
         et_cariDetail = findViewById(R.id.et_cariDetail);
         et_cariDetail.addTextChangedListener(new TextWatcher() {

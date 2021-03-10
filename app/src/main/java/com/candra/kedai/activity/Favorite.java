@@ -12,9 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.candra.kedai.R;
-import com.candra.kedai.adapter.favorite.FavoriteAdapter;
-import com.candra.kedai.model.address.Data;
-import com.candra.kedai.model.favorite.FavoriteModel;
+import com.candra.kedai.adapter.FavoriteAdapter;
+import com.candra.kedai.model.FavoriteModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

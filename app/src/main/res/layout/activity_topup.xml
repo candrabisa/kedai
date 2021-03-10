@@ -104,14 +104,14 @@
                     android:layout_width="95dp"
                     android:layout_height="35dp"
                     android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_input_active"
+                    android:editable="false"
+                    android:fontFamily="@font/roboto_reguler"
                     android:gravity="center"
                     android:text="Rp. 50.000"
                     android:textSize="14dp"
-                    android:editable="false"
-                    android:fontFamily="@font/roboto_reguler"
-                    android:background="@drawable/bg_input_active"
-                    app:layout_constraintTop_toBottomOf="@id/textView26"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView26" />
 
                 <EditText
                     android:id="@+id/et_100ribu"
@@ -193,16 +193,32 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/et_200ribu"/>
 
-                <me.abhinay.input.CurrencyEditText
+                <EditText
                     android:id="@+id/et_nominalTerserah"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="7dp"
-                    android:paddingStart="6dp"
+                    android:paddingStart="36dp"
                     android:inputType="number"
+                    android:maxLength="7"
                     android:hint="Masukkan nominal"
-                    android:background="@drawable/bg_input_active"
+                    android:background="@drawable/bg_input_satu"
+                    app:layout_constraintStart_toEndOf="@id/tv_rp"
                     app:layout_constraintTop_toBottomOf="@id/textView27"/>
+
+                <TextView
+                    android:id="@+id/tv_rp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="7dp"
+                    android:paddingHorizontal="4dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_rupiah_edittext"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Rp."
+                    android:textSize="@dimen/font_size_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView27" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -219,12 +235,13 @@
                     android:fontFamily="@font/roboto_medium"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_riwayatTransaksiSaldo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    tools:listitem="@layout/item_riwayat_transaksi"
+                    tools:listitem="@layout/item_transaction_history"
                     app:layout_constraintTop_toBottomOf="@id/tv_riwayatTransaksiSaldo"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

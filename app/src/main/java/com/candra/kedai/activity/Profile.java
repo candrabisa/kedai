@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class Profile extends AppCompatActivity {
     TextView tv_namaLengkap, tv_saldo, tv_voucher, tulisan_saldo_kamu, tulisan_voucher_kamu;
 
     RelativeLayout btn_editProfil, btn_alamatPengiriman, btn_riwayatPesanan, btn_wishlist;
+    LinearLayout btn_voucherProfil, btn_saldoProfil;
 
     ShimmerFrameLayout shimmer1;
 
@@ -64,6 +66,8 @@ public class Profile extends AppCompatActivity {
         tulisan_saldo_kamu = findViewById(R.id.tulisan_saldo_kamu);
         tulisan_voucher_kamu = findViewById(R.id.tulisan_voucher_kamu);
 
+        btn_saldoProfil = findViewById(R.id.linearLayout3);
+        btn_voucherProfil = findViewById(R.id.linearLayout4);
         btn_backProfile = findViewById(R.id.btn_backProfile);
         btn_editProfil = findViewById(R.id.rl_editProfil);
         btn_alamatPengiriman = findViewById(R.id.rl_alamatPengiriman);
@@ -172,6 +176,20 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentRiwayat = new Intent(Profile.this, OrderHistory.class);
                 startActivity(intentRiwayat);
+            }
+        });
+
+        btn_voucherProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this, Voucher.class));
+            }
+        });
+
+        btn_saldoProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Profile.this, Topup.class));
             }
         });
 

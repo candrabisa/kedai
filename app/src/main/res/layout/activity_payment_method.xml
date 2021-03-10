@@ -26,10 +26,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Metode Pembayaran"
-            android:textSize="@dimen/font_size_16"
-            android:textColor="@color/blackPrimary"
             android:fontFamily="@font/roboto_medium"
+            android:text="Metode Pembayaran"
+            android:textColor="@color/blackPrimary"
+            android:textSize="@dimen/font_size_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +37,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     
     <ScrollView
+        android:id="@+id/scrollPaymentMethod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/constraint_paymentMethod">
@@ -47,7 +48,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="2dp"
                 android:padding="@dimen/dimensatu"
                 android:background="@color/whitePrimary">
                 <TextView
@@ -58,126 +59,549 @@
                     android:textColor="@color/blackPrimary"/>
             </LinearLayout>
 
-            <RadioGroup
+            <!--                Transfer Bank-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_transferBank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-<!--                Transfer Bank-->
-                <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginTop="1dp"
+                android:padding="@dimen/dimensatu"
+                android:background="@color/grayPrimary">
+                <RadioButton
+                    android:id="@+id/rb_tranferBank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Transfer Bank"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <ImageView
+                    android:id="@+id/iv_expandTransferBank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_expand_more_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <RelativeLayout
+                android:id="@+id/rl_transferBank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimensatu"
+                android:paddingEnd="@dimen/dimensatu"
+                android:paddingBottom="@dimen/dimendua"
+                android:animateLayoutChanges="true"
+                android:background="@color/whitePrimary">
+                <ImageView
+                    android:id="@+id/ic_bankBSM"
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/bsm"/>
+                <ImageView
+                    android:id="@+id/ic_bankCIMB"
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/cimb"
+                    android:layout_toRightOf="@id/ic_bankBSM"
+                    android:layout_marginStart="3dp"/>
+
+                <TextView
+                    android:id="@+id/tv_ketentuanTransferBank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Ketentuan:"
+                    android:textColor="@color/pinkPrimary"
+                    android:layout_below="@id/ic_bankBSM"/>
+                <LinearLayout
+                    android:id="@+id/ll_ket1TransferBank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_ketentuanTransferBank"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="@color/blackPrimary"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total belanja anda belum termasuk kode unik pembayaran"
+                        android:textColor="@android:color/black"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_ket2TransferBank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
-                    android:padding="@dimen/dimensatu"
-                    android:background="@color/whitePrimary">
-                    <RadioButton
+                    android:layout_below="@id/ll_ket1TransferBank"
+                    android:orientation="horizontal">
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Transfer Bank"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"/>
-                    <ImageView
+                        android:text="-"
+                        android:textColor="@color/blackPrimary"/>
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_expand_less_24"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <RelativeLayout
+                        android:text="Transaksi dengan metode transfer bank akan dikenakan biaya admin transfer, masing-masing setiap bank berbeda"
+                        android:textColor="@color/blackPrimary"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_ket3TransferBank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/dimensatu"
-                    android:paddingEnd="@dimen/dimensatu"
-                    android:paddingBottom="@dimen/dimensatu"
-                    android:background="@color/whitePrimary">
-                    <ImageView
-                        android:id="@+id/ic_bankBSM"
-                        android:layout_width="70dp"
-                        android:layout_height="35dp"
-                        android:src="@drawable/bsm"/>
-                    <ImageView
-                        android:id="@+id/ic_bankCIMB"
-                        android:layout_width="70dp"
-                        android:layout_height="35dp"
-                        android:src="@drawable/cimb"
-                        android:layout_toRightOf="@id/ic_bankBSM"
-                        android:layout_marginStart="3dp"/>
-
+                    android:layout_marginTop="1dp"
+                    android:layout_below="@id/ll_ket2TransferBank"
+                    android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/tv_ketentuanTransferBank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="Ketentuan:"
-                        android:textColor="@color/pinkPrimary"
-                        android:layout_below="@id/ic_bankBSM"/>
-                    <LinearLayout
-                        android:id="@+id/ll_ket1TransferBank"
-                        android:layout_width="match_parent"
+                        android:text="-"
+                        android:textColor="@color/blackPrimary"/>
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_ketentuanTransferBank"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="-"
-                            android:textColor="@color/black"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total belanja anda belum termasuk kode unik pembayaran"
-                            android:textColor="@color/black"
-                            android:textSize="11sp"
-                            android:layout_marginStart="2dp"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/ll_ket2TransferBank"
-                        android:layout_width="match_parent"
+                        android:text="Pembayaran dengan angka yang tidak tepat akan menyebabkan verifikasi pembayaran menjadi terhambat"
+                        android:textColor="@color/blackPrimary"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_ket4TransferBank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:paddingVertical="4dp"
+                    android:layout_below="@id/ll_ket3TransferBank"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:layout_below="@id/ll_ket1TransferBank"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="-"
-                            android:textColor="@color/black"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Transaksi dengan metode transfer bank akan dikenakan biaya admin transfer, masing-masing setiap bank berbeda"
-                            android:textColor="@color/black"
-                            android:textSize="11sp"
-                            android:layout_marginStart="2dp"
-                            android:layout_marginBottom="4dp"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/ll_ket3TransferBank"
-                        android:layout_width="match_parent"
+                        android:text="-"
+                        android:textColor="@color/blackPrimary"/>
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:layout_below="@id/ll_ket2TransferBank"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="-"
-                            android:textColor="@color/black"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Pembayaran dengan angka yang tidak tepat akan menyebabkan verifikasi pembayaran menjadi terhambat"
-                            android:textColor="@color/black"
-                            android:textSize="11sp"
-                            android:layout_marginStart="2dp"
-                            android:layout_marginBottom="4dp"/>
-                    </LinearLayout>
-                </RelativeLayout>
-            </RadioGroup>
+                        android:text="Pembayaran dengan angka yang tidak tepat akan menyebabkan verifikasi pembayaran menjadi terhambat"
+                        android:textColor="@color/blackPrimary"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="4dp"/>
+                </LinearLayout>
+            </RelativeLayout>
 
+            <!--                Minimarket-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_minimarket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:padding="@dimen/dimensatu"
+                android:background="@color/grayPrimary">
+                <RadioButton
+                    android:id="@+id/rb_minimarket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Minimarket"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <ImageView
+                    android:id="@+id/iv_expandMinimarket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_expand_more_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <RelativeLayout
+                android:id="@+id/rl_minimarket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimensatu"
+                android:paddingEnd="@dimen/dimensatu"
+                android:paddingBottom="@dimen/dimensatu"
+                android:animateLayoutChanges="true"
+                android:background="@color/whitePrimary">
+                <ImageView
+                    android:id="@+id/ic_indomaret"
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/indomaret"/>
+                <ImageView
+                    android:id="@+id/ic_alfamart"
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/alfamart"
+                    android:layout_toRightOf="@id/ic_indomaret"
+                    android:layout_marginStart="3dp"/>
 
+                <TextView
+                    android:id="@+id/tv_ketentuanMinimarket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Ketentuan:"
+                    android:textColor="@color/pinkPrimary"
+                    android:layout_below="@id/ic_indomaret"/>
+                <LinearLayout
+                    android:id="@+id/ll_ket1Minimarket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_ketentuanMinimarket"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total belanja anda belum termasuk kode unik pembayaran"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_ket2Minimarket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_below="@id/ll_ket1Minimarket"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Transaksi dengan metode Minimarket akan dikenakan biaya admin sebesar Rp. 2500"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_ket3Minimarket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_below="@id/ll_ket2Minimarket"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pembayaran lewat Minimarket akan terverifikasi secara otomatis"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_ket4Minimarket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_below="@id/ll_ket3Minimarket"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Maksimal batas pembayaran adalah 1x24 jam"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="4dp"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!--                Google Play-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_googlePlay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:padding="@dimen/dimensatu"
+                android:background="@color/grayPrimary">
+                <RadioButton
+                    android:id="@+id/rb_googlePlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Google Play"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <ImageView
+                    android:id="@+id/iv_expandGPlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_expand_more_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <RelativeLayout
+                android:id="@+id/rl_googlePlay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dimensatu"
+                android:paddingEnd="@dimen/dimensatu"
+                android:paddingBottom="@dimen/dimensatu"
+                android:animateLayoutChanges="true"
+                android:background="@color/whitePrimary">
+                <ImageView
+                    android:id="@+id/ic_gplay"
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/google_play"/>
+
+                <TextView
+                    android:id="@+id/tv_ketentuanGplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Ketentuan:"
+                    android:textColor="@color/pinkPrimary"
+                    android:layout_below="@id/ic_gplay"/>
+                <LinearLayout
+                    android:id="@+id/ll_ket1Gplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_ketentuanGplay"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total belanja anda belum termasuk PPN 10%"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_ket2Gplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_below="@id/ll_ket1Gplay"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Transaksi dengan metode Google Play kamu bisa memilih pembayaran lebih banyak pilihan"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_ket3Gplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_below="@id/ll_ket2Gplay"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pembayaran lewat Google Play akan terverifikasi secara otomatis"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="4dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_ket4Gplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_below="@id/ll_ket3Gplay"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Maksimal batas pembayaran adalah 1x24 jam"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginBottom="4dp"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="46dp"
+                android:padding="@dimen/dimensatu"
+                android:background="@color/whitePrimary">
+                <EditText
+                    android:id="@+id/et_paymentPakaiVoucher"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="96dp"
+                    android:paddingHorizontal="@dimen/dimensatu"
+                    android:background="@drawable/bg_input_active"
+                    android:hint="Masukkan kode voucher"
+                    android:inputType="textCapCharacters"
+                    android:maxLength="12"
+                    android:digits="@string/digit_password"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_paymentPakaiVoucher"/>
+                <Button
+                    android:id="@+id/btn_paymentPakaiVoucher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="PAKAI"
+                    android:textColor="@color/whitePrimary"
+                    android:fontFamily="@font/roboto_medium"
+                    android:background="@drawable/bg_btn_radius_qty"
+                    android:backgroundTint="@color/pinkPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <View
+                    android:id="@+id/strip4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:background="@color/greyStrip"
+                    app:layout_constraintTop_toBottomOf="@id/btn_paymentPakaiVoucher"/>
+
+                <!--                Tagihan Transaksi-->
+                <TextView
+                    android:id="@+id/text_tagihanPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:text="Tagihan"
+                    android:textSize="@dimen/font_size_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/strip4"/>
+                <TextView
+                    android:id="@+id/tv_TagihanPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:text="Rp. 5000"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_medium"
+                    app:layout_constraintTop_toBottomOf="@id/strip4"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <!--                Potongan Voucher-->
+                <TextView
+                    android:id="@+id/text_potonganPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:text="Potongan Voucher"
+                    android:textSize="@dimen/font_size_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_tagihanPayment"/>
+                <TextView
+                    android:id="@+id/tv_totalPotongan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:text="Rp. -"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_medium"
+                    app:layout_constraintTop_toBottomOf="@id/tv_TagihanPayment"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <!--                Biaya Admin-->
+                <TextView
+                    android:id="@+id/text_adminPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:text="Tagihan"
+                    android:textSize="@dimen/font_size_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_potonganPayment"/>
+                <TextView
+                    android:id="@+id/tv_biayaAdmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:text="Rp. 2500"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_medium"
+                    app:layout_constraintTop_toBottomOf="@id/tv_totalPotongan"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <!--                Total Tagihan-->
+                <TextView
+                    android:id="@+id/text_totalTagihanPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:text="Tagihan"
+                    android:textSize="@dimen/font_size_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_adminPayment"/>
+                <TextView
+                    android:id="@+id/tv_totalTagihan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:text="Rp. 7500"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/pinkPrimary"
+                    android:fontFamily="@font/roboto_medium"
+                    app:layout_constraintTop_toBottomOf="@id/tv_biayaAdmin"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <Button
+                    android:id="@+id/btn_bayarTagihanPayment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:text="bayar sekarang"
+                    android:textColor="@color/whitePrimary"
+                    android:background="@color/orangePrimary"
+                    app:layout_constraintTop_toBottomOf="@id/tv_totalTagihan"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

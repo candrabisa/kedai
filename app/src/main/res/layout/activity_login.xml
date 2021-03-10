@@ -80,6 +80,7 @@
                     android:background="@drawable/bg_input_active"
                     android:hint="Password"
                     android:maxLength="24"
+                    android:digits="@string/digit_password"
                     android:inputType="textPassword"
                     android:padding="12dp"
                     app:layout_constraintEnd_toStartOf="@+id/btnShowPass"

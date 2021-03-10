@@ -13,6 +13,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
+    <uses-permission android:name="com.android.vending.BILLING" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,81 +23,116 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.PaymentMethod"></activity>
-        <activity android:name=".activity.Voucher" />
+        <activity android:name=".activity.StatusPayment"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoAction"></activity>
+        <activity
+            android:name=".activity.PaymentMethod"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoAction" />
+        <activity
+            android:name=".activity.Voucher"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.Topup"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.PersonalDataVerification"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.ChangePassword"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.Settings"
+            android:screenOrientation="nosensor"
             android:theme="@style/SwitchTheme" />
         <activity
             android:name=".activity.Favorite"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity android:name=".activity.ResultSearch" />
         <activity
             android:name=".activity.Search"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.OrderDetails"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.OrderHistory"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.SuccessBuy"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.ProductCheckout"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.ChangeAddress"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.Address"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.ProductDetails"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.Category"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.EditProfile"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.Profile"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.SuccessRegister"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.RegisterTwo"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.RegisterOne"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.ForgotPassword"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.Login"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
-        <activity android:name=".activity.OnBoard" />
+        <activity
+            android:name=".activity.OnBoard"
+            android:screenOrientation="nosensor" />
         <activity
             android:name=".activity.MainActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.GetStarted"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction" />
         <activity
             android:name=".activity.SplashScreen"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoAction">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

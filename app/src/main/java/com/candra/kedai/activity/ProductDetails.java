@@ -162,24 +162,6 @@ public class ProductDetails extends AppCompatActivity {
 
                     }
 
-//                    btn_wishlist.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            if (id_produk !=null){
-//                                dRef1.removeValue(new DatabaseReference.CompletionListener() {
-//                                    @Override
-//                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-//                                        Toast.makeText(ProductDetails.this, "Berhasil dihapus dari Wishlist", Toast.LENGTH_SHORT).show();
-//                                        btn_wishlist.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-//                                    }
-//                                });
-//                            } else {
-//                                addFavorit();
-//                            }
-//                        }
-//                    });
-
-
                 } catch (Exception e){
 
                 }
