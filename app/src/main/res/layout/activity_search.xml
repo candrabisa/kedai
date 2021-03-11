@@ -32,7 +32,7 @@
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView7"
-            app:layout_constraintStart_toEndOf="@+id/imageView6"
+            app:layout_constraintStart_toEndOf="@+id/btn_backSearch"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -53,8 +53,7 @@
                 android:background="@drawable/bg_input_satu"
                 android:focusable="auto"
                 android:hint="Cari di Kedai"
-                android:inputType="text"
-                />
+                android:inputType="text" />
         </RelativeLayout>
 
         <ImageView

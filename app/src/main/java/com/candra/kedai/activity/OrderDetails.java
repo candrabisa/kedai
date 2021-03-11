@@ -29,7 +29,7 @@ public class OrderDetails extends AppCompatActivity {
             , tv_namaProduk, tv_qty, tv_hargaProduk, tv_totalBelanja, tv_ongkir, tv_potonganVoucher
             , tv_totalPembayaran, tv_statusPembayaran, tv_metodePembayaran, tv_noHpPenerima;
 
-    ImageView iv_fotoProduk;
+    ImageView iv_fotoProduk, btn_backOrderDetail;
     Button btn_komplain, btn_selesai, btn_beriUlasan;
 
     AlertDialog.Builder alertDialog;
@@ -67,6 +67,7 @@ public class OrderDetails extends AppCompatActivity {
 
         iv_fotoProduk = findViewById(R.id.iv_detailPesananOrderDetail);
 
+        btn_backOrderDetail = findViewById(R.id.btn_backOrderDetail);
         btn_komplain = findViewById(R.id.btn_komplainOrder);
         btn_selesai = findViewById(R.id.btn_selesaiOrder);
         btn_beriUlasan = findViewById(R.id.btn_beriUlasanOrder);
@@ -134,6 +135,13 @@ public class OrderDetails extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        btn_backOrderDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

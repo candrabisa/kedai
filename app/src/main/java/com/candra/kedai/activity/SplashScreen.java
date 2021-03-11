@@ -77,7 +77,7 @@ public class SplashScreen extends AppCompatActivity {
         Executor executor = Executors.newSingleThreadExecutor();
         BiometricPrompt biometricPrompt = new BiometricPrompt.Builder(SplashScreen.this)
                 .setTitle("Smart Login")
-                .setDescription("Kedai mendeteksi kamu mengaktifkan Smart Login, Silahkan lakukan fingerprint")
+                .setDescription("Kedai mendeteksi kamu mengaktifkan Smart Login, Silahkan melakukan sidik jari")
                 .setNegativeButton("Batal", executor, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

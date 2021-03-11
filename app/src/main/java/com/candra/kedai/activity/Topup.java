@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.icu.util.CurrencyAmount;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,16 +35,18 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
-public class Topup extends AppCompatActivity {
+public class Topup extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = "Hahaha";
     EditText cet_topup;
     EditText btn_50rb, btn_100rb, btn_150rb, btn_200rb, btn_250rb, btn_300rb;
-    TextView tv_nominalSaldoKamu;
+    TextView tv_nominalSaldoKamu, tv_belumPernahTopup;
     Button btn_topup;
     ImageView btn_backSaldoDetail;
     RecyclerView rv_riwayatTransaksiSaldo;
+    ProgressBar progressBar;
 
+    SwipeRefreshLayout refreshLayout;
     BalanceTransactionAdapter transactionAdapter;
     List<BalanceTransactionModel> transactionModels = new ArrayList<>();
 
@@ -67,12 +71,17 @@ public class Topup extends AppCompatActivity {
         btn_topup = findViewById(R.id.btn_topupSaldo);
         btn_backSaldoDetail = findViewById(R.id.btn_backSaldoDetail);
 
+        tv_belumPernahTopup = findViewById(R.id.tv_belumPernahTopup);
         tv_nominalSaldoKamu = findViewById(R.id.tv_nominalSaldoKamu);
         cet_topup = findViewById(R.id.et_nominalTerserah);
+        progressBar = findViewById(R.id.pb_riwayatTransaksiTopup);
+
         rv_riwayatTransaksiSaldo = findViewById(R.id.rv_riwayatTransaksiSaldo);
         rv_riwayatTransaksiSaldo.setHasFixedSize(true);
         rv_riwayatTransaksiSaldo.setLayoutManager(new LinearLayoutManager(this));
 
+        refreshLayout = findViewById(R.id.sw_topup);
+        refreshLayout.setOnRefreshListener(this);
         loadDataTransaksi();
 
         dRef = FirebaseDatabase.getInstance().getReference("Users").child(fUser.getUid());
@@ -158,6 +167,7 @@ public class Topup extends AppCompatActivity {
     }
 
     private void loadDataTransaksi(){
+        transactionModels.clear();
         Query query = FirebaseDatabase.getInstance().getReference().child("TransaksiSaldo").child(fUser.getUid());
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -170,7 +180,16 @@ public class Topup extends AppCompatActivity {
                     transactionAdapter = new BalanceTransactionAdapter(Topup.this, transactionModels);
                     transactionAdapter.notifyDataSetChanged();
                     rv_riwayatTransaksiSaldo.setAdapter(transactionAdapter);
+                    refreshing(false);
                 }
+
+                if (transactionAdapter == null){
+                    rv_riwayatTransaksiSaldo.setVisibility(View.GONE);
+                    tv_belumPernahTopup.setVisibility(View.VISIBLE);
+                } else{
+
+                }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -178,5 +197,18 @@ public class Topup extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void refreshing(boolean b){
+        if (b){
+            refreshLayout.setRefreshing(true);
+        } else {
+            refreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        loadDataTransaksi();
     }
 }

@@ -496,13 +496,22 @@
                     android:backgroundTint="@color/pinkPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:id="@+id/tv_kodeVoucherNoValid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="Kode voucher tidak valid"
+                    android:textColor="@android:color/holo_red_light"
+                    app:layout_constraintTop_toBottomOf="@id/btn_paymentPakaiVoucher"
+                    app:layout_constraintStart_toStartOf="parent"/>
                 <View
                     android:id="@+id/strip4"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/dimensatu"
                     android:background="@color/greyStrip"
-                    app:layout_constraintTop_toBottomOf="@id/btn_paymentPakaiVoucher"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_kodeVoucherNoValid"/>
 
                 <!--                Tagihan Transaksi-->
                 <TextView
@@ -510,7 +519,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimensatu"
-                    android:text="Tagihan"
+                    android:text="Nominal Pembayaran"
                     android:textSize="@dimen/font_size_16"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/strip4"/>
@@ -519,7 +528,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimensatu"
-                    android:text="Rp. 5000"
+                    android:text="Rp. 0"
                     android:textSize="@dimen/font_size_16"
                     android:textColor="@color/black"
                     android:fontFamily="@font/roboto_medium"
@@ -541,7 +550,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimensatu"
-                    android:text="Rp. -"
+                    android:text="Rp. 0"
                     android:textSize="@dimen/font_size_16"
                     android:textColor="@color/black"
                     android:fontFamily="@font/roboto_medium"
@@ -554,7 +563,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimensatu"
-                    android:text="Tagihan"
+                    android:text="Biaya Admin"
                     android:textSize="@dimen/font_size_16"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_potonganPayment"/>
@@ -563,7 +572,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimensatu"
-                    android:text="Rp. 2500"
+                    android:text="Rp. 0"
                     android:textSize="@dimen/font_size_16"
                     android:textColor="@color/black"
                     android:fontFamily="@font/roboto_medium"
@@ -576,7 +585,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimensatu"
-                    android:text="Tagihan"
+                    android:text="Total Pembayaran"
                     android:textSize="@dimen/font_size_16"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_adminPayment"/>
@@ -585,7 +594,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimensatu"
-                    android:text="Rp. 7500"
+                    android:text="Rp. 0"
                     android:textSize="@dimen/font_size_16"
                     android:textColor="@color/pinkPrimary"
                     android:fontFamily="@font/roboto_medium"

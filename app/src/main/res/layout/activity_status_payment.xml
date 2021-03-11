@@ -54,6 +54,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="@color/whitePrimary">
                 <TextView
+                    android:id="@+id/tv_statusPembayaranStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
@@ -62,12 +63,14 @@
                     android:textSize="20sp" />
 
                 <ImageView
+                    android:id="@+id/ic_menungguPembayaran"
                     android:layout_width="91dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="@dimen/dimensatu"
                     android:src="@drawable/ic_waitingpayment" />
 
                 <TextView
+                    android:id="@+id/tv_harapLakukanPembayaran"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimensatu"
@@ -267,27 +270,63 @@
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:padding="@dimen/dimensatu"
                 android:background="@color/whitePrimary"
-                app:layout_constraintTop_toBottomOf="@id/linearLayout7">
+                android:padding="@dimen/dimensatu"
+                app:layout_constraintTop_toBottomOf="@id/linearLayout7"
+                tools:layout_editor_absoluteX="0dp">
+
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status Transaksi"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/roboto_medium"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/textView30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:text="Nomor Transaksi"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView32" />
+
+                <TextView
+                    android:id="@+id/tv_nomoTransaksi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="TP9102949201"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView32" />
+
                 <TextView
                     android:id="@+id/textView28"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
                     android:text="Status"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView30"/>
+
                 <TextView
                     android:id="@+id/tv_statusPembayaran"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
                     android:text="Belum Dibayar"
                     android:textColor="@color/black"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_nomoTransaksi" />
 
                 <TextView
                     android:id="@+id/textView29"
@@ -295,8 +334,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="Waktu Pembelian"
-                    app:layout_constraintTop_toBottomOf="@id/textView28"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView28" />
+
                 <TextView
                     android:id="@+id/tv_waktuPembelian"
                     android:layout_width="wrap_content"
@@ -304,28 +344,135 @@
                     android:layout_marginTop="6dp"
                     android:text="21-10-2020"
                     android:textColor="@color/black"
-                    app:layout_constraintTop_toBottomOf="@id/tv_statusPembayaran"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_statusPembayaran" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@color/whitePrimary"
+                android:padding="@dimen/dimensatu"
+                android:layout_marginBottom="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout22">
+
+                <TextView
+                    android:id="@+id/tv_InformasiPembayaran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Informasi Pembayaran"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="Nomor Transaksi"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:text="Metode Pembayaran"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView29"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_InformasiPembayaran" />
+
                 <TextView
-                    android:id="@+id/tv_nomoTransaksi"
+                    android:id="@+id/tv_metodePembayaranDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimensatu"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Transfer Bank"
+                    android:textColor="@color/blackPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_InformasiPembayaran" />
+
+                <TextView
+                    android:id="@+id/textView31"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="TP9102949201"
-                    android:textColor="@color/black"
+                    android:text="Nomimal Pembayaran"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_metodePembayaranDetail" />
+
+                <TextView
+                    android:id="@+id/tv_nominalPembayaranStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
                     android:fontFamily="@font/roboto_medium"
+                    android:text="Rp. 0"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_waktuPembelian"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_metodePembayaranDetail" />
+
+                <TextView
+                    android:id="@+id/textView33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Potongan Voucher"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView31" />
+
+                <TextView
+                    android:id="@+id/tv_potonganVoucherStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Rp. 0"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_nominalPembayaranStatus" />
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Biaya Admin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView33" />
+
+                <TextView
+                    android:id="@+id/tv_biayaAdminStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Rp. 0"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_potonganVoucherStatus" />
+
+                <TextView
+                    android:id="@+id/textView35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Total Pembayaran"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView34" />
+
+                <TextView
+                    android:id="@+id/tv_totalPembayaranStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Rp. 0"
+                    android:textColor="@color/pinkPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_biayaAdminStatus" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 
     <Button

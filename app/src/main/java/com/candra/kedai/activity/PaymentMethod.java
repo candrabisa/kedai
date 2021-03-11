@@ -18,6 +18,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -45,18 +46,23 @@ public class PaymentMethod extends AppCompatActivity implements BillingProcessor
 
     RadioButton rb_transferBank, rb_minimarket, rb_gplay;
     ImageView btn_back, iv_expandTransfer, iv_expandMinimarket, iv_expandGPlay;
-    TextView tv_TagihanPayment;
+    TextView tv_TagihanPayment,tv_biayaAdmin, tv_totalTagihan, tv_kodeVoucherNoValid;
+    EditText et_paymentPakaiVoucher;
     RelativeLayout rl_transferBank ,rl_minimarket, rl_googlePlay;
     ConstraintLayout constraint_transferBank, constraint_minimarket, constraint_gPlay;
-    Button btn_bayarTagihan;
+    Button btn_bayarTagihan, btn_paymentPakaiVoucher;
 
     Integer nomorTransaksi = new Random().nextInt();
-    String waktu, tanggalNow, batas_pembayaran;
+    String tanggalNow, batas_pembayaran;
 
     BillingProcessor bp;
 
     FirebaseUser fUser;
     DatabaseReference dRef;
+
+    Integer nominal_topup = 0;
+    Integer biaya_admin = 0;
+    Integer total_pembayaran = 0;
 
     Animation animRotateMore, animRorateLess;
 
@@ -82,9 +88,15 @@ public class PaymentMethod extends AppCompatActivity implements BillingProcessor
         iv_expandGPlay = findViewById(R.id.iv_expandGPlay);
 
         tv_TagihanPayment = findViewById(R.id.tv_TagihanPayment);
+        tv_biayaAdmin = findViewById(R.id.tv_biayaAdmin);
+        tv_totalTagihan = findViewById(R.id.tv_totalTagihan);
+        tv_kodeVoucherNoValid = findViewById(R.id.tv_kodeVoucherNoValid);
+
+        et_paymentPakaiVoucher = findViewById(R.id.et_paymentPakaiVoucher);
 
         btn_back = findViewById(R.id.btn_backPaymentMethod);
         btn_bayarTagihan = findViewById(R.id.btn_bayarTagihanPayment);
+        btn_paymentPakaiVoucher = findViewById(R.id.btn_paymentPakaiVoucher);
 
         rb_transferBank = findViewById(R.id.rb_tranferBank);
         rb_minimarket = findViewById(R.id.rb_minimarket);
@@ -99,8 +111,9 @@ public class PaymentMethod extends AppCompatActivity implements BillingProcessor
         rl_googlePlay.setVisibility(View.GONE);
 
         Bundle bundle = getIntent().getExtras();
-        final int nominal_topup = bundle.getInt("nominal_topup");
+        nominal_topup = bundle.getInt("nominal_topup");
         tv_TagihanPayment.setText("Rp. "+ nominal_topup);
+        tv_totalTagihan.setText("Rp. "+nominal_topup);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
@@ -108,6 +121,22 @@ public class PaymentMethod extends AppCompatActivity implements BillingProcessor
         tanggalNow = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(new Date());
         batas_pembayaran = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(besok);
 
+        tv_kodeVoucherNoValid.setVisibility(View.GONE);
+
+        btn_paymentPakaiVoucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String kode_voucher = et_paymentPakaiVoucher.getText().toString();
+
+                if (kode_voucher.isEmpty()){
+                    Toast.makeText(PaymentMethod.this, "Kode voucher belum diisi", Toast.LENGTH_SHORT).show();
+                } else {
+                    tv_kodeVoucherNoValid.setVisibility(View.VISIBLE);
+                    tv_kodeVoucherNoValid.setError("Error");
+                    tv_kodeVoucherNoValid.setText("Kode voucher tidak valid");
+                }
+            }
+        });
 
         btn_bayarTagihan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +163,8 @@ public class PaymentMethod extends AppCompatActivity implements BillingProcessor
                                     snapshot.getRef().child("waktu_transaksi").setValue(tanggalNow);
                                     snapshot.getRef().child("batas_pembayaran").setValue(batas_pembayaran);
                                     snapshot.getRef().child("nominal_transaksi").setValue(nominal_topup);
+                                    snapshot.getRef().child("biaya_admin").setValue(biaya_admin);
+                                    snapshot.getRef().child("total_pembayaran").setValue(total_pembayaran);
                                     snapshot.getRef().child("status_transaksi").setValue("Belum Dibayar");
                                     snapshot.getRef().child("metode_pembayaran").setValue("Transfer Bank");
 
@@ -145,8 +176,11 @@ public class PaymentMethod extends AppCompatActivity implements BillingProcessor
                                     snapshot.getRef().child("waktu_transaksi").setValue(tanggalNow);
                                     snapshot.getRef().child("batas_pembayaran").setValue(batas_pembayaran);
                                     snapshot.getRef().child("nominal_transaksi").setValue(nominal_topup);
+                                    snapshot.getRef().child("biaya_admin").setValue(biaya_admin);
+                                    snapshot.getRef().child("total_pembayaran").setValue(total_pembayaran);
                                     snapshot.getRef().child("status_transaksi").setValue("Belum Dibayar");
                                     snapshot.getRef().child("metode_pembayaran").setValue("Minimarket");
+
                                     intent.putExtra("nomorTransaksi", "TSKD" +nomorTransaksi);
                                     startActivity(intent);
                                     finish();
@@ -155,8 +189,11 @@ public class PaymentMethod extends AppCompatActivity implements BillingProcessor
                                     snapshot.getRef().child("waktu_transaksi").setValue(tanggalNow);
                                     snapshot.getRef().child("batas_pembayaran").setValue(batas_pembayaran);
                                     snapshot.getRef().child("nominal_transaksi").setValue(nominal_topup);
+                                    snapshot.getRef().child("biaya_admin").setValue(biaya_admin);
+                                    snapshot.getRef().child("total_pembayaran").setValue(total_pembayaran);
                                     snapshot.getRef().child("status_transaksi").setValue("Belum Dibayar");
                                     snapshot.getRef().child("metode_pembayaran").setValue("Google Play");
+
                                     intent.putExtra("nomorTransaksi", "TSKD" +nomorTransaksi);
                                     startActivity(intent);
                                     finish();
@@ -235,6 +272,11 @@ public class PaymentMethod extends AppCompatActivity implements BillingProcessor
         iv_expandGPlay.startAnimation(animRotateMore);
         iv_expandGPlay.setImageResource(R.drawable.ic_baseline_expand_less_24);
 
+        biaya_admin = 0;
+        total_pembayaran = nominal_topup+biaya_admin;
+        tv_biayaAdmin.setText("Rp. " + biaya_admin);
+        tv_totalTagihan.setText("Rp. "+total_pembayaran);
+
     }
 
     private void collapseGooglePlay() {
@@ -295,6 +337,11 @@ public class PaymentMethod extends AppCompatActivity implements BillingProcessor
         iv_expandTransfer.startAnimation(animRotateMore);
         iv_expandTransfer.setImageResource(R.drawable.ic_baseline_expand_less_24);
 
+        biaya_admin = 0;
+        total_pembayaran = nominal_topup+biaya_admin;
+        tv_biayaAdmin.setText("Rp. " + biaya_admin);
+        tv_totalTagihan.setText("Rp. "+total_pembayaran);
+
     }
 
     private void collapseTransferBank(){
@@ -341,11 +388,6 @@ public class PaymentMethod extends AppCompatActivity implements BillingProcessor
     }
 
     private void expandMinimarket() {
-        rl_minimarket.setVisibility(View.VISIBLE);
-        rb_transferBank.setChecked(false);
-        rb_gplay.setChecked(false);
-        constraint_minimarket.setBackgroundResource(R.color.whitePrimary);
-
         final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         rl_minimarket.measure(widthSpec, heightSpec);
@@ -353,9 +395,18 @@ public class PaymentMethod extends AppCompatActivity implements BillingProcessor
         ValueAnimator valueAnimator = slideAnimatorMinimarket(0, rl_minimarket.getMeasuredHeight());
         valueAnimator.start();
 
+        rl_minimarket.setVisibility(View.VISIBLE);
+        rb_transferBank.setChecked(false);
+        rb_gplay.setChecked(false);
+        constraint_minimarket.setBackgroundResource(R.color.whitePrimary);
+
         iv_expandMinimarket.startAnimation(animRotateMore);
         iv_expandMinimarket.setImageResource(R.drawable.ic_baseline_expand_less_24);
 
+        biaya_admin = 2500;
+        total_pembayaran = nominal_topup+biaya_admin;
+        tv_biayaAdmin.setText("Rp. " + biaya_admin);
+        tv_totalTagihan.setText("Rp. "+total_pembayaran);
 
     }
 
@@ -373,6 +424,8 @@ public class PaymentMethod extends AppCompatActivity implements BillingProcessor
             @Override
             public void onAnimationEnd(Animator animation) {
                 rl_minimarket.setVisibility(View.GONE);
+                tv_biayaAdmin.setText("Rp. -");
+                tv_totalTagihan.setText("Rp. " + nominal_topup);
             }
 
             @Override

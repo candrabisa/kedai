@@ -1,6 +1,7 @@
 package com.candra.kedai.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.candra.kedai.R;
+import com.candra.kedai.activity.StatusPayment;
 import com.candra.kedai.model.BalanceTransactionModel;
 
 import java.util.List;
@@ -42,6 +44,15 @@ public class BalanceTransactionAdapter extends RecyclerView.Adapter<BalanceTrans
         holder.tv_tglTopup.setText(tgl_transaksi);
         holder.status_TransaksiTopup.setText(status_transaksi);
         holder.tv_nominalTransaksi.setText("Rp. "+nominal_transaksi);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, StatusPayment.class);
+                intent.putExtra("nomorTransaksi", invoice);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

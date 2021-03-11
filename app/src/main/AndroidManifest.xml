@@ -23,29 +23,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name=".notification.FirebaseMessaging">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
         <activity android:name=".activity.StatusPayment"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction"></activity>
+            android:theme="@style/AppTheme.NoAction2"></activity>
         <activity
             android:name=".activity.PaymentMethod"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.Voucher"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.Topup"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.PersonalDataVerification"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.ChangePassword"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.Settings"
             android:screenOrientation="nosensor"
@@ -53,44 +58,44 @@
         <activity
             android:name=".activity.Favorite"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity android:name=".activity.ResultSearch" />
         <activity
             android:name=".activity.Search"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.OrderDetails"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.OrderHistory"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.SuccessBuy"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.ProductCheckout"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.ChangeAddress"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.Address"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.ProductDetails"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.Category"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoAction" />
+            android:theme="@style/AppTheme.NoAction2" />
         <activity
             android:name=".activity.EditProfile"
             android:screenOrientation="nosensor"

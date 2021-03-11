@@ -61,8 +61,14 @@ public class OrderHistory extends AppCompatActivity implements SwipeRefreshLayou
 
         swipeRefreshLayout = findViewById(R.id.refresh_orderHistory);
         swipeRefreshLayout.setOnRefreshListener(this);
-//        swipeRefreshLayout.setRefreshing(true);
         loadDataPesanan();
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
