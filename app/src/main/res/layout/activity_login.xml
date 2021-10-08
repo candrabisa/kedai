@@ -126,6 +126,18 @@
             app:spinning_bar_color="@color/whitePrimary"
             app:spinning_bar_width="4dp" />
 
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btn_loginGoogleAcc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimensatu"
+            android:layout_marginTop="@dimen/dimensatu"
+            android:layout_marginEnd="@dimen/dimensatu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_loginLog" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

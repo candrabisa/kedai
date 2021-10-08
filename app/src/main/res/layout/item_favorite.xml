@@ -18,6 +18,7 @@
             android:id="@+id/cv3"
             android:layout_width="wrap_content"
             android:layout_height="160dp"
+            android:background="@drawable/bg_image_favorite"
             app:cardCornerRadius="@dimen/card_radius">
             <ImageView
                 android:id="@+id/iv_fotoProdukFav"
@@ -46,17 +47,18 @@
             android:text="Rp. 15.000"
             android:fontFamily="@font/roboto_medium"
             android:layout_below="@id/tv_namaProdukFav"/>
+
         <ImageButton
             android:id="@+id/btn_deleteFav"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginTop="12dp"
+            android:layout_below="@id/tv_hargaProdukFav"
             android:layout_marginStart="6dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
-            android:src="@drawable/ic_baseline_delete_24"
-            android:gravity="center"
             android:background="@drawable/bg_item_favorite"
-            android:layout_below="@id/tv_hargaProdukFav"/>
+            android:gravity="center"
+            android:src="@drawable/ic_baseline_delete_24" />
 
         <Button
             android:id="@+id/btn_beliFav"

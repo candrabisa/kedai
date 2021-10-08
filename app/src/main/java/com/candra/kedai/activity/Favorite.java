@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Favorite extends AppCompatActivity {
+public class Favorite extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     ImageView btn_back;
     TextView tv_belumAdaFavorit;
@@ -34,6 +35,8 @@ public class Favorite extends AppCompatActivity {
 
     DatabaseReference dRef;
     FirebaseUser fUser;
+
+    SwipeRefreshLayout sw_favorit;
 
     List<FavoriteModel> listFav = new ArrayList<>();
     FavoriteAdapter adapterFav;
@@ -52,47 +55,56 @@ public class Favorite extends AppCompatActivity {
         tv_belumAdaFavorit = findViewById(R.id.tv_belumAdaFavorit);
         btn_back = findViewById(R.id.btn_backFavorit);
         rv_favorit = findViewById(R.id.rv_favorit);
+        sw_favorit = findViewById(R.id.sw_favorit);
 
+        sw_favorit.setOnRefreshListener(this);
+        listFavorit();
         rv_favorit.setHasFixedSize(true);
         rv_favorit.setLayoutManager(new GridLayoutManager(Favorite.this, 2));
 
         tv_belumAdaFavorit.setVisibility(View.INVISIBLE);
-        try {
-            Query query = FirebaseDatabase.getInstance().getReference().child("Wishlist").child(fUser.getUid());
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot ds : snapshot.getChildren()){
-                        FavoriteModel favoriteModel = ds.getValue(FavoriteModel.class);
-                        listFav.add(favoriteModel);
 
-                        adapterFav = new FavoriteAdapter(Favorite.this, listFav);
-                        adapterFav.notifyDataSetChanged();
-                        rv_favorit.setAdapter(adapterFav);
-                    }
-                    if (adapterFav == null){
-                        rv_favorit.setVisibility(View.GONE);
-                        tv_belumAdaFavorit.setVisibility(View.VISIBLE);
-                    } else {
-
-                    }
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-        } catch (Exception e){
-
-        }
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+    }
+
+    private void listFavorit(){
+        listFav.clear();
+        Query query = FirebaseDatabase.getInstance().getReference().child("Wishlist").child(fUser.getUid());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()){
+                    FavoriteModel favoriteModel = ds.getValue(FavoriteModel.class);
+                    listFav.add(favoriteModel);
+
+                    adapterFav = new FavoriteAdapter(Favorite.this, listFav);
+                    adapterFav.notifyDataSetChanged();
+                    rv_favorit.setAdapter(adapterFav);
+                }
+                if (adapterFav == null){
+                    rv_favorit.setVisibility(View.GONE);
+                    tv_belumAdaFavorit.setVisibility(View.VISIBLE);
+                } else {
+
+                }
+                progressBar.setVisibility(View.GONE);
+                sw_favorit.setRefreshing(false);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onRefresh() {
+        listFavorit();
     }
 }

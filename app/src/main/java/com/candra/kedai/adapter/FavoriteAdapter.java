@@ -1,20 +1,30 @@
 package com.candra.kedai.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.candra.kedai.R;
 import com.candra.kedai.activity.ProductDetails;
 import com.candra.kedai.model.FavoriteModel;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -22,6 +32,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyHold
 
     Context context;
     List<FavoriteModel> listFavorit;
+    FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
 
     public FavoriteAdapter(Context context, List<FavoriteModel> listFavorit) {
         this.context = context;
@@ -59,6 +70,36 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyHold
             }
         });
 
+        holder.btn_deleteFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Perhatian!");
+                builder.setMessage("Apakah kamu yakin ingin menghapus "+nama_produk.toUpperCase() + " dari daftar favorit?" );
+                builder.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DatabaseReference dRef= FirebaseDatabase.getInstance().getReference("Wishlist")
+                                .child(fUser.getUid()).child(id_produk);
+                        dRef.removeValue();
+                        Snackbar.make(v, nama_produk.toUpperCase() + " berhasil dihapus dari favorit", BaseTransientBottomBar.LENGTH_SHORT)
+                                .setAction("Oke", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                    }
+                                }).show();
+                    }
+                });
+                builder.setNegativeButton("batal", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.create().show();
+            }
+        });
     }
 
     @Override
@@ -69,8 +110,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyHold
 
     public class MyHolder extends RecyclerView.ViewHolder{
         ImageView iv_fotoProduk;
-        TextView tv_namaProduk;
-        TextView tv_hargaProduk;
+        TextView tv_namaProduk, tv_hargaProduk;
+        ImageButton btn_deleteFav;
+        SwipeRefreshLayout sw_favorit;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,6 +120,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyHold
             iv_fotoProduk = itemView.findViewById(R.id.iv_fotoProdukFav);
             tv_namaProduk = itemView.findViewById(R.id.tv_namaProdukFav);
             tv_hargaProduk = itemView.findViewById(R.id.tv_hargaProdukFav);
+            btn_deleteFav = itemView.findViewById(R.id.btn_deleteFav);
+            sw_favorit = itemView.findViewById(R.id.sw_favorit);
 
         }
     }

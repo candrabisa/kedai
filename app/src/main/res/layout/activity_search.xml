@@ -34,26 +34,32 @@
             app:layout_constraintEnd_toStartOf="@+id/imageView7"
             app:layout_constraintStart_toEndOf="@+id/btn_backSearch"
             app:layout_constraintTop_toTopOf="parent">
-
             <ImageView
                 android:id="@+id/iv_search"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_baseline_search_24" />
+                android:layout_marginStart="3dp"
+                android:src="@drawable/ic_baseline_search_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/et_cariDetail"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="8dp"
                 android:layout_toEndOf="@id/iv_search"
                 android:background="@drawable/bg_input_satu"
                 android:focusable="auto"
                 android:hint="Cari di Kedai"
-                android:inputType="text" />
+                android:inputType="text"
+                android:paddingStart="@dimen/dimensatu"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </RelativeLayout>
 
         <ImageView
@@ -66,12 +72,56 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_hasilSearch"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_hasilPencarian"
         android:layout_width="match_parent"
-        android:layout_height="670dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout20"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dimensatu"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout20">
+
+        <TextView
+            android:id="@+id/tv_hasilPencarian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Hasil Pencarian"
+            android:fontFamily="@font/roboto_bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <View
+            android:id="@+id/batas2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/greyStrip"
+            app:layout_constraintTop_toBottomOf="@id/tv_hasilPencarian"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_hasilSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:paddingBottom="34dp"
+            app:layout_constraintTop_toBottomOf="@id/batas2"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_searching_products"/>
+
+        <TextView
+            android:id="@+id/tv_hasilTidakDitemukan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Hasil tidak ditemukan"
+            android:textSize="@dimen/font_size_16"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -87,6 +137,7 @@
             android:text="Pencarian terakhir"
             android:textColor="@color/blackPrimary"
             android:textSize="@dimen/font_size_16"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -94,6 +145,7 @@
             android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             android:layout_height="205dp"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/textView17">
 
             <androidx.recyclerview.widget.RecyclerView

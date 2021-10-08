@@ -37,11 +37,6 @@ public class RegisterOne extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
-//    FirebaseAuth fAuth;
-//    DatabaseReference dRef;
-//    String userkey_ = "userkey";
-//    String userkey = "" ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

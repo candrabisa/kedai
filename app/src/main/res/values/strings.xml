@@ -32,4 +32,6 @@
         <item>Panti</item>
         <item>Tempat Usaha</item>
     </string-array>
+
+    <string name="web_client_service_google_account">1046343931495-g4qk1ektb925b3dv85m4aq3e5hfj1j1q.apps.googleusercontent.com</string>
 </resources>
