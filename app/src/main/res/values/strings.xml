@@ -16,7 +16,7 @@
     <string name="ubah_alamat">Pastikan alamat yang kamu cantumkan sudah sesuai dengan alamat tujuan kamu</string>
     <string name="transaksi_berhasil">Transaksi berhasil, silahkan menunggu pesanan anda tiba.</string>
     <string name="pesan_suksesbuy">Mohon tetap untuk patuhi protokol kesehatan dirumah. Himbauan untuk segera mencuci tangan setelah bertemu kurir.</string>
-    <string name="aturan_ganti_password">- Minimal panjang password adalah 6 karakter \n- password harus berbeda dari password sekarang \n- Password setidaknya memiliki 1 angka dan huruf</string>
+    <string name="aturan_ganti_password">- Minimal panjang password adalah 6 karakter \n- Password harus berbeda dari password sekarang \n- Password disarankan mengkombinasikan angka dan huruf</string>
     <string name="digit_password">0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz</string>
     <string name="digit_alphabet">AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz </string>
     <string-array name="jenis_kelamin">

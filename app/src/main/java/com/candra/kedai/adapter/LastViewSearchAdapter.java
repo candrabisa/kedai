@@ -23,7 +23,7 @@ public class LastViewSearchAdapter extends RecyclerView.Adapter<LastViewSearchAd
 
     Context context;
     List<CategoryModel> modelList;
-    private final int limit = 5;
+    private final int limit = 6;
 
     public LastViewSearchAdapter(Context context, List<CategoryModel> modelList) {
         this.context = context;

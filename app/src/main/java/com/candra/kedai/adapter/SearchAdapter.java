@@ -9,6 +9,7 @@ import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.ULocale;
 import android.os.Build;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +82,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyHolder> 
                 String ts = tsLong.toString();
                 
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss:", Locale.getDefault());
+                String lastView = sdf.format(calendar.getTime());
 
                 DatabaseReference dRef = FirebaseDatabase.getInstance().getReference("terakhirDiCari")
                         .child(fUser.getUid()).child(ts);

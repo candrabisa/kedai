@@ -3,7 +3,9 @@ package com.candra.kedai.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -142,10 +144,11 @@ public class ProductCheckout extends AppCompatActivity {
                     final String namapembeli = ds.child("nama_lengkap").getValue().toString();
                     final String jenis_alamat ="Alamat " +ds.child("jenis_alamat").getValue().toString();
                     final String alamat_lengkap = ds.child("alamat_lengkap").getValue().toString();
-                    final String kelurahan = ds.child("kelurahan").getValue().toString() + ", ";
+                    final String kelurahan = ds.child("kelurahan").getValue().toString();
                     final String kecamatan = ds.child("kecamatan").getValue().toString();
-                    final String kab_kota = ds.child("kab_kota").getValue().toString() + ", ";
+                    final String kab_kota = ds.child("kab_kota").getValue().toString();
                     final String provinsi = ds.child("provinsi").getValue().toString();
+                    final String no_hp = ds.child("no_hp").getValue().toString();
                     saldo_kamu = Integer.valueOf(saldo_saya.toString());
 
                     tv_namaPembeliCheckout.setText(namapembeli);
@@ -155,14 +158,55 @@ public class ProductCheckout extends AppCompatActivity {
                     tv_kecamatanCheckout.setText(kecamatan);
                     tv_kabKotaCheckout.setText(kab_kota);
                     tv_provinsiCheckout.setText(provinsi);
+                    tv_nohpCheckout.setText(no_hp);
                     tv_saldoKamuCheckout.setText("Rp. " + saldo_kamu+"");
 
                     if (saldo_saya < total_pembayaran){
                         tv_saldoKamuCheckout.setError("Saldo tidak mencukupi");
                         btn_bayarCheckout.setBackgroundResource(R.color.grayPrimary);
                         btn_bayarCheckout.setEnabled(false);
-                    } else {
-//                        btn_bayarCheckout.setEnabled(true);
+                    } else if (jenis_alamat.isEmpty() || alamat_lengkap.isEmpty()
+                            || kelurahan.isEmpty() || kecamatan.isEmpty()
+                            || kab_kota.isEmpty() || provinsi.isEmpty()){
+                        btn_bayarCheckout.setBackgroundResource(R.color.grayPrimary);
+                        btn_bayarCheckout.setEnabled(false);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ProductCheckout.this);
+                        builder.setTitle("Alamat Pengiriman");
+                        builder.setMessage("Kamu harus melengkapi alamat pengiriman dahulu");
+                        builder.setPositiveButton("Isi Sekarang", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(new Intent(ProductCheckout.this, Address.class));
+                            }
+                        });
+                        builder.setNegativeButton("Nanti", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        builder.create().show();
+                    } else if (no_hp.isEmpty()){
+                        btn_bayarCheckout.setBackgroundResource(R.color.grayPrimary);
+                        btn_bayarCheckout.setEnabled(false);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ProductCheckout.this);
+                        builder.setTitle("No HP");
+                        builder.setMessage("Kamu harus melengkapi no.hp dahulu");
+                        builder.setPositiveButton("Isi Sekarang", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(new Intent(ProductCheckout.this, EditProfile.class));
+                            }
+                        });
+                        builder.setNegativeButton("Nanti", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        builder.create().show();
                     }
                 }
             }
@@ -179,7 +223,6 @@ public class ProductCheckout extends AppCompatActivity {
                 progressDialog.setMessage("Mohon menunggu...");
                 progressDialog.setCancelable(false);
                 progressDialog.show();
-
                 try {
                     dRef1 = FirebaseDatabase.getInstance().getReference().child("Pesanan").child(fUser.getUid()).child("INV" + nomor_transaksi);
                     dRef1.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -207,7 +250,7 @@ public class ProductCheckout extends AppCompatActivity {
                             snapshot.getRef().child("harga_ongkir").setValue(ongkos_kirim);
                             snapshot.getRef().child("pakai_voucher").setValue(pakai_voucher);
                             snapshot.getRef().child("total_pembayaran").setValue(total_pembayaran);
-                            snapshot.getRef().child("metode_pembayaran").setValue("Saldo Kedai");
+                            snapshot.getRef().child("metode_pembayaran") .setValue("Saldo Kedai");
                             snapshot.getRef().child("status_pembayaran").setValue("Dibayar");
                             snapshot.getRef().child("status_pesanan").setValue("Sedang diproses");
 

@@ -136,7 +136,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Candra Billy Sagita"
                     android:textColor="@color/blackPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textView9"/>
@@ -147,7 +146,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/roboto_reguler"
-                    android:text="Rumah"
                     android:textColor="@color/blackPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_namaCheckout"/>
@@ -157,7 +155,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Perumaham Mutiara Sukaresmi, Blok A1 no 1"
                     android:textColor="@color/blackPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_jenisAlamatCheckout" />
@@ -167,7 +164,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_light"
                     android:textColor="@color/blackPrimary"
-                    android:text="Sukaresmi"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_alamatLengkapCheckout"/>
                 <TextView
@@ -175,7 +171,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Cikarang Selatan"
                     android:textColor="@color/blackPrimary"
                     app:layout_constraintStart_toEndOf="@id/tv_kelurahanCheckout"
                     app:layout_constraintTop_toBottomOf="@id/tv_alamatLengkapCheckout"/>
@@ -184,7 +179,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Kab. Bekasi"
                     android:textColor="@color/blackPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_kecamatanCheckout"/>
@@ -193,20 +187,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_light"
-                    android:text="Jawa Barat"
                     android:textColor="@color/blackPrimary"
-                    app:layout_constraintStart_toEndOf="@id/tv_kabKotaCheckout"
-                    app:layout_constraintTop_toBottomOf="@id/tv_kecamatanCheckout"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_kabKotaCheckout"/>
                 <TextView
                     android:id="@+id/tv_nohpCheckout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="08123456789"
                     android:textColor="@color/blackPrimary"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_kabKotaCheckout"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_provinsiCheckout"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

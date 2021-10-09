@@ -53,7 +53,6 @@
             android:paddingEnd="@dimen/dimensatu"
             app:layout_constraintTop_toBottomOf="@id/TextView1">
 
-
             <EditText
                 android:id="@+id/et_usernameLog"
                 android:layout_width="match_parent"
@@ -110,10 +109,8 @@
             android:id="@+id/btn_loginLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginStart="@dimen/dimensatu"
             android:layout_marginEnd="@dimen/dimensatu"
-            android:layout_marginBottom="30dp"
             android:background="@drawable/button_primary"
             android:fontFamily="@font/roboto_bold"
             android:text="LOGIN"
@@ -126,16 +123,28 @@
             app:spinning_bar_color="@color/whitePrimary"
             app:spinning_bar_width="4dp" />
 
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Atau"
+            android:textColor="@color/whitePrimary"
+            android:textSize="@dimen/font_size_16"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_loginLog" />
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btn_loginGoogleAcc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimensatu"
-            android:layout_marginTop="@dimen/dimensatu"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/dimensatu"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_loginLog" />
+            app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

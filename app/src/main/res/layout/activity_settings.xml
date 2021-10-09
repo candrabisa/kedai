@@ -73,13 +73,14 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_baseline_navigate_next_24"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/dimensatu"
                     android:background="@color/greyStrip"
-                    app:layout_constraintTop_toBottomOf="@id/textView18"
-                    android:layout_marginTop="@dimen/dimensatu"/>
+                    app:layout_constraintTop_toBottomOf="@id/textView18" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

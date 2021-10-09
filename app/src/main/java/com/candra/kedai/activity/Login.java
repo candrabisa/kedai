@@ -68,12 +68,13 @@ public class Login extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     DatabaseReference dRef;
-    FirebaseAuth fAuth;
+    FirebaseAuth fAuth = FirebaseAuth.getInstance();;
 
-    private SignInClient signInClient;
-    private BeginSignInRequest beginSignInRequest;
-    private boolean showOneTapUI = true;
+    private SignInClient oneTapClient;
+    private BeginSignInRequest signInRequest;
+    private BeginSignInRequest signUpRequest;
     private static final int masukgoogle = 100;
+    private boolean showOneTapUI = true;
 
     String userkey_ = "userkey";
     String userkey = "";
@@ -82,8 +83,6 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        fAuth = FirebaseAuth.getInstance();
 
         btn_lupaPass = findViewById(R.id.btn_lupapass);
         btn_kembali = findViewById(R.id.iv_kembaliLog);
@@ -148,27 +147,28 @@ public class Login extends AppCompatActivity {
         btn_loginGoogleAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signInClient = Identity.getSignInClient(Login.this);
-                beginSignInRequest = BeginSignInRequest.builder().
-                        setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
+                oneTapClient = Identity.getSignInClient(Login.this);
+                signInRequest = BeginSignInRequest.builder()
+                        .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
                                 .setSupported(true).build())
                         .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                                 .setSupported(true).setServerClientId(getString(R.string.web_client_service_google_account))
                                 .setFilterByAuthorizedAccounts(false).build())
-                        .setAutoSelectEnabled(true).build();
+                        .setAutoSelectEnabled(true)
+                        .build();
 
-                signInClient.beginSignIn(beginSignInRequest)
+                oneTapClient.beginSignIn(signInRequest)
                         .addOnSuccessListener(new OnSuccessListener<BeginSignInResult>() {
-                    @Override
-                    public void onSuccess(BeginSignInResult beginSignInResult) {
-                        try {
-                            startIntentSenderForResult(beginSignInResult.getPendingIntent()
-                                            .getIntentSender(), masukgoogle, null, 0,0,0);
-                        } catch (IntentSender.SendIntentException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                            @Override
+                            public void onSuccess(BeginSignInResult beginSignInResult) {
+                                try {
+                                    startIntentSenderForResult(beginSignInResult.getPendingIntent()
+                                            .getIntentSender(), masukgoogle,null, 0,0,0);
+                                }catch (IntentSender.SendIntentException e){
+                                    Log.e("cekcek", "gagal masuk google "+ e.getLocalizedMessage());
+                                }
+                            }
+                        });
             }
         });
 
@@ -193,10 +193,10 @@ public class Login extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == masukgoogle){
             try {
-                SignInCredential credential = signInClient.getSignInCredentialFromIntent(data);
+                SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(data);
                 final String idToken = credential.getGoogleIdToken();
-                String username = credential.getId();
-                String password = credential.getPassword();
+                final String username = credential.getId();
+                final String password = credential.getPassword();
 
                 firebaseWithGoogleAccount(idToken);
             } catch (ApiException e) {

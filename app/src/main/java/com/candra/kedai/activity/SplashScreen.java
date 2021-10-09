@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.candra.kedai.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -29,7 +30,7 @@ public class SplashScreen extends AppCompatActivity {
     String smartlogin = "";
     String smartLog = "";
 
-    FirebaseAuth fAuth;
+    FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
@@ -46,7 +47,8 @@ public class SplashScreen extends AppCompatActivity {
     private void getUserLocal() {
         SharedPreferences preferences = getSharedPreferences(userkey_, MODE_PRIVATE);
         userkekey = preferences.getString(userkey, "");
-        if (userkekey.equals("") || userkekey.isEmpty()){
+        final String uid = fAuth.getUid();
+        if (uid == null){
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

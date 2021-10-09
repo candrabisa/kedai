@@ -103,6 +103,7 @@ public class Search extends AppCompatActivity {
                         tv_hasilTidakDitemukan.setVisibility(View.GONE);
                     }
                     adapter = new SearchAdapter(Search.this, listProduk);
+                    adapter.notifyDataSetChanged();
                     rv_hasilSearch.setAdapter(adapter);
                     constraint_hasilPencarian.setVisibility(View.VISIBLE);
                 }
@@ -125,6 +126,13 @@ public class Search extends AppCompatActivity {
                     adapterLast = new LastViewSearchAdapter(Search.this, listProduk);
                     adapterLast.notifyDataSetChanged();
                     rv_recentView.setAdapter(adapterLast);
+                    rv_recentView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapterLast.notifyDataSetChanged();
+                            rv_recentView.smoothScrollToPosition(0);
+                        }
+                    });
                 }
 
             }

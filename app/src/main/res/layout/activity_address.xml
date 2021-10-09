@@ -62,7 +62,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimensatu"
             android:fontFamily="@font/roboto_medium"
-            android:text="Alamat Rumah"
             android:textColor="@color/blackPrimary"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +71,6 @@
             android:id="@+id/tv_alamatLengkap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Perumahan mutiara bekasi jaya blok D14 no 11"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_jenisAlamat" />
@@ -81,7 +79,6 @@
             android:id="@+id/tv_kelurahan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SIDANG MULYA"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_alamatLengkap" />
@@ -91,7 +88,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="CIBARUSAH"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/tv_kelurahan"
             app:layout_constraintTop_toBottomOf="@id/tv_alamatLengkap" />
@@ -100,7 +96,6 @@
             android:id="@+id/tv_kabKota"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="KAB.BEKASI"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_kecamatan" />
@@ -110,7 +105,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="JAWABARAT"
             android:textSize="@dimen/font_size_16"
             app:layout_constraintStart_toEndOf="@id/tv_kabKota"
             app:layout_constraintTop_toBottomOf="@id/tv_kecamatan" />
