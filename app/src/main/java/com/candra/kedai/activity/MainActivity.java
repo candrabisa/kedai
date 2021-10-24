@@ -1,13 +1,16 @@
 package com.candra.kedai.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.content.IntentSender;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,6 +23,16 @@ import com.candra.kedai.R;
 import com.candra.kedai.adapter.CategoryAdapter;
 import com.candra.kedai.model.CategoryModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +47,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
+    private static final String TAG = "errormas";
     ImageView iv_profil, ic_saldo, ic_voucher, iv_content1, iv_content2, iv_content3, ic_content1, ic_content2, ic_content3,
                 ic_catMakanan, ic_catMinuman, ic_catPaket, ic_catCemilan;
     TextView tv_saldoHome, tv_saldoKamu, tv_voucherHome, tv_voucherKamu,
@@ -59,9 +73,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     List<CategoryModel>list3 = new ArrayList<>();
 
     Boolean keluar;
-
     Integer saldo_kamu = 0;
-
+    private AppUpdateManager mAppUpdateManager;
+    private static final int RC_APP_UPDATE = 11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +144,29 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         loadRekomendasiHome();
         loadContentHome();
         loadUserFromDatabase();
+
+        mAppUpdateManager = AppUpdateManagerFactory.create(this);
+        mAppUpdateManager.registerListener(installStateUpdatedListener);
+        mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
+            @Override
+            public void onSuccess(AppUpdateInfo appUpdateInfo) {
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                        && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE /*AppUpdateType.IMMEDIATE*/)){
+                    try {
+                        mAppUpdateManager.startUpdateFlowForResult(
+                                appUpdateInfo, AppUpdateType.IMMEDIATE /*AppUpdateType.IMMEDIATE*/, MainActivity.this, RC_APP_UPDATE);
+
+                    } catch (IntentSender.SendIntentException e) {
+                        e.printStackTrace();
+                    }
+                } else if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED){
+                    //CHECK THIS if AppUpdateType.FLEXIBLE, otherwise you can skip
+                    popupSnackbarForCompleteUpdate();
+                } else {
+                    Log.e(TAG, "checkForAppUpdateAvailability: something else");
+                }
+            }
+        });
 
         dRef = FirebaseDatabase.getInstance().getReference().child("Icon");
         dRef.addValueEventListener(new ValueEventListener() {
@@ -419,5 +456,57 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         loadContentHome();
         loadUserFromDatabase();
         loadRekomendasiHome();
+    }
+
+    private final InstallStateUpdatedListener installStateUpdatedListener = new
+            InstallStateUpdatedListener() {
+                @Override
+                public void onStateUpdate(@NonNull InstallState state) {
+                    if (state.installStatus() == InstallStatus.DOWNLOADED){
+                        //CHECK THIS if AppUpdateType.FLEXIBLE, otherwise you can skip
+                        popupSnackbarForCompleteUpdate();
+                    } else if (state.installStatus() == InstallStatus.INSTALLED){
+                        if (mAppUpdateManager != null){
+                            mAppUpdateManager.unregisterListener(installStateUpdatedListener);
+                        }
+
+                    } else {
+                        Log.i(TAG, "InstallStateUpdatedListener: state: " + state.installStatus());
+                    }
+                }
+            };
+    private void popupSnackbarForCompleteUpdate() {
+        Snackbar snackbar =
+                Snackbar.make(
+                        findViewById(R.id.content),
+                        "New app is ready!",
+                        Snackbar.LENGTH_INDEFINITE);
+
+        snackbar.setAction("Install", view -> {
+            if (mAppUpdateManager != null){
+                mAppUpdateManager.completeUpdate();
+            }
+        });
+        snackbar.setActionTextColor(getResources().getColor(R.color.greenPrimary));
+        snackbar.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_APP_UPDATE) {
+            if (resultCode != RESULT_OK) {
+                Log.e(TAG, "onActivityResult: app download failed");
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        if (mAppUpdateManager != null) {
+            mAppUpdateManager.unregisterListener(installStateUpdatedListener);
+        }
+        super.onStop();
     }
 }

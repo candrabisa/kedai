@@ -44,9 +44,6 @@ public class SplashScreen extends AppCompatActivity {
     String smartLog = "";
 
     FirebaseAuth fAuth = FirebaseAuth.getInstance();
-    private AppUpdateManager mAppUpdateManager;
-    private static final int RC_APP_UPDATE = 11;
-
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
@@ -129,88 +126,5 @@ public class SplashScreen extends AppCompatActivity {
 
         });
 
-    }
-
-    private final InstallStateUpdatedListener installStateUpdatedListener = new
-    InstallStateUpdatedListener() {
-        @Override
-        public void onStateUpdate(@NonNull InstallState state) {
-            if (state.installStatus() == InstallStatus.DOWNLOADED){
-                //CHECK THIS if AppUpdateType.FLEXIBLE, otherwise you can skip
-                popupSnackbarForCompleteUpdate();
-            } else if (state.installStatus() == InstallStatus.INSTALLED){
-                if (mAppUpdateManager != null){
-                    mAppUpdateManager.unregisterListener(installStateUpdatedListener);
-                }
-
-            } else {
-                Log.i(TAG, "InstallStateUpdatedListener: state: " + state.installStatus());
-            }
-        }
-    };
-    private void popupSnackbarForCompleteUpdate() {
-        Snackbar snackbar =
-                Snackbar.make(
-                        findViewById(R.id.content),
-                        "New app is ready!",
-                        Snackbar.LENGTH_INDEFINITE);
-
-        snackbar.setAction("Install", view -> {
-            if (mAppUpdateManager != null){
-                mAppUpdateManager.completeUpdate();
-            }
-        });
-
-
-        snackbar.setActionTextColor(getResources().getColor(R.color.greenPrimary));
-        snackbar.show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_APP_UPDATE) {
-            if (resultCode != RESULT_OK) {
-                Log.e(TAG, "onActivityResult: app download failed");
-            }
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAppUpdateManager = AppUpdateManagerFactory.create(this);
-
-        mAppUpdateManager.registerListener(installStateUpdatedListener);
-
-        mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
-
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE /*AppUpdateType.IMMEDIATE*/)){
-
-                try {
-                    mAppUpdateManager.startUpdateFlowForResult(
-                            appUpdateInfo, AppUpdateType.FLEXIBLE /*AppUpdateType.IMMEDIATE*/, SplashScreen.this, RC_APP_UPDATE);
-
-                } catch (IntentSender.SendIntentException e) {
-                    e.printStackTrace();
-                }
-
-            } else if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED){
-                //CHECK THIS if AppUpdateType.FLEXIBLE, otherwise you can skip
-                popupSnackbarForCompleteUpdate();
-            } else {
-                Log.e(TAG, "checkForAppUpdateAvailability: something else");
-            }
-        });
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mAppUpdateManager != null) {
-            mAppUpdateManager.unregisterListener(installStateUpdatedListener);
-        }
     }
 }
